@@ -102,131 +102,39 @@ public class PiSpiClient implements AutoCloseable {
         return new ApiKeyFilter(config.getApiKey());
     }
 
+    public static PiSpiClient getInstance(BaseConfig config) {
+        return getInstance(config, null, false, null, null, null);
+    }
 
     /**
      * Creates a new instance of PiSpiClient with the provided configuration.
-     * <p>
-     * Default values:
-     * <ul>
-     *     <li>grantType: "client_credentials"</li>
-     *     <li>resteasyClient: null (a new Client will be created)</li>
-     *     <li>disableTrustManager: false</li>
-     *     <li>sslContext: null</li>
-     * </ul>
-     *
-     * @param serverUrl             the base URL of the PiSpi server
-     * @param clientId              the OAuth2 client ID
-     * @param clientSecret          the OAuth2 client secret
-     * @param grantType             the OAuth2 grant type
-     * @param apiKey                the API key for accessing PiSpi services
-     * @param scopes                the OAuth2 scopes
-     * @param resteasyClient        a pre-configured Resteasy Client instance (if null, a new one will be created)
-     * @param disableTrustManager   flag to disable SSL trust manager
-     * @param clientCertPath        the path to the client certificate for mTLS
-     * @param clientKeyPath         the path to the client key for mTLS
-     * @param sslContext            the SSL context to use for secure connections
-     * @param customJacksonProvider a custom Jackson provider for JSON serialization/deserialization
-     * @return a new instance of PiSpiClient
+     * @param config the BaseConfig instance containing client configuration
+     * @param resteasyClient the Resteasy Client instance to use (can be null)
+     * @param disableTrustManager whether to disable the trust manager
+     * @param sslContext the SSLContext to use (can be null)
+     * @param customJacksonProvider a custom Jackson provider (can be null)
+     * @param authToken  the authentication token to use (can be null)
+     * @return @return a new instance of PiSpiClient
      */
-     static PiSpiClient getInstance(
-            String serverUrl,
-            String clientId,
-            String clientSecret,
-            String grantType,
-            String apiKey,
-            List<String> scopes,
+    public static PiSpiClient getInstance(
+            BaseConfig config,
             Client resteasyClient,
             boolean disableTrustManager,
-            String clientCertPath,
-            String clientKeyPath,
             SSLContext sslContext,
             Object customJacksonProvider,
-            String authtoken
+            String authToken
     ) {
-
-         BaseConfig config = BaseConfig.builder()
-                 .serverUrl(serverUrl)
-                 .clientId(clientId)
-                 .clientSecret(clientSecret)
-                 .grantType(grantType)
-                 .apiKey(apiKey)
-                 .scopes(scopes)
-                 .clientCertPath(clientCertPath)
-                 .clientKeyPath(clientKeyPath)
-                 .build();
-
         SSLContext effectiveSslContext = sslContext;
-        if (effectiveSslContext == null && clientCertPath != null && clientKeyPath != null) {
-            // TODO: Implement SSLContext creation from client certificate and key
-//            effectiveSslContext = MtlsConfigurer.createSslContext(
-//                    clientCertPath,
-//                    clientKeyPath,
-//                    null
-//            );
+
+        if (effectiveSslContext == null && config.getClientCertPath() != null && config.getClientKeyPath() != null) {
+            // TODO: créer SSLContext à partir du certificat et de la clé
         }
 
-        // If a Client is provided, it is assumed to be fully configured
-        // (SSL, mTLS, trust manager, providers). No further modification is applied.
         Client client = resteasyClient != null
                 ? resteasyClient
                 : newRestClient(customJacksonProvider, effectiveSslContext, disableTrustManager);
-        return new PiSpiClient(config, client, authtoken);
-    }
 
-    /**
-     * See {@link #getInstance(String, String, String, String, String, List, Client, boolean, String, String, SSLContext, Object, String)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, List<String> scopes, SSLContext sslContext, Object customJacksonProvider, boolean disableTrustManager) {
-        return getInstance(serverUrl, clientId, clientSecret, OAuth2Constants.CLIENT_CREDENTIALS, apiKey, scopes, newRestClient(customJacksonProvider, sslContext, disableTrustManager), false, null, null, null, null, null);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, String, List, Client, boolean, String, String, SSLContext, Object, String)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, SSLContext sslContext, Object customJacksonProvider, boolean disableTrustManager) {
-        return getInstance(serverUrl, clientId, clientSecret, OAuth2Constants.CLIENT_CREDENTIALS, apiKey, null, newRestClient(customJacksonProvider, sslContext, disableTrustManager), false, null, null, null, null, null);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, String, List, Client, boolean, String, String, SSLContext, Object, String)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey) {
-        return getInstance(serverUrl, clientId, clientSecret, OAuth2Constants.CLIENT_CREDENTIALS, apiKey, null, null, false, null, null, null, null, null);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, SSLContext, Object, boolean)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, SSLContext sslContext) {
-        return getInstance(serverUrl, clientId, clientSecret, apiKey, sslContext, null, false);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, SSLContext, Object, boolean)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, SSLContext sslContext, Object customJacksonProvider) {
-        return getInstance(serverUrl, clientId, clientSecret, apiKey, sslContext, customJacksonProvider, false);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, String, List, Client, boolean, String, String, SSLContext, Object, String)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, List<String> scopes, String clientCertPath, String clientKeyPath, boolean disableTrustManager, Object customJacksonProvider) {
-        return getInstance(serverUrl, clientId, clientSecret, OAuth2Constants.CLIENT_CREDENTIALS, apiKey, scopes, null, disableTrustManager, clientCertPath, clientKeyPath, null, customJacksonProvider, null);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, String, List, Client, boolean, String, String, SSLContext, Object, String)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, List<String> scopes, String clientCertPath, String clientKeyPath, Object customJacksonProvider) {
-        return getInstance(serverUrl, clientId, clientSecret, OAuth2Constants.CLIENT_CREDENTIALS, apiKey, scopes, null, false, clientCertPath, clientKeyPath, null, customJacksonProvider, null);
-    }
-
-    /**
-     * See {@link #getInstance(String, String, String, String, String, List, Client, boolean, String, String, SSLContext, Object, String)} for the details about the parameters and their default values
-     */
-    public static PiSpiClient getInstance(String serverUrl, String clientId, String clientSecret, String apiKey, List<String> scopes, String clientCertPath, String clientKeyPath) {
-        return getInstance(serverUrl, clientId, clientSecret, OAuth2Constants.CLIENT_CREDENTIALS, apiKey, scopes, null, false, clientCertPath, clientKeyPath, null, null, null);
+        return new PiSpiClient(config, client, authToken);
     }
 
     public TokenManager tokenManager() {

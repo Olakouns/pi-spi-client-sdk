@@ -20,7 +20,8 @@ public class ClientBuilderWrapper {
 
     public static ClientBuilder create(SSLContext sslContext, boolean disableTrustManager) {
         try {
-            Object o = clazz.newInstance();
+//            Object o = clazz.newInstance();
+            Object o = clazz.getDeclaredConstructor().newInstance();
             clazz.getMethod("sslContext", SSLContext.class).invoke(o, sslContext);
             clazz.getMethod("connectionPoolSize", int.class).invoke(o, 10);
             if (disableTrustManager) {
