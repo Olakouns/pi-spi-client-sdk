@@ -36,9 +36,9 @@ import java.util.ServiceLoader;
 
 public class PiSpiClient implements AutoCloseable {
 
-    private static volatile ResteasyClientProvider CLIENT_PROVIDER = resolveResteasyClientProvider();
+    private static ResteasyClientProvider clientProvider = resolveResteasyClientProvider();
 
-    private static ResteasyClientProvider resolveResteasyClientProvider() {
+    private static synchronized ResteasyClientProvider resolveResteasyClientProvider() {
         Iterator<ResteasyClientProvider> providers = ServiceLoader.load(ResteasyClientProvider.class).iterator();
 
         if (providers.hasNext()) {
@@ -63,15 +63,15 @@ public class PiSpiClient implements AutoCloseable {
     }
 
     public static void setClientProvider(ResteasyClientProvider provider) {
-        CLIENT_PROVIDER = provider;
+        clientProvider = provider;
     }
 
     public static ResteasyClientProvider getClientProvider() {
-        return CLIENT_PROVIDER;
+        return clientProvider;
     }
 
     private static Client newRestClient(Object customJacksonProvider, SSLContext sslContext, boolean disableTrustManager) {
-        return CLIENT_PROVIDER.newRestClient(customJacksonProvider, sslContext, disableTrustManager);
+        return clientProvider.newRestClient(customJacksonProvider, sslContext, disableTrustManager);
     }
 
     private final BaseConfig config;
@@ -144,16 +144,16 @@ public class PiSpiClient implements AutoCloseable {
             String authtoken
     ) {
 
-        BaseConfig config = new BaseConfig(
-                serverUrl,
-                clientId,
-                clientSecret,
-                grantType,
-                apiKey,
-                scopes,
-                clientCertPath,
-                clientKeyPath
-        );
+         BaseConfig config = BaseConfig.builder()
+                 .serverUrl(serverUrl)
+                 .clientId(clientId)
+                 .clientSecret(clientSecret)
+                 .grantType(grantType)
+                 .apiKey(apiKey)
+                 .scopes(scopes)
+                 .clientCertPath(clientCertPath)
+                 .clientKeyPath(clientKeyPath)
+                 .build();
 
         SSLContext effectiveSslContext = sslContext;
         if (effectiveSslContext == null && clientCertPath != null && clientKeyPath != null) {
@@ -234,11 +234,11 @@ public class PiSpiClient implements AutoCloseable {
     }
 
     public ApiResource api() {
-        return CLIENT_PROVIDER.targetProxy(target, ApiResource.class);
+        return clientProvider.targetProxy(target, ApiResource.class);
     }
 
     public ComptesResource comptes() {
-        return CLIENT_PROVIDER.targetProxy(target, ComptesResource.class);
+        return clientProvider.targetProxy(target, ComptesResource.class);
     }
 
     public synchronized ComptesResourceWrapper queryComptes() {
