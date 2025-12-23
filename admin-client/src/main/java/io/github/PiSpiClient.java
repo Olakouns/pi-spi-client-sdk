@@ -241,13 +241,9 @@ public class PiSpiClient implements AutoCloseable {
         return CLIENT_PROVIDER.targetProxy(target, ComptesResource.class);
     }
 
-    public ComptesResourceWrapper queryComptes() {
+    public synchronized ComptesResourceWrapper queryComptes() {
         if (comptesResourceWrapper == null) {
-            synchronized (this) {
-                if (comptesResourceWrapper == null) {
-                    comptesResourceWrapper = new ComptesResourceWrapper(api().comptes(), target);
-                }
-            }
+            comptesResourceWrapper = new ComptesResourceWrapper(api().comptes(), target);
         }
         return comptesResourceWrapper;
     }
