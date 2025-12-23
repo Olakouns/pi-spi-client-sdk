@@ -19,31 +19,6 @@
         <assertj-core.version>3.27.6</assertj-core.version>
         <wiremock.version>3.13.2</wiremock.version>
         <mockito-core.version>5.20.0</mockito-core.version>
-
-
-        <!-- Coverage -->
-        <sonar.coverage.jacoco.xmlReportPaths>
-            ${project.basedir}/../test-suite/target/site/jacoco-aggregate/jacoco.xml
-        </sonar.coverage.jacoco.xmlReportPaths>
-
-        <!-- Exclusions -->
-        <sonar.exclusions>
-            **/representation/**/*,
-            **/dto/**/*,
-            **/constants/**/*,
-            **/exception/**/*
-        </sonar.exclusions>
-
-        <sonar.coverage.exclusions>
-            **/representation/**/*,
-            **/dto/**/*,
-            **/constants/**/*,
-            **/exception/**/*,
-            **/*Builder.java
-        </sonar.coverage.exclusions>
-
-        <sonar.sources>src/main/java</sonar.sources>
-        <sonar.tests>src/test/java</sonar.tests>
         <sonar.skip>true</sonar.skip>
     </properties>
 
