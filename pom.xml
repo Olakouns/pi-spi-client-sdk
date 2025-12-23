@@ -54,8 +54,8 @@
             **/*Builder.java
         </sonar.coverage.exclusions>
 
-        <sonar.sources>src/main/java</sonar.sources>
-        <sonar.tests>src/test/java</sonar.tests>
+<!--        <sonar.sources>src/main/java</sonar.sources>-->
+<!--        <sonar.tests>src/test/java</sonar.tests>-->
 
         <!-- Code Quality -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
