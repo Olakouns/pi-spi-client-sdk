@@ -25,9 +25,9 @@
         <com.fasterxml.jackson.version>2.18.2</com.fasterxml.jackson.version>
         <httpclient.version>4.5.14</httpclient.version>
 
-        <sonar.organization>olakouns</sonar.organization>
+<!--        <sonar.organization>olakouns</sonar.organization>-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectKey>Olakouns_pi-spi-client-sdk</sonar.projectKey>
+<!--        <sonar.projectKey>Olakouns_pi-spi-client-sdk</sonar.projectKey>-->
         <jacoco.version>0.8.12</jacoco.version>
 
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
