@@ -34,8 +34,12 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 
         <!-- Coverage -->
+<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
+<!--            ${project.basedir}/../core/target/site/jacoco-aggregate/jacoco.xml-->
+<!--            ${project.basedir}/../admin/target/site/jacoco-aggregate/jacoco.xml-->
+<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
         <sonar.coverage.jacoco.xmlReportPaths>
-            ${project.basedir}/../test-suite/target/site/jacoco-aggregate/jacoco.xml
+            ${project.basedir}/test-suite/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
 
         <!-- Exclusions -->
@@ -178,6 +182,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+<!--                        <include>**/unit/**/*Test.java</include>-->
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
