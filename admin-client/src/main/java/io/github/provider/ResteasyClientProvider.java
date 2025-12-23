@@ -1,9 +1,8 @@
 package io.github.provider;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.WebTarget;
-
 import javax.net.ssl.SSLContext;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
 
 public interface ResteasyClientProvider {
     Client newRestClient(Object customJacksonProvider, SSLContext sslContext, boolean disableTrustManager);

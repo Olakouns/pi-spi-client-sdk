@@ -1,8 +1,8 @@
 package io.github.provider;
 
-import jakarta.ws.rs.client.ClientBuilder;
 
 import javax.net.ssl.SSLContext;
+import javax.ws.rs.client.ClientBuilder;
 
 public class ClientBuilderWrapper {
     static Class<?> clazz;
