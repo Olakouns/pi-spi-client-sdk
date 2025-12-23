@@ -117,19 +117,22 @@ public class PiSpiClientBuilder {
         }
 
         return PiSpiClient.getInstance(
-                serverUrl,
-                clientId,
-                clientSecret,
-                grantType,
-                apiKey,
-                scopes,
+                BaseConfig.builder()
+                        .serverUrl(serverUrl)
+                        .clientId(clientId)
+                        .clientSecret(clientSecret)
+                        .grantType(grantType)
+                        .apiKey(apiKey)
+                        .scopes(scopes)
+                        .clientCertPath(clientCertPath)
+                        .clientKeyPath(clientKeyPath)
+                        .build(),
                 resteasyClient,
                 false,
-                clientCertPath,
-                clientKeyPath,
                 null,
                 null,
-                null);
+                null
+        );
     }
 
     private PiSpiClientBuilder() {
