@@ -1,0 +1,16 @@
+package io.github.resource.wrapper;
+
+import io.github.representation.TransactionRepresentation;
+import io.github.resource.TransactionsResource;
+
+import javax.ws.rs.client.WebTarget;
+
+public class TransactionResourceWrapper extends BaseWrapper<TransactionRepresentation, TransactionsResource> {
+    public TransactionResourceWrapper(TransactionsResource proxy, WebTarget target) {
+        super(proxy, target);
+    }
+
+    public TransactionRepresentation create(TransactionRepresentation transactionsRepresentation){
+        return proxy.create(transactionsRepresentation);
+    }
+}

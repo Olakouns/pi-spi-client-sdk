@@ -17,13 +17,12 @@
 
 package io.github;
 
-import io.github.constants.OAuth2Constants;
 import io.github.filter.ApiKeyFilter;
 import io.github.filter.BearerAuthFilter;
+import io.github.filter.PiSpiClientResponseFilter;
 import io.github.provider.ResteasyClientProvider;
 import io.github.resource.ApiResource;
-import io.github.resource.ComptesResource;
-import io.github.resource.ComptesResourceWrapper;
+import io.github.resource.wrapper.ApiResourceWrapper;
 import io.github.token.TokenManager;
 
 import javax.net.ssl.SSLContext;
@@ -31,7 +30,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.WebTarget;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ServiceLoader;
 
 public class PiSpiClient implements AutoCloseable {
@@ -80,7 +78,7 @@ public class PiSpiClient implements AutoCloseable {
     private boolean closed = false;
     private final String authToken;
     private final TokenManager tokenManager;
-    private ComptesResourceWrapper comptesResourceWrapper;
+    private ApiResourceWrapper apiWrapper;
 
     PiSpiClient(BaseConfig config, Client client, String authToken) {
         this.config = config;
@@ -89,6 +87,7 @@ public class PiSpiClient implements AutoCloseable {
         this.target = client.target(config.getServerUrl());
         tokenManager = authToken == null ? new TokenManager(config, client) : null;
         this.target.register(newAuthFilter());
+        this.target.register(new PiSpiClientResponseFilter(), 200);
         if (config.getApiKey() != null) {
             this.target.register(getAPiKeyFilter());
         }
@@ -141,19 +140,12 @@ public class PiSpiClient implements AutoCloseable {
         return tokenManager;
     }
 
-    public ApiResource api() {
-        return clientProvider.targetProxy(target, ApiResource.class);
-    }
-
-    public ComptesResource comptes() {
-        return clientProvider.targetProxy(target, ComptesResource.class);
-    }
-
-    public synchronized ComptesResourceWrapper queryComptes() {
-        if (comptesResourceWrapper == null) {
-            comptesResourceWrapper = new ComptesResourceWrapper(api().comptes(), target);
+    public synchronized ApiResourceWrapper api() {
+        if (this.apiWrapper == null) {
+            ApiResource proxy = clientProvider.targetProxy(target, ApiResource.class);
+            this.apiWrapper = new ApiResourceWrapper(proxy, target);
         }
-        return comptesResourceWrapper;
+        return this.apiWrapper;
     }
 
 

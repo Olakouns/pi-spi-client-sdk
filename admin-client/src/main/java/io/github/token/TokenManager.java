@@ -22,6 +22,7 @@ import io.github.PiSpiClient;
 import io.github.constants.ScopeConstants;
 import io.github.representation.AccessTokenResponse;
 import io.github.util.Time;
+
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
@@ -133,6 +134,7 @@ public class TokenManager {
         if (token.equals(currentToken.getToken())) {
             // When used next, this cause a refresh attempt, that in turn will cause a grant attempt if refreshing fails.
             expirationTime = -1;
+            refreshExpirationTime = -1;
         }
     }
 

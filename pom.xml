@@ -20,29 +20,22 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--        <resteasy.version>6.2.9.Final</resteasy.version>-->
         <resteasy.version>5.0.9.Final</resteasy.version>
         <com.fasterxml.jackson.version>2.18.2</com.fasterxml.jackson.version>
         <httpclient.version>4.5.14</httpclient.version>
 
-<!--        <sonar.organization>olakouns</sonar.organization>-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-<!--        <sonar.projectKey>Olakouns_pi-spi-client-sdk</sonar.projectKey>-->
         <jacoco.version>0.8.12</jacoco.version>
 
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <commons-logging-jboss-logging.version>1.0.0.Final</commons-logging-jboss-logging.version>
 
-        <!-- Coverage -->
-<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
-<!--            ${project.basedir}/../core/target/site/jacoco-aggregate/jacoco.xml-->
-<!--            ${project.basedir}/../admin/target/site/jacoco-aggregate/jacoco.xml-->
-<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
+
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.basedir}/test-suite/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
 
-        <!-- Exclusions -->
         <sonar.exclusions>
             **/representation/**/*,
             **/dto/**/*,
@@ -58,10 +51,7 @@
             **/*Builder.java
         </sonar.coverage.exclusions>
 
-<!--        <sonar.sources>src/main/java</sonar.sources>-->
-<!--        <sonar.tests>src/test/java</sonar.tests>-->
 
-        <!-- Code Quality -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
     </properties>
@@ -113,6 +103,12 @@
                         <artifactId>*</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>commons-logging-jboss-logging</artifactId>
+                <version>${commons-logging-jboss-logging.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -44,6 +44,10 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>commons-logging-jboss-logging</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
@@ -59,6 +63,12 @@
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jackson2-provider</artifactId>
             <version>${resteasy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.6.1.Final</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

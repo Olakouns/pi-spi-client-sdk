@@ -1,12 +1,14 @@
 package io.github.representation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.util.DataUtil;
+
 import java.time.OffsetDateTime;
 
 public class CompteRepresentation {
     private String numero;
     private String type;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateOuverture;
     private String statut;
 

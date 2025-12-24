@@ -18,6 +18,7 @@
         <junit.version>5.10.3</junit.version>
         <assertj-core.version>3.27.6</assertj-core.version>
         <wiremock.version>3.13.2</wiremock.version>
+        <mockwebserver.version>4.12.0</mockwebserver.version>
         <mockito-core.version>4.11.0</mockito-core.version>
         <sonar.skip>true</sonar.skip>
     </properties>
@@ -61,6 +62,13 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <version>${mockwebserver.version}</version>
             <scope>test</scope>
         </dependency>
 

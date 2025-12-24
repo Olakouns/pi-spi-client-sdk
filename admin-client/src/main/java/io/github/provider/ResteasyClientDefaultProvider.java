@@ -1,6 +1,8 @@
 package io.github.provider;
 
+
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
 import javax.net.ssl.SSLContext;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
