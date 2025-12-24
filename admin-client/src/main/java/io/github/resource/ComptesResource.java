@@ -18,4 +18,7 @@ public interface ComptesResource extends PageableResource<CompteRepresentation>{
 
     @Path("/transactions")
     TransactionsResource transactions();
+
+    @Path("/{numero}/alias")
+    AliasResource alias(@PathParam("numero") String numero);
 }

@@ -17,7 +17,7 @@ public abstract class BaseWrapper<T, R extends PageableResource<T>> {
     }
 
     public PagedResponse<T> list(int page, int size) {
-        return proxy.list(page, size); // plus besoin de reflection
+        return proxy.list(page, size);
     }
 
     public ListQueryBuilder<T> query() {
@@ -26,6 +26,6 @@ public abstract class BaseWrapper<T, R extends PageableResource<T>> {
     }
 
     public R proxy() {
-        return proxy; // expose le proxy si besoin
+        return proxy;
     }
 }

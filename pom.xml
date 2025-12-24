@@ -23,6 +23,7 @@
         <resteasy.version>5.0.9.Final</resteasy.version>
         <com.fasterxml.jackson.version>2.18.2</com.fasterxml.jackson.version>
         <httpclient.version>4.5.14</httpclient.version>
+        <jboss-logging.version>3.4.3.Final</jboss-logging.version>
 
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <jacoco.version>0.8.12</jacoco.version>
@@ -37,6 +38,7 @@
         </sonar.coverage.jacoco.xmlReportPaths>
 
         <sonar.exclusions>
+            **/representation/**,
             **/representation/**/*,
             **/dto/**/*,
             **/constants/**/*,
@@ -44,6 +46,7 @@
         </sonar.exclusions>
 
         <sonar.coverage.exclusions>
+            **/representation/**,
             **/representation/**/*,
             **/dto/**/*,
             **/constants/**/*,
@@ -154,6 +157,12 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/representation/**,</exclude>
+                        <exclude>**/exception/**,</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>

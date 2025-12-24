@@ -2,7 +2,7 @@ package io.github.util;
 
 import java.util.Date;
 
-public class Time {
+public abstract class Time {
     private static volatile int offset;
 
     /**

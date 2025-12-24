@@ -23,4 +23,11 @@ public class ComptesResourceWrapper extends BaseWrapper<CompteRepresentation, Co
         }
         return this.transactions;
     }
+
+    public AliasResourceWrapper alias(String numero) {
+        return new AliasResourceWrapper(
+                proxy.alias(numero),
+                target.path("/{numero}/alias").resolveTemplate("numero", numero)
+        );
+    }
 }
