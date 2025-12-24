@@ -32,10 +32,13 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <commons-logging-jboss-logging.version>1.0.0.Final</commons-logging-jboss-logging.version>
 
-
         <sonar.coverage.jacoco.xmlReportPaths>
-            ${project.basedir}/test-suite/target/site/jacoco-aggregate/jacoco.xml
+            ${maven.multiModuleProjectDirectory}/test-suite/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
+
+<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
+<!--            ${project.basedir}/test-suite/target/site/jacoco-aggregate/jacoco.xml-->
+<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
 
         <sonar.exclusions>
             **/representation/**,
