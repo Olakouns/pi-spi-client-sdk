@@ -1,10 +1,13 @@
 package io.github.provider;
 
 
+import io.github.exception.PiSpiException;
+
 import javax.net.ssl.SSLContext;
 import javax.ws.rs.client.ClientBuilder;
 
 public class ClientBuilderWrapper {
+    private ClientBuilderWrapper(){}
     static Class<?> clazz;
     static {
         try {
@@ -13,14 +16,13 @@ public class ClientBuilderWrapper {
             try {
                 clazz = Class.forName("org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder");
             } catch (ClassNotFoundException ex) {
-                throw new RuntimeException("RestEasy 3 or 4 not found on classpath");
+                throw new PiSpiException("RestEasy 3 or 4 not found on classpath", ex);
             }
         }
     }
 
     public static ClientBuilder create(SSLContext sslContext, boolean disableTrustManager) {
         try {
-//            Object o = clazz.newInstance();
             Object o = clazz.getDeclaredConstructor().newInstance();
             clazz.getMethod("sslContext", SSLContext.class).invoke(o, sslContext);
             clazz.getMethod("connectionPoolSize", int.class).invoke(o, 10);
@@ -29,7 +31,7 @@ public class ClientBuilderWrapper {
             }
             return (ClientBuilder) o;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new PiSpiException("Unable to create ResteasyClientBuilder", e);
         }
     }
 }

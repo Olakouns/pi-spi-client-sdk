@@ -10,6 +10,8 @@ import javax.ws.rs.client.WebTarget;
 
 public class WebhookResourceWrapper extends BaseWrapper<WebhookRepresentation, WebhookResource> {
 
+    private static final String WEBHOOK_ID = "Webhook ID";
+
     public WebhookResourceWrapper(WebhookResource proxy, WebTarget target) {
         super(proxy, target);
     }
@@ -20,23 +22,23 @@ public class WebhookResourceWrapper extends BaseWrapper<WebhookRepresentation, W
     }
 
     public WebhookRepresentation findById(String id) {
-        validateNotEmpty(id, "Webhook ID");
+        validateNotEmpty(id, WEBHOOK_ID);
         return proxy.findById(id);
     }
 
     public WebhookRepresentation update(String id, WebhookRequest webhook) {
-        validateNotEmpty(id, "Webhook ID");
+        validateNotEmpty(id, WEBHOOK_ID);
         validateNotNull(webhook, "WebhookRequest");
         return proxy.update(id, webhook);
     }
 
     public void delete(String id) {
-        validateNotEmpty(id, "Webhook ID");
+        validateNotEmpty(id, WEBHOOK_ID);
         proxy.delete(id);
     }
 
     public WebhookRepresentation renewSecret(String id, WebhookRenewRequest renewRequest) {
-        validateNotEmpty(id, "Webhook ID");
+        validateNotEmpty(id, WEBHOOK_ID);
         validateNotNull(renewRequest, "WebhookRenewRequest");
         return proxy.renewSecret(id, renewRequest);
     }

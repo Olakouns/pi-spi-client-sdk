@@ -192,7 +192,6 @@
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
-<!--                        <include>**/unit/**/*Test.java</include>-->
                     </includes>
                 </configuration>
             </plugin>
