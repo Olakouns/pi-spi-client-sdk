@@ -2,8 +2,10 @@ package io.github.util;
 
 import java.util.Date;
 
-public abstract class Time {
+public final class Time {
     private static volatile int offset;
+
+    private Time() {}
 
     /**
      * Returns current time in seconds adjusted by adding {@link #offset) seconds.

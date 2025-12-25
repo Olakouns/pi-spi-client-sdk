@@ -11,6 +11,7 @@ public class TransactionResourceWrapper extends BaseWrapper<TransactionRepresent
     }
 
     public TransactionRepresentation create(TransactionRepresentation transactionsRepresentation){
+        validateNotNull(transactionsRepresentation, "transactionsRepresentation");
         return proxy.create(transactionsRepresentation);
     }
 }

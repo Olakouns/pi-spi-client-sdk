@@ -1,0 +1,9 @@
+{
+  "id": "12345-7785-zrr5r5v-rf5v5f-r5ffc55a",
+  "callbackUrl": "https://businessmerchant.com/api/piz/webhooks/",
+  "events": [
+    "PAIEMENT_RECU"
+  ],
+  "dateCreation": "2023-02-21T15:30:01.250Z",
+  "secret": "xsk_9jETWMz1g1b37gCONjNp84t2KSSIU6rG"
+}

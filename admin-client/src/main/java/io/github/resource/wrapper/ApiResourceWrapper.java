@@ -1,5 +1,6 @@
 package io.github.resource.wrapper;
 
+import io.github.representation.EnrollmentRepresentation;
 import io.github.resource.ApiResource;
 
 import javax.ws.rs.client.WebTarget;
@@ -9,6 +10,8 @@ public class ApiResourceWrapper {
     private final WebTarget target;
 
     private ComptesResourceWrapper comptes;
+    private WebhookResourceWrapper webhooks;
+    private DemandesPaiementsResourceWrapper paiementsResourceWrapper;
 
     public ApiResourceWrapper(ApiResource proxy, WebTarget target) {
         this.proxy = proxy;
@@ -20,5 +23,23 @@ public class ApiResourceWrapper {
             this.comptes = new ComptesResourceWrapper(proxy.comptes(), target.path("/comptes"));
         }
         return this.comptes;
+    }
+
+    public EnrollmentRepresentation enrollment(String cle) {
+        return proxy.enrollment(cle).check();
+    }
+
+    public synchronized WebhookResourceWrapper webhooks() {
+        if (this.webhooks == null) {
+            this.webhooks = new WebhookResourceWrapper(proxy.webhooks(), target.path("/webhooks"));
+        }
+        return this.webhooks;
+    }
+
+    public synchronized DemandesPaiementsResourceWrapper demandesPaiements() {
+        if (this.paiementsResourceWrapper == null) {
+            this.paiementsResourceWrapper = new DemandesPaiementsResourceWrapper(proxy.demandesPaiements(), target.path("/demandes-paiements"));
+        }
+        return this.paiementsResourceWrapper;
     }
 }

@@ -20,6 +20,7 @@ package io.github.token;
 import io.github.BaseConfig;
 import io.github.PiSpiClient;
 import io.github.constants.ScopeConstants;
+import io.github.provider.ResteasyClientProvider;
 import io.github.representation.AccessTokenResponse;
 import io.github.util.Time;
 
@@ -42,14 +43,14 @@ public class TokenManager {
     private final TokenService tokenService;
     private final String accessTokenGrantType;
 
-    public TokenManager(BaseConfig config, Client client) {
+    public TokenManager(BaseConfig config, Client client, ResteasyClientProvider clientProvider) {
         this.config = config;
         WebTarget target = client.target(config.getServerUrl());
         //if (!config.isPublicClient()) {
         //    target.register(new BasicAuthFilter(config.getClientId(), config.getClientSecret()));
         //}
 
-        this.tokenService = PiSpiClient.getClientProvider().targetProxy(target, TokenService.class);
+        this.tokenService = clientProvider.targetProxy(target, TokenService.class);
         this.accessTokenGrantType = config.getGrantType();
     }
 

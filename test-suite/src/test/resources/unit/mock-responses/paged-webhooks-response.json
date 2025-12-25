@@ -1,0 +1,38 @@
+{
+  "data": [
+    {
+      "id": "webhook-001",
+      "callbackUrl": "https://business.example.com/api/notifications",
+      "events": [
+        "PAIEMENT_RECU",
+        "PAIEMENT_ENVOYE"
+      ],
+      "dateCreation": "2025-01-15T08:00:00Z"
+    },
+    {
+      "id": "webhook-002",
+      "callbackUrl": "https://business.example.com/api/notifications",
+      "events": [
+        "RTP_RECU",
+        "RTP_REJETE"
+      ],
+      "dateCreation": "2025-01-15T08:05:00Z"
+    },
+    {
+      "id": "webhook-003",
+      "callbackUrl": "https://business.example.com/api/notifications/retours",
+      "events": [
+        "RETOUR_ENVOYE",
+        "RETOUR_REJETE",
+        "RETOUR_RECU"
+      ],
+      "alias": "8b1b2499-3e50-435b-b757-ac7a83d8aa7f",
+      "dateCreation": "2025-01-16T09:00:00Z"
+    }
+  ],
+  "meta": {
+    "total": 3,
+    "page": 0,
+    "size": 20
+  }
+}

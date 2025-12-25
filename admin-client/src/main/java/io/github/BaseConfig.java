@@ -13,6 +13,9 @@ public class BaseConfig {
     private String clientCertPath;   // client-cert.pem
     private String clientKeyPath;    // client-key.pem
 
+    public BaseConfig() {
+    }
+
     private BaseConfig(Builder builder) {
         this.serverUrl = builder.serverUrl;
         this.clientId = builder.clientId;

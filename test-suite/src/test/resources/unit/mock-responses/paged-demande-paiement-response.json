@@ -1,0 +1,77 @@
+{
+  "data": [
+    {
+      "txId": "RTP-2023-001",
+      "confirmation": false,
+      "categorie": "500",
+      "payeurAlias": "9b1b3499-3e50-435b-b757-ac7a83d8aa96",
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "montant": 15000,
+      "statut": "IRREVOCABLE",
+      "end2endId": "ESNB00120230221103000KXvozkpNvhUk9e",
+      "payeurNom": "DIOP Mamadou",
+      "payeurPays": "SN",
+      "dateDemande": "2023-02-21T10:30:00.000Z",
+      "dateEnvoi": "2023-02-21T10:30:00.100Z",
+      "dateIrrevocabilite": "2023-02-21T10:35:05.000Z"
+    },
+    {
+      "txId": "RTP-2023-002",
+      "confirmation": true,
+      "categorie": "401",
+      "payeurAlias": "8a2c3588-4f61-546c-c868-bd8b94e9bb9d",
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "montant": 150000,
+      "dateLimitePaiement": "2023-03-31T23:59:59.999Z",
+      "dateLimiteReponse": "2023-04-15T23:59:59.999Z",
+      "refDocType": "CINV",
+      "refDocNumero": "FACT-ELEC-202303",
+      "statut": "INITIE",
+      "end2endId": "ESNB00120230221103000KXvozkpNvhUk9e",
+      "payeurNom": "TRAORE Aminata",
+      "payeurPays": "CI",
+      "dateDemande": "2023-02-21T11:00:00.000Z"
+    },
+    {
+      "txId": "RTP-2023-005",
+      "confirmation": false,
+      "categorie": "500",
+      "payeurAlias": "7b3d4699-5g72-657d-d979-ce9c05f0cc0e",
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "montant": 10000,
+      "montantAchat": 8950,
+      "montantRetrait": 1050,
+      "montantFrais": 50,
+      "motif": "Achat avec cashback",
+      "statut": "ENVOYE",
+      "end2endId": "ESNB00120230221103000KXvozkpNvhUk9e",
+      "payeurNom": "KONE Ibrahim",
+      "payeurPays": "ML",
+      "dateDemande": "2023-02-21T14:20:00.000Z",
+      "dateEnvoi": "2023-02-21T14:20:00.100Z"
+    },
+    {
+      "txId": "RTP-2023-005",
+      "confirmation": false,
+      "categorie": "500",
+      "payeurAlias": "7b3d4699-5g72-657d-d979-ce9c05f0cc0e",
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "montant": 10000,
+      "montantAchat": 8950,
+      "montantRetrait": 1050,
+      "montantFrais": 50,
+      "statut": "REJETE",
+      "statutRaison": "AM09",
+      "end2endId": "ESNB00120230221103000KXvozkpNvhUk9e",
+      "payeurNom": "KONE Ibrahim",
+      "payeurPays": "ML",
+      "dateDemande": "2023-02-21T14:20:00.000Z",
+      "dateEnvoi": "2023-02-21T14:20:00.100Z",
+      "dateReponse": "2023-02-21T14:20:10.200Z"
+    }
+  ],
+  "meta": {
+    "size": 4,
+    "total": 4
+  }
+}

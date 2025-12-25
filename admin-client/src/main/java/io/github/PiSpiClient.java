@@ -85,7 +85,7 @@ public class PiSpiClient implements AutoCloseable {
         this.client = client;
         this.authToken = authToken;
         this.target = client.target(config.getServerUrl());
-        tokenManager = authToken == null ? new TokenManager(config, client) : null;
+        tokenManager = authToken == null ? new TokenManager(config, client, clientProvider) : null;
         this.target.register(newAuthFilter());
         this.target.register(new PiSpiClientResponseFilter(), 200);
         if (config.getApiKey() != null) {

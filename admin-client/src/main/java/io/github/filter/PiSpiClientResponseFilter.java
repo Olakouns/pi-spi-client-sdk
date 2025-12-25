@@ -3,7 +3,7 @@ package io.github.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.github.exception.PiSpiException;
+import io.github.exception.PiSpiApiException;
 import io.github.representation.ApiErrorResponse;
 import org.jboss.logging.Logger;
 
@@ -58,7 +58,7 @@ public class PiSpiClientResponseFilter implements ClientResponseFilter {
         String errorBody = readResponseBody(responseContext);
         ApiErrorResponse errorResponse = parseErrorResponse(errorBody, status);
         logError(method, uri, status, errorResponse, errorBody);
-        throw createException(status, errorResponse, errorBody);
+        throw createException(status, errorResponse);
     }
 
     private String readResponseBody(ClientResponseContext responseContext) throws IOException {
@@ -125,9 +125,9 @@ public class PiSpiClientResponseFilter implements ClientResponseFilter {
         }
     }
 
-    private PiSpiException createException(int status, ApiErrorResponse errorResponse, String errorBody) {
+    private PiSpiApiException createException(int status, ApiErrorResponse errorResponse) {
         String message = extractErrorMessage(errorResponse, status);
-        return new PiSpiException(message, errorResponse);
+        return new PiSpiApiException(message, errorResponse);
     }
 
 

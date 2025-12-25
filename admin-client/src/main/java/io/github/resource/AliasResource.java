@@ -20,5 +20,6 @@ public interface AliasResource extends PageableResource<AliasRepresentation> {
     AliasRepresentation create(CreateAliasRequest createAliasRequest);
 
     @DELETE
+    @Path("/{cle}")
     void delete(@PathParam("cle") String cle);
 }

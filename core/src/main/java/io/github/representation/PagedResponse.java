@@ -25,6 +25,7 @@ public class PagedResponse<T> {
     public static class Meta {
         private int total;    // total items
         private int size;     // items per page
+        private int limit;     // limit per page
         private String page;  // current page or token
         private String next;  // next page number or token
         private String prev;  // previous page number or token
@@ -67,6 +68,14 @@ public class PagedResponse<T> {
 
         public void setPrev(String prev) {
             this.prev = prev;
+        }
+
+        public int getLimit() {
+            return limit;
+        }
+
+        public void setLimit(int limit) {
+            this.limit = limit;
         }
     }
 }

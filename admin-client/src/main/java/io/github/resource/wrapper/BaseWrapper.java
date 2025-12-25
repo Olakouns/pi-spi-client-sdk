@@ -1,5 +1,6 @@
 package io.github.resource.wrapper;
 
+import io.github.exception.PiSpiException;
 import io.github.filter.ListQueryBuilder;
 import io.github.representation.PagedResponse;
 import io.github.resource.PageableResource;
@@ -27,5 +28,17 @@ public abstract class BaseWrapper<T, R extends PageableResource<T>> {
 
     public R proxy() {
         return proxy;
+    }
+
+    protected void validateNotNull(Object obj, String paramName) {
+        if (obj == null) {
+            throw new PiSpiException(paramName + " cannot be null", new IllegalArgumentException(paramName));
+        }
+    }
+
+    protected void validateNotEmpty(String str, String paramName) {
+        if (str == null || str.trim().isEmpty()) {
+            throw new PiSpiException(paramName + " cannot be null or empty");
+        }
     }
 }

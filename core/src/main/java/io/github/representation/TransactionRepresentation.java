@@ -2,18 +2,23 @@ package io.github.representation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.representation.enums.TransactionRepresentationStatut;
+import io.github.representation.enums.TransactionStatutRaison;
 import io.github.util.DataUtil;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public class TransactionRepresentation {
     private String txId;
     private String payeurNumero;
     private String payeNumero;
-    private int montant;
+    private BigDecimal montant;
     private TransactionRepresentationStatut statut;
+    private TransactionStatutRaison statutRaison;
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateEnvoi;
+    @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
+    private OffsetDateTime dateIrrevocabilite;
     private String end2endId;
 
     public String getTxId() {
@@ -40,14 +45,6 @@ public class TransactionRepresentation {
         this.payeNumero = payeNumero;
     }
 
-    public int getMontant() {
-        return montant;
-    }
-
-    public void setMontant(int montant) {
-        this.montant = montant;
-    }
-
     public TransactionRepresentationStatut getStatut() {
         return statut;
     }
@@ -70,5 +67,29 @@ public class TransactionRepresentation {
 
     public void setEnd2endId(String end2endId) {
         this.end2endId = end2endId;
+    }
+
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public TransactionStatutRaison getStatutRaison() {
+        return statutRaison;
+    }
+
+    public void setStatutRaison(TransactionStatutRaison statutRaison) {
+        this.statutRaison = statutRaison;
+    }
+
+    public OffsetDateTime getDateIrrevocabilite() {
+        return dateIrrevocabilite;
+    }
+
+    public void setDateIrrevocabilite(OffsetDateTime dateIrrevocabilite) {
+        this.dateIrrevocabilite = dateIrrevocabilite;
     }
 }

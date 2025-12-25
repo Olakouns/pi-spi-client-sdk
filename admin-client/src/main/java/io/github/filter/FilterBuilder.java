@@ -1,10 +1,13 @@
 package io.github.filter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FilterBuilder {
     private final Map<String, String> filters = new HashMap<>();
+    private final List<String> sortFields = new ArrayList<>();
 
     public FilterBuilder eq(String field, Object value) {
         return add(field, "eq", value);
@@ -85,7 +88,92 @@ public class FilterBuilder {
         return this;
     }
 
+    /**
+     * Exemple: sortAsc("dateCreation") → sort=dateCreation
+     */
+    public FilterBuilder sortAsc(String field) {
+        if (field != null && !field.trim().isEmpty()) {
+            sortFields.add(field);
+        }
+        return this;
+    }
+
+    /**
+     * Sort in descending order.
+     * Exemple: sortDesc("dateCreation") → sort=-dateCreation
+     */
+    public FilterBuilder sortDesc(String field) {
+        if (field != null && !field.trim().isEmpty()) {
+            sortFields.add("-" + field);
+        }
+        return this;
+    }
+
+    /**
+     * Sort in ascending or descending order depending on the boolean value.
+     *
+     * @param field Le champ à trier
+     * @param ascending true pour ascendant, false pour descendant
+     */
+    public FilterBuilder sort(String field, boolean ascending) {
+        if (ascending) {
+            return sortAsc(field);
+        } else {
+            return sortDesc(field);
+        }
+    }
+
+    /**
+     * Sort by multiple fields with specified directions.
+     * Exemple: sort("type", true, "dateCreation", false)
+     * Résultat: sort=type,-dateCreation
+     */
+    public FilterBuilder sort(Object... fieldsAndDirections) {
+        if (fieldsAndDirections != null && fieldsAndDirections.length % 2 == 0) {
+            for (int i = 0; i < fieldsAndDirections.length; i += 2) {
+                String field = String.valueOf(fieldsAndDirections[i]);
+                boolean ascending = (Boolean) fieldsAndDirections[i + 1];
+                sort(field, ascending);
+            }
+        }
+        return this;
+    }
+
+
     public Map<String, String> build() {
+        Map<String, String> result = new HashMap<>(filters);
+
+        if (!sortFields.isEmpty()) {
+            result.put("sort", String.join(",", sortFields));
+        }
+
+        return result;
+    }
+
+    public Map<String, String> buildFiltersOnly() {
         return new HashMap<>(filters);
+    }
+
+    public String buildSortOnly() {
+        return sortFields.isEmpty() ? null : String.join(",", sortFields);
+    }
+
+    public FilterBuilder clear() {
+        filters.clear();
+        sortFields.clear();
+        return this;
+    }
+
+    public FilterBuilder clearFilters() {
+        filters.clear();
+        return this;
+    }
+
+    /**
+     * Réinitialise uniquement les tris
+     */
+    public FilterBuilder clearSort() {
+        sortFields.clear();
+        return this;
     }
 }

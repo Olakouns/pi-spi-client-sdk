@@ -1,6 +1,6 @@
 package io.github.razacki.unit.client.filter;
 
-import io.github.exception.PiSpiException;
+import io.github.exception.PiSpiApiException;
 import io.github.filter.PiSpiClientResponseFilter;
 import io.github.representation.ApiErrorResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,7 +65,7 @@ public class PiSpiClientResponseFilterTest {
         when(mockResponseContext.getEntityStream()).thenReturn(entityStream);
 
         // --- ACT ---
-        PiSpiException exception = assertThrows(PiSpiException.class, () ->
+        PiSpiApiException exception = assertThrows(PiSpiApiException.class, () ->
                 filter.filter(mockRequestContext, mockResponseContext)
         );
 
@@ -92,7 +92,7 @@ public class PiSpiClientResponseFilterTest {
         when(mockResponseContext.hasEntity()).thenReturn(false);
 
         // --- ACT & ASSERT ---
-        PiSpiException exception = assertThrows(PiSpiException.class, () ->
+        PiSpiApiException exception = assertThrows(PiSpiApiException.class, () ->
                 filter.filter(mockRequestContext, mockResponseContext)
         );
 
@@ -112,7 +112,7 @@ public class PiSpiClientResponseFilterTest {
         when(mockResponseContext.getEntityStream()).thenReturn(entityStream);
 
         // --- ACT & ASSERT ---
-        PiSpiException exception = assertThrows(PiSpiException.class, () ->
+        PiSpiApiException exception = assertThrows(PiSpiApiException.class, () ->
                 filter.filter(mockRequestContext, mockResponseContext)
         );
 

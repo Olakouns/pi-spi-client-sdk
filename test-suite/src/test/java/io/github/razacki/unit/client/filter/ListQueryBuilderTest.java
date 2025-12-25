@@ -2,6 +2,7 @@ package io.github.razacki.unit.client.filter;
 
 import io.github.filter.ListQueryBuilder;
 import io.github.provider.JacksonProvider;
+import io.github.razacki.TestUtils;
 import io.github.representation.CompteRepresentation;
 import io.github.representation.PagedResponse;
 import okhttp3.mockwebserver.MockResponse;
@@ -14,12 +15,10 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,22 +50,14 @@ public class ListQueryBuilderTest {
         }
     }
 
-    private String loadJson(String path) {
-        try (InputStream is = getClass().getResourceAsStream(path);
-             Scanner scanner = new Scanner(is, "UTF-8").useDelimiter("\\A")) {
 
-            return scanner.hasNext() ? scanner.next() : "";
-        } catch (Exception e) {
-            throw new RuntimeException("Cannot load JSON from " + path, e);
-        }
-    }
 
     private ListQueryBuilder<CompteRepresentation> createBuilder() {
         return new ListQueryBuilder<>(target, new GenericType<PagedResponse<CompteRepresentation>>() {});
     }
 
     private void mockValidResponse() {
-        String jsonResponse = loadJson("/unit/mock-responses/paged-compte-response.json");
+        String jsonResponse = TestUtils.loadJson("/unit/mock-responses/paged-compte-response.json");
         mockServer.enqueue(new MockResponse()
                 .setBody(jsonResponse)
                 .setHeader("Content-Type", "application/json")

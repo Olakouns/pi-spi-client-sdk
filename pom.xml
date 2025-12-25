@@ -36,10 +36,6 @@
             ${maven.multiModuleProjectDirectory}/test-suite/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
 
-<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
-<!--            ${project.basedir}/test-suite/target/site/jacoco-aggregate/jacoco.xml-->
-<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
-
         <sonar.exclusions>
             **/representation/**,
             **/representation/**/*,
@@ -162,8 +158,11 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>**/representation/**,</exclude>
-                        <exclude>**/exception/**,</exclude>
+                        <exclude>**/representation/**</exclude>
+                        <exclude>**/constants/**</exclude>
+                        <exclude>**/exception/**</exclude>
+                        <exclude>**/BaseConfig*</exclude>
+                        <exclude>**/PiSpiClientBuilder.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

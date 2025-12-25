@@ -20,6 +20,7 @@
         <wiremock.version>3.13.2</wiremock.version>
         <mockwebserver.version>4.12.0</mockwebserver.version>
         <mockito-core.version>4.11.0</mockito-core.version>
+        <junit-platform-suite.version>1.8.2</junit-platform-suite.version>
         <sonar.skip>true</sonar.skip>
     </properties>
 
@@ -76,6 +77,13 @@
             <groupId>org.wiremock</groupId>
             <artifactId>wiremock</artifactId>
             <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit-platform-suite.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

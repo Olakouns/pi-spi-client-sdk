@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "cle": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "type": "SHID",
+      "compte": "CIC2344256727788288822",
+      "dateCreation": "2023-02-21T15:30:01.250Z",
+      "dateModification": "2023-02-21T15:30:01.250Z"
+    },
+    {
+      "cle": "MERCH001",
+      "type": "MCOD",
+      "compte": "CIC2344256727788288822",
+      "dateCreation": "2023-04-10T08:45:12.500Z",
+      "dateModification": "2023-04-10T08:45:12.500Z"
+    }
+  ],
+  "meta": {
+    "total": 2,
+    "size": 2,
+    "page": "1",
+    "next": null,
+    "prev": null
+  }
+}

@@ -12,10 +12,12 @@ public class AliasResourceWrapper extends BaseWrapper<AliasRepresentation, Alias
     }
 
     public AliasRepresentation create(CreateAliasRequest createAliasRequest) {
+        validateNotNull(createAliasRequest, "CreateAliasRequest");
         return proxy.create(createAliasRequest);
     }
 
     public void delete(String cle) {
+        validateNotEmpty(cle, "Alias cle");
         proxy.delete(cle);
     }
 }

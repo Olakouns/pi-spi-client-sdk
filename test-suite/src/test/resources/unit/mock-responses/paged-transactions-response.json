@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "txId": "23511722",
+      "payeurNumero": "ac7a83d8aa7f",
+      "payeNumero": "jdko7588578",
+      "montant": 150000,
+      "statut": "INITIE",
+      "dateEnvoi": "2023-02-21T15:30:01.250Z",
+      "end2endId": "ESNB00120230221153554KXvozkpNvhUk9e"
+    },
+    {
+      "txId": "23511722",
+      "payeurNumero": "ac7a83d8aa7f",
+      "payeNumero": "jdko7588578",
+      "montant": 150000,
+      "statut": "IRREVOCABLE",
+      "dateEnvoi": "2023-02-21T15:30:01.250Z",
+      "dateIrrevocabilite": "2023-02-21T15:30:01.500Z",
+      "end2endId": "ESNB00120230221153554KXvozkpNvhUk9e"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "size": 2
+  }
+}
