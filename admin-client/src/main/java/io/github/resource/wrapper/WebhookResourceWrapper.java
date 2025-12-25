@@ -1,6 +1,5 @@
 package io.github.resource.wrapper;
 
-import io.github.exception.PiSpiException;
 import io.github.representation.WebhookRenewRequest;
 import io.github.representation.WebhookRepresentation;
 import io.github.representation.WebhookRequest;

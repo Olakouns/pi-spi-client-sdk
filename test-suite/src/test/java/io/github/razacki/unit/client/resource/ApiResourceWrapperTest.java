@@ -1,25 +1,28 @@
 package io.github.razacki.unit.client.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.PiSpiClient;
 import io.github.provider.JacksonProvider;
 import io.github.representation.EnrollmentRepresentation;
 import io.github.resource.ApiResource;
-import io.github.resource.ComptesResource;
-import io.github.resource.wrapper.*;
+import io.github.resource.wrapper.ApiResourceWrapper;
+import io.github.resource.wrapper.ComptesResourceWrapper;
+import io.github.resource.wrapper.DemandesPaiementsResourceWrapper;
+import io.github.resource.wrapper.WebhookResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.http.HttpHeaders;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

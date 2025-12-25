@@ -18,7 +18,6 @@
 package io.github.token;
 
 import io.github.BaseConfig;
-import io.github.PiSpiClient;
 import io.github.constants.ScopeConstants;
 import io.github.provider.ResteasyClientProvider;
 import io.github.representation.AccessTokenResponse;

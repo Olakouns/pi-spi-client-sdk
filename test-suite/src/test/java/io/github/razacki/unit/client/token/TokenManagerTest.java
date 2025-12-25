@@ -18,7 +18,6 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MultivaluedMap;
-
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
