@@ -17,6 +17,7 @@
 
 package io.github;
 
+import io.github.exception.PiSpiException;
 import io.github.filter.ApiKeyFilter;
 import io.github.filter.BearerAuthFilter;
 import io.github.filter.PiSpiClientResponseFilter;
@@ -56,7 +57,7 @@ public class PiSpiClient implements AutoCloseable {
         try {
             return (ResteasyClientProvider) PiSpiClient.class.getClassLoader().loadClass("io.github.provider.ResteasyClientDefaultProvider").getDeclaredConstructor().newInstance();
         } catch (Exception cause) {
-            throw new RuntimeException("Could not instantiate default client provider", cause);
+            throw new PiSpiException("Could not instantiate default client provider", cause);
         }
     }
 
