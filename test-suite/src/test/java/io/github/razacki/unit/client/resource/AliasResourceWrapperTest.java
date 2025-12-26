@@ -4,8 +4,8 @@ import io.github.exception.PiSpiException;
 import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
 import io.github.representation.AliasRepresentation;
-import io.github.representation.CreateAliasRequest;
 import io.github.representation.PagedResponse;
+import io.github.representation.enums.AliasType;
 import io.github.resource.AliasResource;
 import io.github.resource.wrapper.AliasResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
@@ -107,11 +107,11 @@ public class AliasResourceWrapperTest {
     @DisplayName("Should create alias for specific account")
     void shouldCreateAliasSuccessfully() throws Exception {
         // Arrange
-        CreateAliasRequest request = new CreateAliasRequest("SHID");
+//        CreateAliasRequest request = new CreateAliasRequest("SHID");
         mockCreateAliasResponse();
 
         // Act
-        AliasRepresentation result = wrapper.create(request);
+        AliasRepresentation result = wrapper.create(AliasType.SHID);
 
         // Assert
         assertThat(result).isNotNull();
@@ -128,7 +128,7 @@ public class AliasResourceWrapperTest {
     void shouldThrowExceptionWhenCreatingWithNullRequest() {
         assertThatThrownBy(() -> wrapper.create(null))
                 .isInstanceOf(PiSpiException.class)
-                .hasMessageContaining("CreateAliasRequest cannot be null");
+                .hasMessageContaining("AliasType cannot be null");
     }
 
 

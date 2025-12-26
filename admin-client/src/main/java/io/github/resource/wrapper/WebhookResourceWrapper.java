@@ -6,8 +6,9 @@ import io.github.representation.WebhookRequest;
 import io.github.resource.WebhookResource;
 
 import javax.ws.rs.client.WebTarget;
+import java.time.OffsetDateTime;
 
-public class WebhookResourceWrapper extends BaseWrapper<WebhookRepresentation, WebhookResource> {
+public class WebhookResourceWrapper extends ListableWrapper<WebhookRepresentation, WebhookResource> {
 
     private static final String WEBHOOK_ID = "Webhook ID";
 
@@ -36,9 +37,9 @@ public class WebhookResourceWrapper extends BaseWrapper<WebhookRepresentation, W
         proxy.delete(id);
     }
 
-    public WebhookRepresentation renewSecret(String id, WebhookRenewRequest renewRequest) {
+    public WebhookRepresentation renewSecret(String id, OffsetDateTime dateExpiration) {
         validateNotEmpty(id, WEBHOOK_ID);
-        validateNotNull(renewRequest, "WebhookRenewRequest");
-        return proxy.renewSecret(id, renewRequest);
+        validateNotNull(dateExpiration, "DateExpiration");
+        return proxy.renewSecret(id, new WebhookRenewRequest(dateExpiration));
     }
 }

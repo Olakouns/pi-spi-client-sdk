@@ -5,7 +5,7 @@ import io.github.resource.TransactionsResource;
 
 import javax.ws.rs.client.WebTarget;
 
-public class TransactionResourceWrapper extends BaseWrapper<TransactionRepresentation, TransactionsResource> {
+public class TransactionResourceWrapper extends ListableWrapper<TransactionRepresentation, TransactionsResource> {
     public TransactionResourceWrapper(TransactionsResource proxy, WebTarget target) {
         super(proxy, target);
     }

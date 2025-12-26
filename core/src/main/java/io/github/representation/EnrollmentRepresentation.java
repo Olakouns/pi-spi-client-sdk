@@ -1,8 +1,9 @@
 package io.github.representation;
 
 
-public class EnrollmentRepresentation {
+import io.github.representation.enums.ClientCategory;
 
+public class EnrollmentRepresentation {
     private Client client;
     private Alias alias;
 
@@ -26,7 +27,7 @@ public class EnrollmentRepresentation {
     public static class Client {
         private String nom;
         private String pays;
-        private String categorie;
+        private ClientCategory categorie;
 
         public String getNom() {
             return nom;
@@ -44,11 +45,11 @@ public class EnrollmentRepresentation {
             this.pays = pays;
         }
 
-        public String getCategorie() {
+        public ClientCategory getCategorie() {
             return categorie;
         }
 
-        public void setCategorie(String categorie) {
+        public void setCategorie(ClientCategory categorie) {
             this.categorie = categorie;
         }
     }

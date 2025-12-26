@@ -3,6 +3,8 @@ package io.github.razacki.unit.core.representation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.representation.CompteRepresentation;
+import io.github.representation.enums.CompteStatut;
+import io.github.representation.enums.CompteType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -32,8 +34,8 @@ public class CompteRepresentationTest {
 
         assertThat(compte).isNotNull();
         assertThat(compte.getNumero()).isEqualTo("CIC2344256727788288822");
-        assertThat(compte.getType()).isEqualTo("CACC");
-        assertThat(compte.getStatut()).isEqualTo("OUVERT");
+        assertThat(compte.getType()).isEqualTo(CompteType.CACC);
+        assertThat(compte.getStatut()).isEqualTo(CompteStatut.OUVERT);
         assertThat(compte.getDateOuverture()).isEqualTo(OffsetDateTime.parse("2023-02-21T15:30:01.250Z"));
     }
 
@@ -41,8 +43,8 @@ public class CompteRepresentationTest {
     void testSerializationToJson() throws Exception {
         CompteRepresentation compte = new CompteRepresentation();
         compte.setNumero("CIC2344256727788288822");
-        compte.setType("CACC");
-        compte.setStatut("OUVERT");
+        compte.setType(CompteType.CACC);
+        compte.setStatut(CompteStatut.OUVERT);
         compte.setDateOuverture(OffsetDateTime.parse("2023-02-21T15:30:01.250Z"));
 
         String json = objectMapper.writeValueAsString(compte);
@@ -57,8 +59,8 @@ public class CompteRepresentationTest {
     void testRoundTripSerialization() throws Exception {
         CompteRepresentation original = new CompteRepresentation();
         original.setNumero("CIC2344256727788288822");
-        original.setType("CACC");
-        original.setStatut("OUVERT");
+        original.setType(CompteType.CACC);
+        original.setStatut(CompteStatut.OUVERT);
         original.setDateOuverture(OffsetDateTime.parse("2023-02-21T15:30:01.250Z"));
 
         String json = objectMapper.writeValueAsString(original);

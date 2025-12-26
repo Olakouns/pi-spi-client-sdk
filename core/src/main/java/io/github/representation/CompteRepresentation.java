@@ -1,16 +1,18 @@
 package io.github.representation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.representation.enums.CompteStatut;
+import io.github.representation.enums.CompteType;
 import io.github.util.DataUtil;
 
 import java.time.OffsetDateTime;
 
 public class CompteRepresentation {
     private String numero;
-    private String type;
+    private CompteType type;
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateOuverture;
-    private String statut;
+    private CompteStatut statut;
 
     public String getNumero() {
         return numero;
@@ -20,11 +22,11 @@ public class CompteRepresentation {
         this.numero = numero;
     }
 
-    public String getType() {
+    public CompteType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(CompteType type) {
         this.type = type;
     }
 
@@ -36,11 +38,11 @@ public class CompteRepresentation {
         this.dateOuverture = dateOuverture;
     }
 
-    public String getStatut() {
+    public CompteStatut getStatut() {
         return statut;
     }
 
-    public void setStatut(String statut) {
+    public void setStatut(CompteStatut statut) {
         this.statut = statut;
     }
 }

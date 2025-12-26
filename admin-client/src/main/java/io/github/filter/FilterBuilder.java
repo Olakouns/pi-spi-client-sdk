@@ -88,6 +88,13 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder where(String field, Object value) {
+        if (value != null && field != null) {
+            filters.put(field, String.valueOf(value));
+        }
+        return this;
+    }
+
     /**
      * Exemple: sortAsc("dateCreation") → sort=dateCreation
      */

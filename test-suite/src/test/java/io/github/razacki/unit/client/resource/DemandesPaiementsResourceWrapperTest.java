@@ -127,7 +127,7 @@ public class DemandesPaiementsResourceWrapperTest {
 
         RecordedRequest request = mockServer.takeRequest();
         // Assuming the proxy maps confirm to /confirm or similar; here we check method & payload
-        assertThat(request.getMethod()).isEqualTo(HttpMethod.POST);
+        assertThat(request.getMethod()).isEqualTo(HttpMethod.PUT);
         assertThat(request.getBody().readUtf8()).contains("\"decision\":true");
     }
 
@@ -145,7 +145,7 @@ public class DemandesPaiementsResourceWrapperTest {
         assertThat(result.getStatut()).isEqualTo(DemandesPaiementsStatut.ENVOYE);
 
         RecordedRequest request = mockServer.takeRequest();
-        assertThat(request.getMethod()).isEqualTo(HttpMethod.POST);
+        assertThat(request.getMethod()).isEqualTo(HttpMethod.PUT);
     }
 
     @Test

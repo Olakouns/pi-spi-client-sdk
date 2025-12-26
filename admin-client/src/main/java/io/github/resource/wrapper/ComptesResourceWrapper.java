@@ -5,7 +5,7 @@ import io.github.resource.ComptesResource;
 
 import javax.ws.rs.client.WebTarget;
 
-public class ComptesResourceWrapper extends BaseWrapper<CompteRepresentation, ComptesResource> {
+public class ComptesResourceWrapper extends ListableWrapper<CompteRepresentation, ComptesResource> {
 
     private TransactionResourceWrapper transactions;
 

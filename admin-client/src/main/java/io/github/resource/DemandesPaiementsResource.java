@@ -22,13 +22,13 @@ public interface DemandesPaiementsResource extends PageableResource<DemandesPaie
     @Produces(MediaType.APPLICATION_JSON)
     DemandesPaiementsRepresentation findById(@PathParam("txId") String txId);
 
-    @POST
+    @PUT
     @Path("/{txId}/confirmations")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     DemandesPaiementsRepresentation confirm(@PathParam("txId") String txId, ConfirmationRequest confirmation);
 
-    @POST
+    @PUT
     @Path("/{txId}/reponses")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

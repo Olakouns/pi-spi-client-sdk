@@ -21,4 +21,26 @@ public class RemiseRepresentation {
     public void setTaux(BigDecimal taux) {
         this.taux = taux;
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final RemiseRepresentation representation = new RemiseRepresentation();
+
+        public Builder montant(BigDecimal montant) {
+            representation.setMontant(montant);
+            return this;
+        }
+
+        public Builder taux(BigDecimal taux) {
+            representation.setTaux(taux);
+            return this;
+        }
+
+        public RemiseRepresentation build() {
+            return representation;
+        }
+    }
 }

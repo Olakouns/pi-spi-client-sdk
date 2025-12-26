@@ -182,6 +182,17 @@ public class FilterBuilderTest {
     }
 
     @Test
+    @DisplayName("where filter should add user-defined operator")
+    void testWhereFilter() {
+        Map<String, String> filters = new FilterBuilder()
+                .where("instructionId", "FACTURES-2025-01-1")
+                .build();
+
+        assertEquals(1, filters.size());
+        assertEquals("FACTURES-2025-01-1", filters.get("instructionId"));
+    }
+
+    @Test
     @DisplayName("chaining filters should combine multiple conditions")
     void testChainingFilters() {
         Map<String, String> filters = new FilterBuilder()

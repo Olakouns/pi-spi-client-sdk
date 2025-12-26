@@ -4,7 +4,6 @@ import io.github.exception.PiSpiException;
 import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
 import io.github.representation.PagedResponse;
-import io.github.representation.WebhookRenewRequest;
 import io.github.representation.WebhookRepresentation;
 import io.github.representation.WebhookRequest;
 import io.github.representation.enums.PiWebhookEvent;
@@ -281,12 +280,10 @@ public class WebhookResourceWrapperTest {
     @DisplayName("Should renew webhook secret successfully")
     void shouldRenewWebhookSecretSuccessfully() throws Exception {
         // Arrange
-        WebhookRenewRequest renewRequest = new WebhookRenewRequest();
-        renewRequest.setDateExpiration(OffsetDateTime.now().plusDays(1));
         mockWebhookRenewResponse();
 
         // Act
-        WebhookRepresentation result = wrapper.renewSecret("webhook-123", renewRequest);
+        WebhookRepresentation result = wrapper.renewSecret("webhook-123", OffsetDateTime.now().plusDays(1));
 
         // Assert
         assertThat(result).isNotNull();
@@ -302,9 +299,7 @@ public class WebhookResourceWrapperTest {
     @Test
     @DisplayName("Should throw exception when renewing secret with null ID")
     void shouldThrowExceptionWhenRenewingSecretWithNullId() {
-        WebhookRenewRequest renewRequest = new WebhookRenewRequest();
-
-        assertThatThrownBy(() -> wrapper.renewSecret(null, renewRequest))
+        assertThatThrownBy(() -> wrapper.renewSecret(null, OffsetDateTime.now().plusDays(1)))
                 .isInstanceOf(PiSpiException.class)
                 .hasMessageContaining("Webhook ID cannot be null or empty");
     }
@@ -314,7 +309,7 @@ public class WebhookResourceWrapperTest {
     void shouldThrowExceptionWhenRenewingSecretWithNullRequest() {
         assertThatThrownBy(() -> wrapper.renewSecret("webhook-123", null))
                 .isInstanceOf(PiSpiException.class)
-                .hasMessageContaining("WebhookRenewRequest cannot be null");
+                .hasMessageContaining("DateExpiration cannot be null");
     }
 
     private WebhookRequest createValidWebhookRequest() {

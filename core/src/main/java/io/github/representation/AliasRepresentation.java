@@ -1,13 +1,14 @@
 package io.github.representation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.representation.enums.AliasType;
 import io.github.util.DataUtil;
 
 import java.time.OffsetDateTime;
 
 public class AliasRepresentation {
     private String cle;
-    private String type;
+    private AliasType type;
     private String compte;
 
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
@@ -24,11 +25,11 @@ public class AliasRepresentation {
         this.cle = cle;
     }
 
-    public String getType() {
+    public AliasType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AliasType type) {
         this.type = type;
     }
 

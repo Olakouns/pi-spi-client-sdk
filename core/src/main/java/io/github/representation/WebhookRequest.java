@@ -2,6 +2,7 @@ package io.github.representation;
 
 import io.github.representation.enums.PiWebhookEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebhookRequest {
@@ -31,5 +32,42 @@ public class WebhookRequest {
 
     public void setEvents(List<PiWebhookEvent> events) {
         this.events = events;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final WebhookRequest request = new WebhookRequest();
+
+        public Builder callbackUrl(String callbackUrl) {
+            request.setCallbackUrl(callbackUrl);
+            return this;
+        }
+
+        public Builder alias(String alias) {
+            request.setAlias(alias);
+            return this;
+        }
+
+
+        public Builder events(List<PiWebhookEvent> events) {
+            request.setEvents(events);
+            return this;
+        }
+
+
+        public Builder addEvent(PiWebhookEvent event) {
+            if (request.getEvents() == null) {
+                request.setEvents(new ArrayList<>());
+            }
+            request.getEvents().add(event);
+            return this;
+        }
+
+        public WebhookRequest build() {
+            return request;
+        }
     }
 }

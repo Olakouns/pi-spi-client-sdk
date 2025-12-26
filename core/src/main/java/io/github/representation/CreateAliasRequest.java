@@ -1,21 +1,23 @@
 package io.github.representation;
 
+import io.github.representation.enums.AliasType;
+
 public class CreateAliasRequest {
-    private String type;
+    private AliasType type;
 
 
     public CreateAliasRequest() {
     }
 
-    public CreateAliasRequest(String type) {
+    public CreateAliasRequest(AliasType type) {
         this.type = type;
     }
 
-    public String getType() {
+    public AliasType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AliasType type) {
         this.type = type;
     }
 }

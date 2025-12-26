@@ -1,7 +1,7 @@
 package io.github.representation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.github.representation.enums.TransactionRepresentationStatut;
+import io.github.representation.enums.TransactionStatut;
 import io.github.representation.enums.TransactionStatutRaison;
 import io.github.util.DataUtil;
 
@@ -12,8 +12,9 @@ public class TransactionRepresentation {
     private String txId;
     private String payeurNumero;
     private String payeNumero;
+    private String motif;
     private BigDecimal montant;
-    private TransactionRepresentationStatut statut;
+    private TransactionStatut statut;
     private TransactionStatutRaison statutRaison;
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateEnvoi;
@@ -45,11 +46,11 @@ public class TransactionRepresentation {
         this.payeNumero = payeNumero;
     }
 
-    public TransactionRepresentationStatut getStatut() {
+    public TransactionStatut getStatut() {
         return statut;
     }
 
-    public void setStatut(TransactionRepresentationStatut statut) {
+    public void setStatut(TransactionStatut statut) {
         this.statut = statut;
     }
 
@@ -91,5 +92,75 @@ public class TransactionRepresentation {
 
     public void setDateIrrevocabilite(OffsetDateTime dateIrrevocabilite) {
         this.dateIrrevocabilite = dateIrrevocabilite;
+    }
+
+    public String getMotif() {
+        return motif;
+    }
+
+    public void setMotif(String motif) {
+        this.motif = motif;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final TransactionRepresentation representation = new TransactionRepresentation();
+
+        public Builder txId(String txId) {
+            representation.setTxId(txId);
+            return this;
+        }
+
+        public Builder payeurNumero(String payeurNumero) {
+            representation.setPayeurNumero(payeurNumero);
+            return this;
+        }
+
+        public Builder payeNumero(String payeNumero) {
+            representation.setPayeNumero(payeNumero);
+            return this;
+        }
+
+        public Builder motif(String motif) {
+            representation.setMotif(motif);
+            return this;
+        }
+
+        public Builder montant(BigDecimal montant) {
+            representation.setMontant(montant);
+            return this;
+        }
+
+        public Builder statut(TransactionStatut statut) {
+            representation.setStatut(statut);
+            return this;
+        }
+
+        public Builder statutRaison(TransactionStatutRaison statutRaison) {
+            representation.setStatutRaison(statutRaison);
+            return this;
+        }
+
+        public Builder dateEnvoi(OffsetDateTime dateEnvoi) {
+            representation.setDateEnvoi(dateEnvoi);
+            return this;
+        }
+
+        public Builder dateIrrevocabilite(OffsetDateTime dateIrrevocabilite) {
+            representation.setDateIrrevocabilite(dateIrrevocabilite);
+            return this;
+        }
+
+        public Builder end2endId(String end2endId) {
+            representation.setEnd2endId(end2endId);
+            return this;
+        }
+
+        public TransactionRepresentation build() {
+            return representation;
+        }
     }
 }

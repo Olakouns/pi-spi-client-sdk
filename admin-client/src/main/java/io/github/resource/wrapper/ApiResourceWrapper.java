@@ -12,6 +12,7 @@ public class ApiResourceWrapper {
     private ComptesResourceWrapper comptes;
     private WebhookResourceWrapper webhooks;
     private DemandesPaiementsResourceWrapper paiementsResourceWrapper;
+    private DemandePaiementGroupeResourceWrapper demandePaiementGroupeResourceWrapper;
 
     public ApiResourceWrapper(ApiResource proxy, WebTarget target) {
         this.proxy = proxy;
@@ -41,5 +42,12 @@ public class ApiResourceWrapper {
             this.paiementsResourceWrapper = new DemandesPaiementsResourceWrapper(proxy.demandesPaiements(), target.path("/demandes-paiements"));
         }
         return this.paiementsResourceWrapper;
+    }
+
+    public synchronized DemandePaiementGroupeResourceWrapper demandesPaiementsGroupes() {
+        if (this.demandePaiementGroupeResourceWrapper == null) {
+            this.demandePaiementGroupeResourceWrapper = new DemandePaiementGroupeResourceWrapper(proxy.demandesPaiementsGroupes(), target.path("/demandes-paiements-groupes"));
+        }
+        return this.demandePaiementGroupeResourceWrapper;
     }
 }

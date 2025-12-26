@@ -5,10 +5,7 @@ import io.github.PiSpiClient;
 import io.github.provider.JacksonProvider;
 import io.github.representation.EnrollmentRepresentation;
 import io.github.resource.ApiResource;
-import io.github.resource.wrapper.ApiResourceWrapper;
-import io.github.resource.wrapper.ComptesResourceWrapper;
-import io.github.resource.wrapper.DemandesPaiementsResourceWrapper;
-import io.github.resource.wrapper.WebhookResourceWrapper;
+import io.github.resource.wrapper.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -72,10 +69,14 @@ public class ApiResourceWrapperTest {
         DemandesPaiementsResourceWrapper d1 = wrapper.demandesPaiements();
         DemandesPaiementsResourceWrapper d2 = wrapper.demandesPaiements();
 
+        DemandePaiementGroupeResourceWrapper dG1 = wrapper.demandesPaiementsGroupes();
+        DemandePaiementGroupeResourceWrapper dG2 = wrapper.demandesPaiementsGroupes();
+
         // Assert: Verify they are not null and instances are reused
         assertThat(c1).isNotNull().isSameAs(c2);
         assertThat(w1).isNotNull().isSameAs(w2);
         assertThat(d1).isNotNull().isSameAs(d2);
+        assertThat(dG1).isNotNull().isSameAs(dG2);
     }
 
     @Test

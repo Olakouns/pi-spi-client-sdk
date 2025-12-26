@@ -9,6 +9,13 @@ public class WebhookRenewRequest {
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateExpiration;
 
+    public WebhookRenewRequest() {
+    }
+
+    public WebhookRenewRequest(OffsetDateTime dateExpiration) {
+        this.dateExpiration = dateExpiration;
+    }
+
     public OffsetDateTime getDateExpiration() {
         return dateExpiration;
     }

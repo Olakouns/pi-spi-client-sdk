@@ -19,4 +19,7 @@ public interface ApiResource {
 
     @Path("/demandes-paiements")
     DemandesPaiementsResource demandesPaiements();
+
+    @Path("/demandes-paiements-groupes")
+    DemandePaiementGroupeResource demandesPaiementsGroupes();
 }

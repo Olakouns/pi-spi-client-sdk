@@ -291,4 +291,162 @@ public class DemandesPaiementsRepresentation {
     public void setDateIrrevocabilite(OffsetDateTime dateIrrevocabilite) {
         this.dateIrrevocabilite = dateIrrevocabilite;
     }
+
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final DemandesPaiementsRepresentation representation = new DemandesPaiementsRepresentation();
+
+        public Builder txId(String txId) {
+            representation.setTxId(txId);
+            return this;
+        }
+
+        public Builder categorie(String categorie) {
+            representation.setCategorie(categorie);
+            return this;
+        }
+
+        public Builder payeAlias(String payeAlias) {
+            representation.setPayeAlias(payeAlias);
+            return this;
+        }
+
+        public Builder logoUrl(String logoUrl) {
+            representation.setLogoUrl(logoUrl);
+            return this;
+        }
+
+        public Builder payeurAlias(String payeurAlias) {
+            representation.setPayeurAlias(payeurAlias);
+            return this;
+        }
+
+        public Builder confirmation(Boolean confirmation) {
+            representation.setConfirmation(confirmation);
+            return this;
+        }
+
+        public Builder remise(RemiseRepresentation remise) {
+            representation.setRemise(remise);
+            return this;
+        }
+
+        public Builder debitDiffere(Boolean debitDiffere) {
+            representation.setDebitDiffere(debitDiffere);
+            return this;
+        }
+
+        public Builder montant(BigDecimal montant) {
+            representation.setMontant(montant);
+            return this;
+        }
+
+        public Builder montantAchat(BigDecimal montantAchat) {
+            representation.setMontantAchat(montantAchat);
+            return this;
+        }
+
+        public Builder montantRetrait(BigDecimal montantRetrait) {
+            representation.setMontantRetrait(montantRetrait);
+            return this;
+        }
+
+        public Builder montantFrais(BigDecimal montantFrais) {
+            representation.setMontantFrais(montantFrais);
+            return this;
+        }
+
+        public Builder motif(String motif) {
+            representation.setMotif(motif);
+            return this;
+        }
+
+        public Builder refDocNumero(String refDocNumero) {
+            representation.setRefDocNumero(refDocNumero);
+            return this;
+        }
+
+        public Builder refDocType(RefDocType refDocType) {
+            representation.setRefDocType(refDocType);
+            return this;
+        }
+
+        public Builder statut(DemandesPaiementsStatut statut) {
+            representation.setStatut(statut);
+            return this;
+        }
+
+        public Builder statutRaison(DemandesStatutRaison statutRaison) {
+            representation.setStatutRaison(statutRaison);
+            return this;
+        }
+
+        public Builder end2endId(String end2endId) {
+            representation.setEnd2endId(end2endId);
+            return this;
+        }
+
+        public Builder payeurNom(String payeurNom) {
+            representation.setPayeurNom(payeurNom);
+            return this;
+        }
+
+        public Builder payeurPays(String payeurPays) {
+            representation.setPayeurPays(payeurPays);
+            return this;
+        }
+
+        public Builder payeNom(String payeNom) {
+            representation.setPayeNom(payeNom);
+            return this;
+        }
+
+        public Builder payePays(String payePays) {
+            representation.setPayePays(payePays);
+            return this;
+        }
+
+        public Builder dateLimitePaiement(OffsetDateTime dateLimitePaiement) {
+            representation.setDateLimitePaiement(dateLimitePaiement);
+            return this;
+        }
+
+        public Builder dateLimiteReponse(OffsetDateTime dateLimiteReponse) {
+            representation.setDateLimiteReponse(dateLimiteReponse);
+            return this;
+        }
+
+        public Builder dateDemande(OffsetDateTime dateDemande) {
+            representation.setDateDemande(dateDemande);
+            return this;
+        }
+
+        public Builder dateConfirmation(OffsetDateTime dateConfirmation) {
+            representation.setDateConfirmation(dateConfirmation);
+            return this;
+        }
+
+        public Builder dateEnvoi(OffsetDateTime dateEnvoi) {
+            representation.setDateEnvoi(dateEnvoi);
+            return this;
+        }
+
+        public Builder dateReponse(OffsetDateTime dateReponse) {
+            representation.setDateReponse(dateReponse);
+            return this;
+        }
+
+        public Builder dateIrrevocabilite(OffsetDateTime dateIrrevocabilite) {
+            representation.setDateIrrevocabilite(dateIrrevocabilite);
+            return this;
+        }
+
+        public DemandesPaiementsRepresentation build() {
+            return representation;
+        }
+    }
 }

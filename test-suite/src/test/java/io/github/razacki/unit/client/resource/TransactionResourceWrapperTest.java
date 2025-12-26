@@ -5,7 +5,7 @@ import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
 import io.github.representation.PagedResponse;
 import io.github.representation.TransactionRepresentation;
-import io.github.representation.enums.TransactionRepresentationStatut;
+import io.github.representation.enums.TransactionStatut;
 import io.github.resource.TransactionsResource;
 import io.github.resource.wrapper.TransactionResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
@@ -80,12 +80,12 @@ public class TransactionResourceWrapperTest {
         assertThat(firstTx.getPayeurNumero()).isEqualTo("ac7a83d8aa7f");
         assertThat(firstTx.getPayeNumero()).isEqualTo("jdko7588578");
         assertThat(firstTx.getMontant().doubleValue()).isEqualTo(150000);
-        assertThat(firstTx.getStatut()).isEqualTo(TransactionRepresentationStatut.INITIE);
+        assertThat(firstTx.getStatut()).isEqualTo(TransactionStatut.INITIE);
         assertThat(firstTx.getDateEnvoi()).isNotNull();
 
         // Verify the second transaction
         TransactionRepresentation secondTx = response.getData().get(1);
-        assertThat(secondTx.getStatut()).isEqualTo(TransactionRepresentationStatut.IRREVOCABLE);
+        assertThat(secondTx.getStatut()).isEqualTo(TransactionStatut.IRREVOCABLE);
         assertThat(secondTx.getDateIrrevocabilite()).isNotNull();
 
         // Verify pagination metadata
@@ -177,7 +177,7 @@ public class TransactionResourceWrapperTest {
         assertThat(result.getPayeurNumero()).isEqualTo("ac7a83d8aa7f");
         assertThat(result.getPayeNumero()).isEqualTo("jdko7588578");
         assertThat(result.getMontant().doubleValue()).isEqualTo(150000);
-        assertThat(result.getStatut()).isEqualTo(TransactionRepresentationStatut.INITIE);
+        assertThat(result.getStatut()).isEqualTo(TransactionStatut.INITIE);
         assertThat(result.getDateEnvoi()).isNotNull();
         assertThat(result.getEnd2endId()).isEqualTo("ESNB00120230221153554KXvozkpNvhUk9e");
 
@@ -222,7 +222,7 @@ public class TransactionResourceWrapperTest {
         TransactionRepresentation result = wrapper.create(request);
 
         // Assert
-        assertThat(result.getStatut()).isEqualTo(TransactionRepresentationStatut.INITIE);
+        assertThat(result.getStatut()).isEqualTo(TransactionStatut.INITIE);
         assertThat(result.getDateEnvoi()).isNotNull();
         assertThat(result.getDateIrrevocabilite()).isNull(); // Pas encore irréversible
     }
@@ -281,7 +281,7 @@ public class TransactionResourceWrapperTest {
 
         // Assert
         TransactionRepresentation irrevocableTx = response.getData().get(1);
-        assertThat(irrevocableTx.getStatut()).isEqualTo(TransactionRepresentationStatut.IRREVOCABLE);
+        assertThat(irrevocableTx.getStatut()).isEqualTo(TransactionStatut.IRREVOCABLE);
         assertThat(irrevocableTx.getDateIrrevocabilite()).isNotNull();
         assertThat(irrevocableTx.getDateIrrevocabilite().toString()).contains("2023-02-21T15:30:01.500");
     }
@@ -298,7 +298,7 @@ public class TransactionResourceWrapperTest {
         // Assert
         assertThat(response.getData())
                 .extracting(TransactionRepresentation::getStatut)
-                .containsExactly(TransactionRepresentationStatut.INITIE, TransactionRepresentationStatut.IRREVOCABLE);
+                .containsExactly(TransactionStatut.INITIE, TransactionStatut.IRREVOCABLE);
     }
 
     @Test
