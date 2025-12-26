@@ -45,10 +45,6 @@ public class TokenManager {
     public TokenManager(BaseConfig config, Client client, ResteasyClientProvider clientProvider) {
         this.config = config;
         WebTarget target = client.target(config.getServerUrl());
-        //if (!config.isPublicClient()) {
-        //    target.register(new BasicAuthFilter(config.getClientId(), config.getClientSecret()));
-        //}
-
         this.tokenService = clientProvider.targetProxy(target, TokenService.class);
         this.accessTokenGrantType = config.getGrantType();
     }
