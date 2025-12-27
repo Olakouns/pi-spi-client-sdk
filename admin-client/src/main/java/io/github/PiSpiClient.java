@@ -133,7 +133,6 @@ public class PiSpiClient implements AutoCloseable {
         Client client = resteasyClient != null
                 ? resteasyClient
                 : newRestClient(customJacksonProvider, effectiveSslContext, disableTrustManager);
-
         return new PiSpiClient(config, client, authToken);
     }
 

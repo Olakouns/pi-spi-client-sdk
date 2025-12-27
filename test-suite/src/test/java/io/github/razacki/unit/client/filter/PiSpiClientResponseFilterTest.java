@@ -133,10 +133,15 @@ public class PiSpiClientResponseFilterTest {
     @Test
     @DisplayName("Should ignore 401 status (managed by BearerAuthFilter)")
     void shouldIgnore401Status() throws IOException {
-        // --- ARRANGE ---
+        // ARRANGE ---
         when(mockResponseContext.getStatus()).thenReturn(401);
 
-        // --- ACT & ASSERT ---
-        assertDoesNotThrow(() -> filter.filter(mockRequestContext, mockResponseContext));
+        // ACT & ASSERT ---
+        PiSpiApiException exception = assertThrows(PiSpiApiException.class, () ->
+                filter.filter(mockRequestContext, mockResponseContext)
+        );
+
+        assertEquals("HTTP Error 401", exception.getErrorResponse().getTitle());
+        assertEquals(401, exception.getErrorResponse().getStatus());
     }
 }
