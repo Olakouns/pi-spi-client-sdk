@@ -70,6 +70,9 @@ public class PiSpiClient implements AutoCloseable {
     }
 
     private static Client newRestClient(Object customJacksonProvider, SSLContext sslContext, boolean disableTrustManager) {
+        if (clientProvider == null) {
+            clientProvider = resolveResteasyClientProvider();
+        }
         return clientProvider.newRestClient(customJacksonProvider, sslContext, disableTrustManager);
     }
 
@@ -82,6 +85,7 @@ public class PiSpiClient implements AutoCloseable {
     private ApiResourceWrapper apiWrapper;
 
     PiSpiClient(BaseConfig config, Client client, String authToken) {
+        System.err.println("Before creating PiSpiClient instance -- Before" + client);
         this.config = config;
         this.client = client;
         this.authToken = authToken;

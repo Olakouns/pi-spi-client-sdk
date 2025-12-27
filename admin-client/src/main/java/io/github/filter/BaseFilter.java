@@ -3,6 +3,7 @@ package io.github.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.github.annotation.Generated;
 import io.github.exception.PiSpiApiException;
 import io.github.representation.ApiErrorResponse;
 import org.jboss.logging.Logger;
@@ -26,6 +27,7 @@ public abstract class BaseFilter {
 
     protected abstract Logger getLogger();
 
+    @Generated
     public void logResponse(String method, String uri, int status, ClientResponseContext responseContext) {
         Logger logger = getLogger();
         getLogger().debugf("Response: %s %s - Status: %d", method, uri, status);
@@ -77,6 +79,7 @@ public abstract class BaseFilter {
         }
     }
 
+    @Generated
     public void logError(String method, String uri, int status, ApiErrorResponse errorResponse, String errorBody) {
         String message = String.format("API Error: %s %s - Status: %d", method, uri, status);
         Logger logger = getLogger();
@@ -114,7 +117,7 @@ public abstract class BaseFilter {
         return new PiSpiApiException(message, errorResponse);
     }
 
-
+    @Generated
     public String extractErrorMessage(ApiErrorResponse errorResponse, int status) {
         if (errorResponse != null) {
             if (errorResponse.getTitle() != null && !errorResponse.getTitle().isEmpty()) {

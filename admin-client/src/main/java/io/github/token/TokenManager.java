@@ -18,6 +18,7 @@
 package io.github.token;
 
 import io.github.BaseConfig;
+import io.github.annotation.Generated;
 import io.github.constants.ScopeConstants;
 import io.github.provider.ResteasyClientProvider;
 import io.github.representation.AccessTokenResponse;
@@ -106,6 +107,7 @@ public class TokenManager {
         }
     }
 
+    @Generated
     public synchronized void setMinTokenValidity(long minTokenValidity) {
         this.minTokenValidity = minTokenValidity;
     }

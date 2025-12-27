@@ -5,11 +5,13 @@ import io.github.PiSpiClient;
 import io.github.provider.JacksonProvider;
 import io.github.representation.EnrollmentRepresentation;
 import io.github.resource.ApiResource;
+import io.github.resource.ComptesResource;
 import io.github.resource.wrapper.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.http.HttpHeaders;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,8 +52,7 @@ public class ApiResourceWrapperTest {
         client = ClientBuilder.newClient().register(JacksonProvider.class);
         WebTarget rootTarget = client.target(baseUrl);
 
-        ApiResource proxy = PiSpiClient.getClientProvider()
-                .targetProxy(rootTarget, ApiResource.class);
+        ApiResource proxy = ((ResteasyWebTarget) rootTarget).proxy(ApiResource.class);
 
         wrapper = new ApiResourceWrapper(proxy, rootTarget.path("/"));
     }

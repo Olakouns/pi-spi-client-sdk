@@ -400,4 +400,9 @@ public class PiSpiClientTest {
         assertThat(client.isClosed()).isFalse();
     }
 
+    @AfterAll
+    static void cleanUp() {
+        PiSpiClient.setClientProvider(null);
+    }
+
 }
