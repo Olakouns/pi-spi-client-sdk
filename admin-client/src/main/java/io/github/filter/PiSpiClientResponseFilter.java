@@ -21,7 +21,6 @@ public class PiSpiClientResponseFilter extends BaseFilter implements ClientRespo
             logResponse(method, uri, status, responseContext);
         }
 
-//        if (status >= 400 && status != 401) {
         if (status >= 400) {
             handleErrorResponse(method, uri, status, responseContext);
         }
