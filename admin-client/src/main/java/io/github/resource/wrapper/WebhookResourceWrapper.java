@@ -1,6 +1,9 @@
 package io.github.resource.wrapper;
 
-import io.github.representation.*;
+import io.github.representation.PagedResponse;
+import io.github.representation.WebhookRenewRequest;
+import io.github.representation.WebhookRepresentation;
+import io.github.representation.WebhookRequest;
 import io.github.resource.WebhookResource;
 
 import javax.ws.rs.client.WebTarget;

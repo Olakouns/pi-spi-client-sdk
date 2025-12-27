@@ -13,7 +13,6 @@ import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.*;
 
 import javax.ws.rs.core.MediaType;
-
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;

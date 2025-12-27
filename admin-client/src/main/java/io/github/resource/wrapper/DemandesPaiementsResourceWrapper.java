@@ -1,6 +1,5 @@
 package io.github.resource.wrapper;
 
-import io.github.representation.AliasRepresentation;
 import io.github.representation.ConfirmationRequest;
 import io.github.representation.DemandesPaiementsRepresentation;
 import io.github.representation.PagedResponse;
