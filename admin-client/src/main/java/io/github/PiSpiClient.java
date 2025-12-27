@@ -85,7 +85,6 @@ public class PiSpiClient implements AutoCloseable {
     private ApiResourceWrapper apiWrapper;
 
     PiSpiClient(BaseConfig config, Client client, String authToken) {
-        System.err.println("Before creating PiSpiClient instance -- Before" + client);
         this.config = config;
         this.client = client;
         this.authToken = authToken;
