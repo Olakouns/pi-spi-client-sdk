@@ -543,4 +543,72 @@ public class FilterBuilderTest {
                 .containsEntry("sort", "-dateCreation");
     }
 
+    @Test
+    @DisplayName("in filter should do nothing if values are null or empty")
+    void testInFilterEmpty() {
+        FilterBuilder builder = new FilterBuilder();
+
+        // Test null
+        builder.in("field", (Object[]) null);
+        // Test vide
+        builder.in("field");
+
+        assertThat(builder.build()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("where filter should ignore null field or null value")
+    void testWhereFilterNulls() {
+        FilterBuilder builder = new FilterBuilder();
+
+        builder.where(null, "value"); // field null
+        builder.where("field", null); // value null
+
+        assertThat(builder.build()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("sort methods should ignore blank fields")
+    void testSortBlankFields() {
+        FilterBuilder builder = new FilterBuilder()
+                .sortAsc("   ")
+                .sortDesc(" \t ");
+
+        assertThat(builder.build()).doesNotContainKey("sort");
+    }
+
+    @Test
+    @DisplayName("sort varargs should do nothing if null")
+    void testSortVarargsNull() {
+        FilterBuilder builder = new FilterBuilder().sort((Object[]) null);
+        assertThat(builder.build()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("add method should ignore null values")
+    void testAddNullValue() {
+        FilterBuilder builder = new FilterBuilder().eq("test", null);
+        assertThat(builder.build()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should ignore fields that are null, empty, or only spaces")
+    void shouldIgnoreInvalidSortFields() {
+        FilterBuilder builder = new FilterBuilder();
+
+        // 1. Branche FALSE on 'field != null'
+        builder.sortDesc(null);
+
+        // 2. Branche FALSE on '!field.trim().isEmpty()' with empty string
+        builder.sortDesc("");
+
+        // 3. Branche FALSE
+        builder.sortDesc("   ");
+
+        Map<String, String> result = builder.build();
+
+        // Verify that no sort entry was added
+        assertThat(result).doesNotContainKey("sort");
+    }
+
 }

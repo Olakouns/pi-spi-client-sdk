@@ -13,7 +13,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
@@ -89,6 +89,98 @@ public class BearerAuthFilterTest {
     void shouldNotInvalidateOnSuccess() throws Exception {
         // --- ARRANGE ---
         when(mockResponseContext.getStatus()).thenReturn(200);
+        BearerAuthFilter filter = new BearerAuthFilter(mockTokenManager);
+
+        // --- ACT ---
+        filter.filter(mockRequestContext, mockResponseContext);
+
+        // --- ASSERT ---
+        verify(mockTokenManager, never()).invalidate(anyString());
+    }
+
+    @Test
+    @DisplayName("Should return early if Authorization header is missing on 401")
+    void shouldReturnEarlyWhenNoAuthHeaderOn401() throws Exception {
+        // --- ARRANGE ---
+        when(mockResponseContext.getStatus()).thenReturn(401);
+        headers.remove(HttpHeaders.AUTHORIZATION);
+
+        BearerAuthFilter filter = new BearerAuthFilter(mockTokenManager);
+
+        // --- ACT ---
+        filter.filter(mockRequestContext, mockResponseContext);
+
+        // --- ASSERT ---
+        verify(mockTokenManager, never()).invalidate(anyString());
+    }
+
+    @Test
+    @DisplayName("Should cover getLogger via Reflection")
+    void shouldCoverGetLoggerWithReflection() throws Exception {
+        BearerAuthFilter filter = new BearerAuthFilter("token");
+        java.lang.reflect.Method method = BearerAuthFilter.class.getDeclaredMethod("getLogger");
+        method.setAccessible(true);
+
+        Object result = method.invoke(filter);
+        assertNotNull(result);
+    }
+
+    @Test
+    @DisplayName("Should not add prefix if it is already present")
+    void shouldNotDoublePrefix() throws Exception {
+        String tokenWithPrefix = "Bearer already-has-it";
+        BearerAuthFilter filter = new BearerAuthFilter(tokenWithPrefix);
+
+        filter.filter(mockRequestContext);
+
+        assertEquals("Bearer already-has-it", headers.getFirst(HttpHeaders.AUTHORIZATION));
+    }
+
+    @Test
+    @DisplayName("Should do nothing on 401 if tokenManager is null")
+    void shouldDoNothingOn401IfNoManager() throws Exception {
+        when(mockResponseContext.getStatus()).thenReturn(401);
+        BearerAuthFilter filter = new BearerAuthFilter("static-token");
+
+        filter.filter(mockRequestContext, mockResponseContext);
+
+        verifyNoInteractions(mockTokenManager);
+    }
+
+    @Test
+    @DisplayName("Should ignore Authorization header if it does not start with Bearer")
+    void shouldIgnoreNonBearerAuthHeader() throws Exception {
+        headers.add(HttpHeaders.AUTHORIZATION, "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==");
+        when(mockResponseContext.getStatus()).thenReturn(401);
+        BearerAuthFilter filter = new BearerAuthFilter(mockTokenManager);
+
+        filter.filter(mockRequestContext, mockResponseContext);
+
+        // Verify
+        verify(mockTokenManager, never()).invalidate(anyString());
+    }
+
+    @Test
+    @DisplayName("Should skip prefix check if token is null")
+    void shouldHandleNullToken() throws Exception {
+        // --- ARRANGE ---
+        when(mockTokenManager.getAccessTokenString()).thenReturn(null);
+        BearerAuthFilter filter = new BearerAuthFilter(mockTokenManager);
+
+        // --- ACT ---
+        filter.filter(mockRequestContext);
+
+        // --- ASSERT ---
+        assertNull(headers.getFirst(HttpHeaders.AUTHORIZATION));
+    }
+
+    @Test
+    @DisplayName("Should ignore Authorization header if it is not a String")
+    void shouldIgnoreNonStringAuthHeader() throws Exception {
+        // --- ARRANGE ---
+        when(mockResponseContext.getStatus()).thenReturn(401);
+        headers.add(HttpHeaders.AUTHORIZATION, 12345L);
+
         BearerAuthFilter filter = new BearerAuthFilter(mockTokenManager);
 
         // --- ACT ---

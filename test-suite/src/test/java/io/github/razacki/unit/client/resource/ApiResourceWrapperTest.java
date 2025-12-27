@@ -1,11 +1,9 @@
 package io.github.razacki.unit.client.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.PiSpiClient;
 import io.github.provider.JacksonProvider;
 import io.github.representation.EnrollmentRepresentation;
 import io.github.resource.ApiResource;
-import io.github.resource.ComptesResource;
 import io.github.resource.wrapper.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -143,5 +144,21 @@ public class PiSpiClientResponseFilterTest {
 
         assertEquals("HTTP Error 401", exception.getErrorResponse().getTitle());
         assertEquals(401, exception.getErrorResponse().getStatus());
+    }
+
+    @Test
+    @DisplayName("Should cover debug logging and error handling branches")
+    void shouldCoverAllBranches() {
+        Logger julLogger = java.util.logging.Logger.getLogger(io.github.filter.PiSpiClientResponseFilter.class.getName());
+        julLogger.setLevel(java.util.logging.Level.FINE); // FINE = DEBUG
+
+
+        when(mockResponseContext.getStatus()).thenReturn(400);
+        when(mockResponseContext.hasEntity()).thenReturn(false);
+
+        // 3. ACT & ASSERT
+        assertThrows(PiSpiApiException.class, () ->
+                filter.filter(mockRequestContext, mockResponseContext)
+        );
     }
 }
