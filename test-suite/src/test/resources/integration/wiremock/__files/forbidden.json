@@ -1,0 +1,13 @@
+{
+  "type": "about:blank",
+  "title": "Forbidden",
+  "status": 403,
+  "detail": "Le solde du compte est insuffisant pour effectuer ce transfert.",
+  "instance": "/comptes/transactions/23511722",
+  "invalid-params": [
+    {
+      "name": "montant",
+      "reason": "Le montant est supérieur au solde disponible."
+    }
+  ]
+}

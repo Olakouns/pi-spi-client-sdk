@@ -18,6 +18,7 @@
 package io.github.filter;
 
 import io.github.token.TokenManager;
+import org.jboss.logging.Logger;
 
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
@@ -27,10 +28,12 @@ import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.util.List;
 
-public class BearerAuthFilter implements ClientRequestFilter, ClientResponseFilter {
+public class BearerAuthFilter extends BaseFilter implements ClientRequestFilter, ClientResponseFilter {
     public static final String AUTH_HEADER_PREFIX = "Bearer ";
     private final String tokenString;
     protected final TokenManager tokenManager;
+    private static final Logger logger = Logger.getLogger(BearerAuthFilter.class);
+
 
     public BearerAuthFilter(String tokenString) {
         this.tokenString = tokenString;
@@ -45,7 +48,7 @@ public class BearerAuthFilter implements ClientRequestFilter, ClientResponseFilt
     @Override
     public void filter(ClientRequestContext clientRequestContext) throws IOException {
         String authHeader = (tokenManager != null ? tokenManager.getAccessTokenString() : tokenString);
-        if (!authHeader.startsWith(AUTH_HEADER_PREFIX)) {
+        if (authHeader != null && !authHeader.startsWith(AUTH_HEADER_PREFIX)) {
             authHeader = AUTH_HEADER_PREFIX + authHeader;
         }
         clientRequestContext.getHeaders().add(HttpHeaders.AUTHORIZATION, authHeader);
@@ -73,5 +76,10 @@ public class BearerAuthFilter implements ClientRequestFilter, ClientResponseFilt
 
     protected String getAuthHeaderPrefix() {
         return AUTH_HEADER_PREFIX;
+    }
+
+    @Override
+    protected Logger getLogger() {
+        return logger;
     }
 }

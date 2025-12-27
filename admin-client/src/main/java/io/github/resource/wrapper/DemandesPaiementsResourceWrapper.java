@@ -1,15 +1,18 @@
 package io.github.resource.wrapper;
 
+import io.github.representation.AliasRepresentation;
 import io.github.representation.ConfirmationRequest;
 import io.github.representation.DemandesPaiementsRepresentation;
+import io.github.representation.PagedResponse;
 import io.github.resource.DemandesPaiementsResource;
 
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 
 public class DemandesPaiementsResourceWrapper extends ListableWrapper<DemandesPaiementsRepresentation, DemandesPaiementsResource> {
     private static final String DEMANDES_PAIEMENTS_ID = "DemandesPaiements ID" ;
     public DemandesPaiementsResourceWrapper(DemandesPaiementsResource proxy, WebTarget target) {
-        super(proxy, target);
+        super(proxy, target, new GenericType<PagedResponse<DemandesPaiementsRepresentation>>() {});
     }
 
     public DemandesPaiementsRepresentation create(DemandesPaiementsRepresentation demandesPaiementsRepresentation) {

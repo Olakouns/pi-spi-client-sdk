@@ -1,11 +1,10 @@
 package io.github.resource.wrapper;
 
-import io.github.representation.WebhookRenewRequest;
-import io.github.representation.WebhookRepresentation;
-import io.github.representation.WebhookRequest;
+import io.github.representation.*;
 import io.github.resource.WebhookResource;
 
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import java.time.OffsetDateTime;
 
 public class WebhookResourceWrapper extends ListableWrapper<WebhookRepresentation, WebhookResource> {
@@ -13,7 +12,7 @@ public class WebhookResourceWrapper extends ListableWrapper<WebhookRepresentatio
     private static final String WEBHOOK_ID = "Webhook ID";
 
     public WebhookResourceWrapper(WebhookResource proxy, WebTarget target) {
-        super(proxy, target);
+        super(proxy, target, new GenericType<PagedResponse<WebhookRepresentation>>() {});
     }
 
     public WebhookRepresentation create(WebhookRequest webhook) {

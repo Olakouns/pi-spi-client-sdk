@@ -17,7 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.3</junit.version>
         <assertj-core.version>3.27.6</assertj-core.version>
-        <wiremock.version>3.13.2</wiremock.version>
+        <wiremock.version>2.35.2</wiremock.version>
+        <slf4j-simple.version>1.7.36</slf4j-simple.version>
         <mockwebserver.version>4.12.0</mockwebserver.version>
         <mockito-core.version>4.11.0</mockito-core.version>
         <junit-platform-suite.version>1.8.2</junit-platform-suite.version>
@@ -74,9 +75,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.wiremock</groupId>
-            <artifactId>wiremock</artifactId>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
             <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
             <scope>test</scope>
         </dependency>
 

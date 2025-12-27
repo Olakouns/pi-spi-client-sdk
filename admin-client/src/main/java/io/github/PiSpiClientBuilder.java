@@ -47,7 +47,7 @@ public class PiSpiClientBuilder {
     }
 
     public PiSpiClientBuilder clientSecret(String clientSecret) {
-        this.clientId = clientSecret;
+        this.clientSecret = clientSecret;
         return this;
     }
 

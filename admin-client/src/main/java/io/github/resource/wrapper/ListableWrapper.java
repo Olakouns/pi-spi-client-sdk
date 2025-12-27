@@ -8,8 +8,11 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 
 public abstract class ListableWrapper<T, R extends PageableResource<T>> extends BaseWrapper<R> {
-    protected ListableWrapper(R proxy, WebTarget target) {
+    private final GenericType<PagedResponse<T>> responseType;
+
+    protected ListableWrapper(R proxy, WebTarget target, GenericType<PagedResponse<T>> responseType) {
         super(proxy, target);
+        this.responseType = responseType;
     }
 
     public PagedResponse<T> list(int page, int size) {
@@ -17,7 +20,6 @@ public abstract class ListableWrapper<T, R extends PageableResource<T>> extends 
     }
 
     public ListQueryBuilder<T> query() {
-        return new ListQueryBuilder<>(target, new GenericType<PagedResponse<T>>() {
-        });
+        return new ListQueryBuilder<>(target, responseType);
     }
 }

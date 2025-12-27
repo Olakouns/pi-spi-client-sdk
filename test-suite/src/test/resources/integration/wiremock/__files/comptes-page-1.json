@@ -1,0 +1,71 @@
+{
+  "data": [
+    {
+      "numero": "CIC2344256727788288822",
+      "type": "CACC",
+      "dateOuverture": "2023-02-21T15:30:01.250Z",
+      "statut": "OUVERT"
+    },
+    {
+      "numero": "CIC2344256727788288833",
+      "type": "SVGS",
+      "dateOuverture": "2023-03-15T10:20:30.000Z",
+      "statut": "OUVERT"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    },
+    {
+      "numero": "CIC2344256727788288844",
+      "type": "CACC",
+      "dateOuverture": "2023-01-10T08:45:00.000Z",
+      "statut": "BLOQUE"
+    }
+  ],
+  "meta": {
+    "total": 10,
+    "size": 10,
+    "page": "0",
+    "next": null,
+    "prev": null
+  }
+}

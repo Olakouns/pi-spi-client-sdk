@@ -1,16 +1,18 @@
 package io.github.resource.wrapper;
 
 import io.github.representation.CompteRepresentation;
+import io.github.representation.PagedResponse;
 import io.github.resource.ComptesResource;
 
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 
 public class ComptesResourceWrapper extends ListableWrapper<CompteRepresentation, ComptesResource> {
 
     private TransactionResourceWrapper transactions;
 
     public ComptesResourceWrapper(ComptesResource proxy, WebTarget target) {
-        super(proxy, target);
+        super(proxy, target, new GenericType<PagedResponse<CompteRepresentation>>() {});
     }
 
     public CompteRepresentation findByNumero(String numero) {

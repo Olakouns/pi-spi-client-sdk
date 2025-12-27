@@ -1,0 +1,6 @@
+{
+  "type": "about:blank",
+  "title": "Service Unavailable",
+  "status": 503,
+  "detail": "Le service est temporairement indisponible."
+}
