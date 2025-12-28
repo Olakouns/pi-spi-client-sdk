@@ -7,23 +7,33 @@ import io.github.util.DataUtil;
 
 import java.time.OffsetDateTime;
 
-public class DemandePaiementGroupeRepresentation {
+public class PaiementGroupeRepresentation {
     private String instructionId;
+
     private DemandePaiementGroupeStatut statut;
+
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateDemande;
+
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateConfirmation;
+
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateExpiration;
+
     @JsonFormat(pattern = DataUtil.JSON_DATE_FORMAT)
     private OffsetDateTime dateAnnulation;
 
     private Integer transactionsTotal;
+
     private Integer transactionsInitiees;
+
     private Integer transactionsEnvoyees;
+
     private Integer transactionsIrrevocables;
+
     private Integer transactionsRejetees;
+
 
     public String getInstructionId() {
         return instructionId;

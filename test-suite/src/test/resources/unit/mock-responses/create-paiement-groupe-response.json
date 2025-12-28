@@ -1,0 +1,43 @@
+{
+  "instructionId": "SALAIRES-2025-01-1",
+  "payeurAlias": "8b1b2499-3e50-435b-b757-ac7a83d8aa7f",
+  "confirmation": true,
+  "motif": "Salaire de janvier 2025",
+  "transactions": [
+    {
+      "txId": "SAL-202501-C06946-1",
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "montant": 1500000
+    },
+    {
+      "txId": "SAL-202501-C06947-2",
+      "payeAlias": "s03b2499-3e50-635b-b757-ac7a83d8aa8c",
+      "montant": 1000000
+    },
+    {
+      "txId": "SAL-202501-C06948-3",
+      "payeAlias": "s03b2499-3e50-535b-b757-ac7a83d8aa8c",
+      "montant": 2000000
+    },
+    {
+      "txId": "SAL-202501-C06949-4",
+      "payeAlias": "s03b2499-3e50-735b-b757-ac7a83d8aa8c",
+      "montant": 1000000
+    },
+    {
+      "txId": "SAL-202501-P06950-5",
+      "payeAlias": "s03b2499-3e50-835b-b757-ac7a83d8aa8c",
+      "montant": 900000
+    },
+    {
+      "txId": "SAL-202501-C06951-6",
+      "payeAlias": "s03b2499-3e50-935b-b757-ac7a83d8aa8c",
+      "montant": 1200000
+    },
+    {
+      "txId": "SAL-202501-C06952-7",
+      "payeAlias": "s03b2499-3e50-1035b-b757-ac7a83d8aa8c",
+      "montant": 1400000
+    }
+  ]
+}

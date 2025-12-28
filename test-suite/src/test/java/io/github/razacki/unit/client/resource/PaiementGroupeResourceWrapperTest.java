@@ -1,12 +1,15 @@
 package io.github.razacki.unit.client.resource;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.exception.PiSpiException;
 import io.github.provider.JacksonProvider;
-import io.github.representation.DemandePaiementGroupeRequest;
+import io.github.razacki.TestUtils;
 import io.github.representation.PaiementGroupeRepresentation;
+import io.github.representation.PaiementGroupeRequest;
 import io.github.representation.enums.DemandePaiementGroupeStatut;
-import io.github.resource.DemandePaiementGroupeResource;
-import io.github.resource.wrapper.DemandePaiementGroupeResourceWrapper;
+import io.github.resource.PaiementGroupeResource;
+import io.github.resource.wrapper.PaiementGroupeResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -25,23 +28,26 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @Tag("unit")
-@DisplayName("DemandePaiementGroupeResourceWrapper Tests")
-public class DemandePaiementGroupeResourceWrapperTest {
+@DisplayName("PaiementGroupeResourceWrapper Tests")
+public class PaiementGroupeResourceWrapperTest {
     private MockWebServer mockServer;
-    private DemandePaiementGroupeResourceWrapper wrapper;
+    private PaiementGroupeResourceWrapper wrapper;
     private Client client;
+    private static ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() throws IOException {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         mockServer = new MockWebServer();
         mockServer.start();
 
         client = ClientBuilder.newClient().register(JacksonProvider.class);
-        WebTarget rootTarget = client.target(mockServer.url("/demandes-paiements-groupes").toString());
+        WebTarget rootTarget = client.target(mockServer.url("/paiements-groupes").toString());
 
-        DemandePaiementGroupeResource proxy = ((ResteasyWebTarget) rootTarget).proxy(DemandePaiementGroupeResource.class);
+        PaiementGroupeResource proxy = ((ResteasyWebTarget) rootTarget).proxy(PaiementGroupeResource.class);
 
-        wrapper = new DemandePaiementGroupeResourceWrapper(proxy, rootTarget);
+        wrapper = new PaiementGroupeResourceWrapper(proxy, rootTarget);
     }
 
     @AfterEach
@@ -51,11 +57,12 @@ public class DemandePaiementGroupeResourceWrapperTest {
     }
 
     @Test
-    @DisplayName("Should create a group payment request (HTTP 202)")
+    @DisplayName("Should create a group payment (HTTP 202)")
     void shouldCreateGroupPayment() throws Exception {
         // Arrange
-        DemandePaiementGroupeRequest requestBody = new DemandePaiementGroupeRequest();
         mockServer.enqueue(new MockResponse().setResponseCode(202));
+        String json = TestUtils.loadJson("/unit/mock-responses/create-paiement-groupe-response.json");
+        PaiementGroupeRequest requestBody = objectMapper.readValue(json, PaiementGroupeRequest.class);
 
         // Act
         wrapper.create(requestBody);
@@ -70,7 +77,7 @@ public class DemandePaiementGroupeResourceWrapperTest {
     @DisplayName("Should find group payment by instructionId")
     void shouldFindById() throws Exception {
         // Arrange
-        String instructionId = "RTP-MASSE-2025-01";
+        String instructionId = "SALAIRES-2025-01";
         mockGetResponse(instructionId);
 
         // Act
@@ -80,7 +87,7 @@ public class DemandePaiementGroupeResourceWrapperTest {
         assertThat(result).isNotNull();
         assertThat(result.getInstructionId()).isEqualTo(instructionId);
         assertThat(result.getStatut()).isEqualTo(DemandePaiementGroupeStatut.INITIE);
-        assertThat(result.getTransactionsTotal()).isEqualTo(50);
+        assertThat(result.getTransactionsTotal()).isEqualTo(500);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getPath()).endsWith("/" + instructionId);
@@ -100,7 +107,7 @@ public class DemandePaiementGroupeResourceWrapperTest {
         // Assert
         assertThat(result).isNotNull();
         assertThat(result.getStatut()).isEqualTo(DemandePaiementGroupeStatut.CONFIRME);
-        assertThat(result.getTransactionsEnvoyees()).isEqualTo(48);
+        assertThat(result.getTransactionsEnvoyees()).isEqualTo(7);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getMethod()).isEqualTo(HttpMethod.PUT);
@@ -120,7 +127,7 @@ public class DemandePaiementGroupeResourceWrapperTest {
     void shouldValidateNullRequest() {
         assertThatThrownBy(() -> wrapper.create(null))
                 .isInstanceOf(PiSpiException.class)
-                .hasMessageContaining("DemandePaiementGroupeRequest cannot be null");
+                .hasMessageContaining("PaiementGroupeRequest cannot be null");
     }
 
 
@@ -130,8 +137,8 @@ public class DemandePaiementGroupeResourceWrapperTest {
                 "  \"statut\": \"INITIE\",\n" +
                 "  \"dateDemande\": \"2024-10-17T10:00:00Z\",\n" +
                 "  \"dateExpiration\": \"2024-10-18T10:00:00Z\",\n" +
-                "  \"transactionsTotal\": 50,\n" +
-                "  \"transactionsInitiees\": 48,\n" +
+                "  \"transactionsTotal\": 500,\n" +
+                "  \"transactionsInitiees\": 498,\n" +
                 "  \"transactionsEnvoyees\": 0,\n" +
                 "  \"transactionsIrrevocables\": 0,\n" +
                 "  \"transactionsRejetees\": 2\n" +
@@ -145,11 +152,11 @@ public class DemandePaiementGroupeResourceWrapperTest {
                 "  \"statut\": \"CONFIRME\",\n" +
                 "  \"dateDemande\": \"2024-10-17T10:00:00Z\",\n" +
                 "  \"dateConfirmation\": \"2024-10-17T10:05:00Z\",\n" +
-                "  \"transactionsTotal\": 50,\n" +
+                "  \"transactionsTotal\": 7,\n" +
                 "  \"transactionsInitiees\": 0,\n" +
-                "  \"transactionsEnvoyees\": 48,\n" +
+                "  \"transactionsEnvoyees\": 7,\n" +
                 "  \"transactionsIrrevocables\": 0,\n" +
-                "  \"transactionsRejetees\": 2\n" +
+                "  \"transactionsRejetees\": 0\n" +
                 "}";
         enqueueJson(json);
     }

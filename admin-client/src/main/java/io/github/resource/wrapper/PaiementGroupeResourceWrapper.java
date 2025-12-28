@@ -1,30 +1,28 @@
 package io.github.resource.wrapper;
 
 import io.github.representation.ConfirmationRequest;
-import io.github.representation.DemandePaiementGroupeRequest;
 import io.github.representation.PaiementGroupeRepresentation;
-import io.github.resource.DemandePaiementGroupeResource;
+import io.github.representation.PaiementGroupeRequest;
+import io.github.resource.PaiementGroupeResource;
 
 import javax.ws.rs.client.WebTarget;
 
-public class DemandePaiementGroupeResourceWrapper extends BaseWrapper<DemandePaiementGroupeResource> {
+public class PaiementGroupeResourceWrapper extends BaseWrapper<PaiementGroupeResource> {
     private static final String DEMANDE_PAIEMENT_GROUPE_ID = "Instruction ID";
 
-    public DemandePaiementGroupeResourceWrapper(DemandePaiementGroupeResource proxy, WebTarget target) {
+    public PaiementGroupeResourceWrapper(PaiementGroupeResource proxy, WebTarget target) {
         super(proxy, target);
     }
 
-    public void create(DemandePaiementGroupeRequest demandePaiementGroupeRequest) {
-        validateNotNull(demandePaiementGroupeRequest, "DemandePaiementGroupeRequest");
-        proxy.create(demandePaiementGroupeRequest);
+    public void create(PaiementGroupeRequest paiementGroupeRequest) {
+        validateNotNull(paiementGroupeRequest, "PaiementGroupeRequest");
+        proxy.create(paiementGroupeRequest);
     }
-
 
     public PaiementGroupeRepresentation findById(String instructionId) {
         validateNotEmpty(instructionId, DEMANDE_PAIEMENT_GROUPE_ID);
         return proxy.findById(instructionId);
     }
-
 
     public PaiementGroupeRepresentation confirm(String instructionId, boolean decision) {
         validateNotEmpty(instructionId, DEMANDE_PAIEMENT_GROUPE_ID);
