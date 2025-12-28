@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "txId": "a755485465e4d5ddsqddqde",
+      "instructionId": "123-5678292",
+      "categorie": "733",
+      "payeurCompte": "1234567890",
+      "payeurAlias": "9b1b3499-3e50-435b-b757-ac7a83d8aa96",
+      "confirmation": false,
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "payeNom": "DIOP Mamadou",
+      "payePays": "SN",
+      "montant": 15000,
+      "statut": "IRREVOCABLE",
+      "end2endId": "ESNB00120230221103000KXvozkpNvhUk9e",
+      "dateDemande": "2023-02-21T10:30:00.000Z",
+      "dateConfirmation": "2023-02-21T10:30:00.000Z",
+      "dateEnvoi": "2023-02-21T10:30:00.100Z",
+      "dateIrrevocabilite": "2023-02-21T10:30:01.000Z",
+      "dateReponse": "2023-02-21T10:30:01.100Z"
+    },
+    {
+      "txId": "b755485465e4d5ddsqddqde",
+      "instructionId": "123-5678292",
+      "categorie": "733",
+      "payeurCompte": "1234567890",
+      "payeurAlias": "9b1b3499-3e50-435b-b757-ac7a83d8aa96",
+      "confirmation": true,
+      "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+      "payeNom": "DIOP Mamadou",
+      "payePays": "SN",
+      "montant": 15000,
+      "statut": "REJETE",
+      "statutRaison": "AG11",
+      "end2endId": "ESNB00120230221103000KXvozkpNvhUk9f",
+      "dateDemande": "2023-02-21T10:30:00.000Z",
+      "dateConfirmation": "2023-02-21T10:30:20.000Z",
+      "dateEnvoi": "2023-02-21T10:30:20.100Z",
+      "dateReponse": "2023-02-21T10:30:20.900Z"
+    }
+  ],
+  "meta": {
+    "size": 2,
+    "total": 2
+  }
+}

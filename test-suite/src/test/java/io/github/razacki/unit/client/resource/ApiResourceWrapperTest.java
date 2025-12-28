@@ -71,11 +71,15 @@ public class ApiResourceWrapperTest {
         DemandePaiementGroupeResourceWrapper dG1 = wrapper.demandesPaiementsGroupes();
         DemandePaiementGroupeResourceWrapper dG2 = wrapper.demandesPaiementsGroupes();
 
+        PaiementResourceWrapper p1 = wrapper.paiements();
+        PaiementResourceWrapper p2 = wrapper.paiements();
+
         // Assert: Verify they are not null and instances are reused
         assertThat(c1).isNotNull().isSameAs(c2);
         assertThat(w1).isNotNull().isSameAs(w2);
         assertThat(d1).isNotNull().isSameAs(d2);
         assertThat(dG1).isNotNull().isSameAs(dG2);
+        assertThat(p1).isNotNull().isSameAs(p2);
     }
 
     @Test

@@ -5,7 +5,7 @@ import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
 import io.github.representation.DemandesPaiementsRepresentation;
 import io.github.representation.PagedResponse;
-import io.github.representation.enums.DemandesPaiementsStatut;
+import io.github.representation.enums.PaiementsStatut;
 import io.github.resource.DemandesPaiementsResource;
 import io.github.resource.wrapper.DemandesPaiementsResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
@@ -89,7 +89,8 @@ public class DemandesPaiementsResourceWrapperTest {
         // Assert
         assertThat(result).isNotNull();
         assertThat(result.getTxId()).isEqualTo("23511722");
-        assertThat(result.getStatut()).isEqualTo(DemandesPaiementsStatut.ENVOYE);
+        assertThat(result.getCategorie().getCode()).isEqualTo("500");
+        assertThat(result.getStatut()).isEqualTo(PaiementsStatut.ENVOYE);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getMethod()).isEqualTo(HttpMethod.POST);
@@ -142,7 +143,7 @@ public class DemandesPaiementsResourceWrapperTest {
 
         // Assert
         assertThat(result).isNotNull();
-        assertThat(result.getStatut()).isEqualTo(DemandesPaiementsStatut.ENVOYE);
+        assertThat(result.getStatut()).isEqualTo(PaiementsStatut.ENVOYE);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getMethod()).isEqualTo(HttpMethod.PUT);
@@ -206,7 +207,7 @@ public class DemandesPaiementsResourceWrapperTest {
                 "  \"payeurNom\": \"Nom du client payé\",\n" +
                 "  \"payeurPays\": \"BJ\",\n" +
                 "  \"montant\": 150000,\n" +
-                "  \"categorie\": 500,\n" +
+                "  \"categorie\": \"500\",\n" +
                 "  \"dateLimitePaiement\": \"2023-02-22T15:32:01.250Z\",\n" +
                 "  \"end2endId\": \"ESNB00120230221153001KXvozkpNvhUk9a\",\n" +
                 "  \"dateDemande\": \"2023-02-21T15:30:01.150Z\",\n" +

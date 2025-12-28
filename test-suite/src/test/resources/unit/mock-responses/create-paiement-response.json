@@ -1,0 +1,15 @@
+{
+  "txId": "23552722",
+  "payeurAlias": "8b1b2499-3e50-435b-b757-ac7a83d8aa7f",
+  "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+  "montant": 150000,
+  "refDocType": "INVS",
+  "refDocNumero": "1234567890",
+  "statut": "ENVOYE",
+  "confirmation": false,
+  "payeNom": "Entreprise XYZ",
+  "payePays": "GW",
+  "dateDemande": "2023-02-21T15:30:01.250Z",
+  "dateConfirmation": "2023-02-21T15:30:01.250Z",
+  "end2endId": "ESNB00120230221153554KXvozkpNvhUk9e"
+}

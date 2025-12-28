@@ -22,4 +22,7 @@ public interface ApiResource {
 
     @Path("/demandes-paiements-groupes")
     DemandePaiementGroupeResource demandesPaiementsGroupes();
+
+    @Path("/paiements")
+    PaiementResource paiements();
 }

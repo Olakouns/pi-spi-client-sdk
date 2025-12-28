@@ -1,6 +1,6 @@
 package io.github.representation.enums;
 
-public enum DemandesPaiementsStatut {
+public enum PaiementsStatut {
     INITIE("la confirmation du client est attendue suite à la recherche d'alias"),
     ANNULE("lors de la confirmation, le business a annulé l'envoi du paiement"),
     ENVOYE("les validations sont concluantes et que le PSP a envoyé la demande"),
@@ -9,7 +9,7 @@ public enum DemandesPaiementsStatut {
 
     private final String description;
 
-    DemandesPaiementsStatut(String description) {
+    PaiementsStatut(String description) {
         this.description = description;
     }
 
@@ -18,8 +18,8 @@ public enum DemandesPaiementsStatut {
     }
 
 
-    public static DemandesPaiementsStatut fromCode(String code) {
-        for (DemandesPaiementsStatut reason : DemandesPaiementsStatut.values()) {
+    public static PaiementsStatut fromCode(String code) {
+        for (PaiementsStatut reason : PaiementsStatut.values()) {
             if (reason.name().equalsIgnoreCase(code)) {
                 return reason;
             }

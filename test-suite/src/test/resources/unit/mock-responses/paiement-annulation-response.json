@@ -1,0 +1,21 @@
+{
+  "txId": "Tag-a7d96dfdsdf965dfdsdf",
+  "payeurAlias": "9b1b3499-3e50-435b-b757-ac7a83d8aa96",
+  "payeurCompte": "1234567890",
+  "categorie": "401",
+  "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+  "payeNom": "Fournisseur Az 582f",
+  "payePays": "SN",
+  "montant": 2000000,
+  "confirmation": false,
+  "dateDemande": "2023-02-21T10:30:00.050Z",
+  "dateConfirmation": "2023-02-21T10:30:00.050Z",
+  "dateEnvoi": "2023-02-21T10:30:00.100Z",
+  "statut": "IRREVOCABLE",
+  "end2endId": "ESNB00120230221103000KXvozkpNvhUk9e",
+  "dateIrrevocabilite": "2023-02-21T10:30:01.000Z",
+  "motif": "Demande de paiement sur site acceptée",
+  "annulationStatut": "ENVOYE",
+  "annulationMotif": "AC03",
+  "annulationDateDemande": "2023-02-22T15:30:01.000Z"
+}

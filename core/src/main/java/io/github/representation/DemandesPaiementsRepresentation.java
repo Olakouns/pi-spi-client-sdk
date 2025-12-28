@@ -1,8 +1,9 @@
 package io.github.representation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.github.representation.enums.DemandesPaiementsStatut;
-import io.github.representation.enums.DemandesStatutRaison;
+import io.github.representation.enums.PaiementCategory;
+import io.github.representation.enums.PaiementsStatut;
+import io.github.representation.enums.StatutRaison;
 import io.github.util.DataUtil;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.time.OffsetDateTime;
 
 public class DemandesPaiementsRepresentation {
     private String txId;
-    private String categorie;
+    private PaiementCategory categorie;
     private String payeAlias;
     private String logoUrl;
     private String payeurAlias;
@@ -28,8 +29,8 @@ public class DemandesPaiementsRepresentation {
     private String refDocNumero;
     private RefDocType refDocType;
 
-    private DemandesPaiementsStatut statut;
-    private DemandesStatutRaison statutRaison;
+    private PaiementsStatut statut;
+    private StatutRaison statutRaison;
 
     private String end2endId;
 
@@ -68,11 +69,11 @@ public class DemandesPaiementsRepresentation {
         this.txId = txId;
     }
 
-    public String getCategorie() {
+    public PaiementCategory getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(String categorie) {
+    public void setCategorie(PaiementCategory categorie) {
         this.categorie = categorie;
     }
 
@@ -180,19 +181,19 @@ public class DemandesPaiementsRepresentation {
         this.refDocType = refDocType;
     }
 
-    public DemandesPaiementsStatut getStatut() {
+    public PaiementsStatut getStatut() {
         return statut;
     }
 
-    public void setStatut(DemandesPaiementsStatut statut) {
+    public void setStatut(PaiementsStatut statut) {
         this.statut = statut;
     }
 
-    public DemandesStatutRaison getStatutRaison() {
+    public StatutRaison getStatutRaison() {
         return statutRaison;
     }
 
-    public void setStatutRaison(DemandesStatutRaison statutRaison) {
+    public void setStatutRaison(StatutRaison statutRaison) {
         this.statutRaison = statutRaison;
     }
 
@@ -305,7 +306,7 @@ public class DemandesPaiementsRepresentation {
             return this;
         }
 
-        public Builder categorie(String categorie) {
+        public Builder categorie(PaiementCategory categorie) {
             representation.setCategorie(categorie);
             return this;
         }
@@ -375,12 +376,12 @@ public class DemandesPaiementsRepresentation {
             return this;
         }
 
-        public Builder statut(DemandesPaiementsStatut statut) {
+        public Builder statut(PaiementsStatut statut) {
             representation.setStatut(statut);
             return this;
         }
 
-        public Builder statutRaison(DemandesStatutRaison statutRaison) {
+        public Builder statutRaison(StatutRaison statutRaison) {
             representation.setStatutRaison(statutRaison);
             return this;
         }

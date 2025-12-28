@@ -11,7 +11,6 @@ import javax.ws.rs.core.GenericType;
 import java.time.OffsetDateTime;
 
 public class WebhookResourceWrapper extends ListableWrapper<WebhookRepresentation, WebhookResource> {
-
     private static final String WEBHOOK_ID = "Webhook ID";
 
     public WebhookResourceWrapper(WebhookResource proxy, WebTarget target) {
