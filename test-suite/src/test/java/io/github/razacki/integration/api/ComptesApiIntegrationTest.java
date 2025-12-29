@@ -2,13 +2,13 @@ package io.github.razacki.integration.api;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
-import io.github.exception.PiSpiApiException;
-import io.github.filter.ApiKeyFilter;
+import io.github.razacki.exception.PiSpiApiException;
+import io.github.razacki.filter.ApiKeyFilter;
 import io.github.razacki.integration.AbstractIntegrationTest;
-import io.github.representation.CompteRepresentation;
-import io.github.representation.PagedResponse;
-import io.github.representation.enums.CompteStatut;
-import io.github.representation.enums.CompteType;
+import io.github.razacki.representation.CompteRepresentation;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.enums.CompteStatut;
+import io.github.razacki.representation.enums.CompteType;
 import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.*;
 
@@ -39,7 +39,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
 
         // Act
         PagedResponse<CompteRepresentation> response = client.api().comptes()
-                .list(0, 20);
+                .list("0", 20);
 
         // Assert
         assertThat(response).isNotNull();
@@ -209,8 +209,8 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withBodyFile("comptes-page-2.json")));
 
         // Act
-        PagedResponse<CompteRepresentation> page1 = client.api().comptes().list(0, 10);
-        PagedResponse<CompteRepresentation> page2 = client.api().comptes().list(1, 10);
+        PagedResponse<CompteRepresentation> page1 = client.api().comptes().list("0", 10);
+        PagedResponse<CompteRepresentation> page2 = client.api().comptes().list("1", 10);
 
         // Assert
         assertThat(page1.getData()).hasSize(10);
@@ -265,7 +265,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withBodyFile("unauthorized.json")));
 
         // Act & Assert
-        assertThatThrownBy(() -> client.api().comptes().list(0, 20))
+        assertThatThrownBy(() -> client.api().comptes().list("0", 20))
                 .isInstanceOf(RuntimeException.class)
                 .hasRootCauseInstanceOf(PiSpiApiException.class)
                 .hasMessageContaining("Unauthorized");
@@ -283,7 +283,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withBodyFile("forbidden.json")));
 
         // Act & Assert
-        assertThatThrownBy(() -> client.api().comptes().list(0, 20))
+        assertThatThrownBy(() -> client.api().comptes().list("0", 20))
                 .hasRootCauseInstanceOf(PiSpiApiException.class)
                 .cause()
                 .extracting("errorResponse")
@@ -327,7 +327,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withBodyFile("rate-limit-exception.json")));
 
         // Act & Assert
-        assertThatThrownBy(() -> client.api().comptes().list(0, 20))
+        assertThatThrownBy(() -> client.api().comptes().list("0", 20))
                 .isInstanceOf(RuntimeException.class)
                 .hasRootCauseInstanceOf(PiSpiApiException.class)
                 .hasMessageContaining("Too Many Requests");
@@ -345,7 +345,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withBodyFile("internal-server-error.json")));
 
         // Act & Assert
-        assertThatThrownBy(() -> client.api().comptes().list(0, 20))
+        assertThatThrownBy(() -> client.api().comptes().list("0", 20))
                 .isInstanceOf(RuntimeException.class)
                 .hasRootCauseInstanceOf(PiSpiApiException.class)
                 .hasMessageContaining("Internal Server Error");
@@ -363,7 +363,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withBodyFile("service-unavailable.json")));
 
         // Act & Assert
-        assertThatThrownBy(() -> client.api().comptes().list(0, 20))
+        assertThatThrownBy(() -> client.api().comptes().list("0", 20))
                 .isInstanceOf(RuntimeException.class)
                 .hasRootCauseInstanceOf(PiSpiApiException.class)
                 .hasMessageContaining("Service Unavailable");
@@ -383,7 +383,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
 
         // Act
         long startTime = System.currentTimeMillis();
-        PagedResponse<CompteRepresentation> response = client.api().comptes().list(0, 20);
+        PagedResponse<CompteRepresentation> response = client.api().comptes().list("0", 20);
         long duration = System.currentTimeMillis() - startTime;
 
         // Assert
@@ -401,7 +401,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                         .withFault(com.github.tomakehurst.wiremock.http.Fault.CONNECTION_RESET_BY_PEER)));
 
         // Act & Assert
-        assertThatThrownBy(() -> client.api().comptes().list(0, 20))
+        assertThatThrownBy(() -> client.api().comptes().list("0", 20))
                 .isInstanceOf(Exception.class);
     }
 

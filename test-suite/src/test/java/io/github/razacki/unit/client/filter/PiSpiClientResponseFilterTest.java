@@ -1,8 +1,8 @@
 package io.github.razacki.unit.client.filter;
 
-import io.github.exception.PiSpiApiException;
-import io.github.filter.PiSpiClientResponseFilter;
-import io.github.representation.ApiErrorResponse;
+import io.github.razacki.exception.PiSpiApiException;
+import io.github.razacki.filter.PiSpiClientResponseFilter;
+import io.github.razacki.representation.ApiErrorResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -149,7 +149,7 @@ public class PiSpiClientResponseFilterTest {
     @Test
     @DisplayName("Should cover debug logging and error handling branches")
     void shouldCoverAllBranches() {
-        Logger julLogger = java.util.logging.Logger.getLogger(io.github.filter.PiSpiClientResponseFilter.class.getName());
+        Logger julLogger = java.util.logging.Logger.getLogger(PiSpiClientResponseFilter.class.getName());
         julLogger.setLevel(java.util.logging.Level.FINE); // FINE = DEBUG
 
 

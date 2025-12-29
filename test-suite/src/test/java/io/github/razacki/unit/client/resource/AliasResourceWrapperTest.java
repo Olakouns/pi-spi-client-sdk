@@ -1,13 +1,13 @@
 package io.github.razacki.unit.client.resource;
 
-import io.github.exception.PiSpiException;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.AliasRepresentation;
-import io.github.representation.PagedResponse;
-import io.github.representation.enums.AliasType;
-import io.github.resource.AliasResource;
-import io.github.resource.wrapper.AliasResourceWrapper;
+import io.github.razacki.exception.PiSpiException;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.AliasRepresentation;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.enums.AliasType;
+import io.github.razacki.resource.AliasResource;
+import io.github.razacki.resource.wrapper.AliasResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -69,7 +69,7 @@ public class AliasResourceWrapperTest {
         mockPagedAliasesResponse();
 
         // Act
-        PagedResponse<AliasRepresentation> response = wrapper.list(1, 2);
+        PagedResponse<AliasRepresentation> response = wrapper.list("1", 2);
 
         // Assert
         assertThat(response).isNotNull();

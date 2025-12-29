@@ -2,10 +2,10 @@ package io.github.razacki.unit.core.representation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.github.representation.CompteRepresentation;
-import io.github.representation.PagedResponse;
-import io.github.representation.enums.CompteStatut;
-import io.github.representation.enums.CompteType;
+import io.github.razacki.representation.CompteRepresentation;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.enums.CompteStatut;
+import io.github.razacki.representation.enums.CompteType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

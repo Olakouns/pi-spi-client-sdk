@@ -1,6 +1,6 @@
 package io.github.razacki.unit.client.filter;
 
-import io.github.filter.ApiKeyFilter;
+import io.github.razacki.filter.ApiKeyFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

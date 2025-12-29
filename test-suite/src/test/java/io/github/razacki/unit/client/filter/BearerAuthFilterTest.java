@@ -1,7 +1,7 @@
 package io.github.razacki.unit.client.filter;
 
-import io.github.filter.BearerAuthFilter;
-import io.github.token.TokenManager;
+import io.github.razacki.filter.BearerAuthFilter;
+import io.github.razacki.token.TokenManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

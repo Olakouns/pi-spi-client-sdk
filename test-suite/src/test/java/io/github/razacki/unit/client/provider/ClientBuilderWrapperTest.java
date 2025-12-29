@@ -1,6 +1,6 @@
 package io.github.razacki.unit.client.provider;
 
-import io.github.provider.ClientBuilderWrapper;
+import io.github.razacki.provider.ClientBuilderWrapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

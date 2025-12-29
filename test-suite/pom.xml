@@ -28,7 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>io.github.razacki</groupId>
-            <artifactId>admin-client</artifactId>
+            <artifactId>pi-spi-admin-client</artifactId>
             <version>${project.version}</version>
         </dependency>
 

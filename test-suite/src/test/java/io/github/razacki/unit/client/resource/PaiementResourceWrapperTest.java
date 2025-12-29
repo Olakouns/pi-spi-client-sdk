@@ -1,15 +1,15 @@
 package io.github.razacki.unit.client.resource;
 
-import io.github.exception.PiSpiException;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.PagedResponse;
-import io.github.representation.PaiementRepresentation;
-import io.github.representation.enums.PaiementAnnulationMotif;
-import io.github.representation.enums.PaiementAnnulationStatut;
-import io.github.representation.enums.PaiementsStatut;
-import io.github.resource.PaiementResource;
-import io.github.resource.wrapper.PaiementResourceWrapper;
+import io.github.razacki.exception.PiSpiException;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.PaiementRepresentation;
+import io.github.razacki.representation.enums.PaiementAnnulationMotif;
+import io.github.razacki.representation.enums.PaiementAnnulationStatut;
+import io.github.razacki.representation.enums.PaiementsStatut;
+import io.github.razacki.resource.PaiementResource;
+import io.github.razacki.resource.wrapper.PaiementResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -63,7 +63,7 @@ public class PaiementResourceWrapperTest {
         enqueueJson(TestUtils.loadJson("/unit/mock-responses/paged-paiement-response.json"), 200);
 
         // Act
-        PagedResponse<PaiementRepresentation> response = wrapper.list(0, 10);
+        PagedResponse<PaiementRepresentation> response = wrapper.list("0", 10);
 
         // Assert
         assertThat(response.getData()).hasSize(2);

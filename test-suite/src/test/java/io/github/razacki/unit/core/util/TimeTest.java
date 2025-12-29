@@ -1,7 +1,7 @@
 package io.github.razacki.unit.core.util;
 
 
-import io.github.util.Time;
+import io.github.razacki.util.Time;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

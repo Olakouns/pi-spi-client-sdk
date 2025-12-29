@@ -1,12 +1,12 @@
 package io.github.razacki.unit.client.resource;
 
-import io.github.exception.PiSpiException;
-import io.github.provider.JacksonProvider;
-import io.github.representation.DemandePaiementGroupeRequest;
-import io.github.representation.PaiementGroupeRepresentation;
-import io.github.representation.enums.DemandePaiementGroupeStatut;
-import io.github.resource.DemandePaiementGroupeResource;
-import io.github.resource.wrapper.DemandePaiementGroupeResourceWrapper;
+import io.github.razacki.exception.PiSpiException;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.DemandePaiementGroupeRequest;
+import io.github.razacki.representation.PaiementGroupeRepresentation;
+import io.github.razacki.representation.enums.DemandePaiementGroupeStatut;
+import io.github.razacki.resource.DemandePaiementGroupeResource;
+import io.github.razacki.resource.wrapper.DemandePaiementGroupeResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;

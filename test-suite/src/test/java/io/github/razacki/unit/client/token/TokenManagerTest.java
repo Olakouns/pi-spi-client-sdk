@@ -1,10 +1,10 @@
 package io.github.razacki.unit.client.token;
 
-import io.github.BaseConfig;
-import io.github.provider.ResteasyClientProvider;
-import io.github.representation.AccessTokenResponse;
-import io.github.token.TokenManager;
-import io.github.token.TokenService;
+import io.github.razacki.BaseConfig;
+import io.github.razacki.provider.ResteasyClientProvider;
+import io.github.razacki.representation.AccessTokenResponse;
+import io.github.razacki.token.TokenManager;
+import io.github.razacki.token.TokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

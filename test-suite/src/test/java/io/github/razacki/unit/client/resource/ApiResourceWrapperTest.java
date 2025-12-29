@@ -1,10 +1,10 @@
 package io.github.razacki.unit.client.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.provider.JacksonProvider;
-import io.github.representation.EnrollmentRepresentation;
-import io.github.resource.ApiResource;
-import io.github.resource.wrapper.*;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.EnrollmentRepresentation;
+import io.github.razacki.resource.ApiResource;
+import io.github.razacki.resource.wrapper.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -89,7 +89,7 @@ public class ApiResourceWrapperTest {
                 .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
         // Act: Call sub-resource list
-        wrapper.comptes().list(0, 10);
+        wrapper.comptes().list("0", 10);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getPath()).contains("/comptes");
@@ -103,7 +103,7 @@ public class ApiResourceWrapperTest {
                 .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
         // Act
-        wrapper.webhooks().list(0, 5);
+        wrapper.webhooks().list("0", 5);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getPath()).contains("/webhooks");
@@ -115,7 +115,7 @@ public class ApiResourceWrapperTest {
         mockServer.enqueue(new MockResponse().setBody("{\"data\":[]}").addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
 
         // Act
-        wrapper.demandesPaiements().list(0, 1);
+        wrapper.demandesPaiements().list("0", 1);
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getPath()).contains("/demandes-paiements");

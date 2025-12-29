@@ -2,14 +2,14 @@ package io.github.razacki.unit.client.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.CompteRepresentation;
-import io.github.representation.PagedResponse;
-import io.github.resource.ComptesResource;
-import io.github.resource.wrapper.AliasResourceWrapper;
-import io.github.resource.wrapper.ComptesResourceWrapper;
-import io.github.resource.wrapper.TransactionResourceWrapper;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.CompteRepresentation;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.resource.ComptesResource;
+import io.github.razacki.resource.wrapper.AliasResourceWrapper;
+import io.github.razacki.resource.wrapper.ComptesResourceWrapper;
+import io.github.razacki.resource.wrapper.TransactionResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -119,7 +119,7 @@ public class ComptesResourceWrapperTest {
         AliasResourceWrapper aliasWrapper = wrapper.alias(accountNumber);
 
         // Assuming AliasResourceWrapper has a list method (inherited from BaseWrapper)
-        aliasWrapper.list(0, 10);
+        aliasWrapper.list("0", 10);
 
         // Assert: Capture the HTTP request sent to the mock server
         RecordedRequest recordedRequest = mockServer.takeRequest();
@@ -137,7 +137,7 @@ public class ComptesResourceWrapperTest {
         mockComptesListResponse();
 
         // Act
-        PagedResponse<CompteRepresentation> response = wrapper.list(1, 3);
+        PagedResponse<CompteRepresentation> response = wrapper.list("1", 3);
 
         // Assert
         Assertions.assertThat(response).isNotNull();

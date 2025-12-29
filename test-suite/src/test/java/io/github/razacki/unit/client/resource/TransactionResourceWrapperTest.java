@@ -1,13 +1,13 @@
 package io.github.razacki.unit.client.resource;
 
-import io.github.exception.PiSpiException;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.PagedResponse;
-import io.github.representation.TransactionRepresentation;
-import io.github.representation.enums.TransactionStatut;
-import io.github.resource.TransactionsResource;
-import io.github.resource.wrapper.TransactionResourceWrapper;
+import io.github.razacki.exception.PiSpiException;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.TransactionRepresentation;
+import io.github.razacki.representation.enums.TransactionStatut;
+import io.github.razacki.resource.TransactionsResource;
+import io.github.razacki.resource.wrapper.TransactionResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -67,7 +67,7 @@ public class TransactionResourceWrapperTest {
         mockTransactionListResponse();
 
         // Act
-        PagedResponse<TransactionRepresentation> response = wrapper.list(1, 10);
+        PagedResponse<TransactionRepresentation> response = wrapper.list("1", 10);
 
         // Assert
         assertThat(response).isNotNull();
@@ -262,7 +262,7 @@ public class TransactionResourceWrapperTest {
         mockTransactionListResponse();
 
         // Act
-        PagedResponse<TransactionRepresentation> response = wrapper.list(1, 10);
+        PagedResponse<TransactionRepresentation> response = wrapper.list("1", 10);
 
         // Assert
         TransactionRepresentation tx = response.getData().get(0);
@@ -277,7 +277,7 @@ public class TransactionResourceWrapperTest {
         mockTransactionListResponse();
 
         // Act
-        PagedResponse<TransactionRepresentation> response = wrapper.list(1, 10);
+        PagedResponse<TransactionRepresentation> response = wrapper.list("1", 10);
 
         // Assert
         TransactionRepresentation irrevocableTx = response.getData().get(1);
@@ -293,7 +293,7 @@ public class TransactionResourceWrapperTest {
         mockTransactionListResponse();
 
         // Act
-        PagedResponse<TransactionRepresentation> response = wrapper.list(1, 10);
+        PagedResponse<TransactionRepresentation> response = wrapper.list("1", 10);
 
         // Assert
         assertThat(response.getData())

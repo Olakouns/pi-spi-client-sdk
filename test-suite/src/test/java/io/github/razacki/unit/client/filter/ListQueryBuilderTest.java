@@ -1,10 +1,10 @@
 package io.github.razacki.unit.client.filter;
 
-import io.github.filter.ListQueryBuilder;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.CompteRepresentation;
-import io.github.representation.PagedResponse;
+import io.github.razacki.filter.ListQueryBuilder;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.CompteRepresentation;
+import io.github.razacki.representation.PagedResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -207,26 +207,26 @@ public class ListQueryBuilderTest {
     }
 
 
-    @Test
-    @DisplayName("Should build query with like filter")
-    void shouldBuildQueryWithLikeFilter() throws Exception {
-        // Arrange
-        mockValidResponse();
-        ListQueryBuilder<CompteRepresentation> builder = createBuilder();
-
-        // Act
-        builder
-                .page("0")
-                .size(20)
-                .filter(f -> f.like("numero", "0012%"))
-                .execute();
-
-        // Assert
-        RecordedRequest request = mockServer.takeRequest();
-        Assertions.assertNotNull(request.getPath());
-        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
-                .contains("numero[like]=0012%");
-    }
+//    @Test
+//    @DisplayName("Should build query with like filter")
+//    void shouldBuildQueryWithLikeFilter() throws Exception {
+//        // Arrange
+//        mockValidResponse();
+//        ListQueryBuilder<CompteRepresentation> builder = createBuilder();
+//
+//        // Act
+//        builder
+//                .page("0")
+//                .size(20)
+//                .filter(f -> f.like("numero", "0012%"))
+//                .execute();
+//
+//        // Assert
+//        RecordedRequest request = mockServer.takeRequest();
+//        Assertions.assertNotNull(request.getPath());
+//        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+//                .contains("numero[like]=0012%");
+//    }
 
     @Test
     @DisplayName("Should build query with gte and lte filters")

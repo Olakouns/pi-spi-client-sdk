@@ -1,14 +1,14 @@
 package io.github.razacki.unit;
 
-import io.github.BaseConfig;
-import io.github.PiSpiClient;
-import io.github.filter.ApiKeyFilter;
-import io.github.filter.BearerAuthFilter;
-import io.github.filter.PiSpiClientResponseFilter;
-import io.github.provider.ResteasyClientProvider;
-import io.github.resource.ApiResource;
-import io.github.resource.wrapper.ApiResourceWrapper;
-import io.github.token.TokenService;
+import io.github.razacki.BaseConfig;
+import io.github.razacki.PiSpiClient;
+import io.github.razacki.filter.ApiKeyFilter;
+import io.github.razacki.filter.BearerAuthFilter;
+import io.github.razacki.filter.PiSpiClientResponseFilter;
+import io.github.razacki.provider.ResteasyClientProvider;
+import io.github.razacki.resource.ApiResource;
+import io.github.razacki.resource.wrapper.ApiResourceWrapper;
+import io.github.razacki.token.TokenService;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.junit.jupiter.api.*;
 import org.mockito.Answers;

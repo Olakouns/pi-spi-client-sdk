@@ -1,14 +1,14 @@
 package io.github.razacki.unit.client.resource;
 
-import io.github.exception.PiSpiException;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.PagedResponse;
-import io.github.representation.WebhookRepresentation;
-import io.github.representation.WebhookRequest;
-import io.github.representation.enums.PiWebhookEvent;
-import io.github.resource.WebhookResource;
-import io.github.resource.wrapper.WebhookResourceWrapper;
+import io.github.razacki.exception.PiSpiException;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.WebhookRepresentation;
+import io.github.razacki.representation.WebhookRequest;
+import io.github.razacki.representation.enums.PiWebhookEvent;
+import io.github.razacki.resource.WebhookResource;
+import io.github.razacki.resource.wrapper.WebhookResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -83,7 +83,7 @@ public class WebhookResourceWrapperTest {
         mockWebhookListResponse();
 
         // Act
-        PagedResponse<WebhookRepresentation> response = wrapper.list(0, 20);
+        PagedResponse<WebhookRepresentation> response = wrapper.list("0", 20);
 
         // Assert
         assertThat(response).isNotNull();

@@ -1,13 +1,13 @@
 package io.github.razacki.unit.client.resource;
 
-import io.github.exception.PiSpiException;
-import io.github.provider.JacksonProvider;
 import io.github.razacki.TestUtils;
-import io.github.representation.DemandesPaiementsRepresentation;
-import io.github.representation.PagedResponse;
-import io.github.representation.enums.PaiementsStatut;
-import io.github.resource.DemandesPaiementsResource;
-import io.github.resource.wrapper.DemandesPaiementsResourceWrapper;
+import io.github.razacki.exception.PiSpiException;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.DemandesPaiementsRepresentation;
+import io.github.razacki.representation.PagedResponse;
+import io.github.razacki.representation.enums.PaiementsStatut;
+import io.github.razacki.resource.DemandesPaiementsResource;
+import io.github.razacki.resource.wrapper.DemandesPaiementsResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -61,7 +61,7 @@ public class DemandesPaiementsResourceWrapperTest {
         mockPagedResponse();
 
         // Act
-        PagedResponse<DemandesPaiementsRepresentation> response = wrapper.list(0, 4);
+        PagedResponse<DemandesPaiementsRepresentation> response = wrapper.list("0", 4);
 
         // Assert
         assertThat(response).isNotNull();

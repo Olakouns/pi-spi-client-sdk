@@ -1,7 +1,7 @@
 package io.github.razacki.unit.client.provider;
 
-import io.github.provider.JacksonProvider;
-import io.github.provider.ResteasyClientDefaultProvider;
+import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.provider.ResteasyClientDefaultProvider;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
