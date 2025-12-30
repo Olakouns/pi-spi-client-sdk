@@ -27,6 +27,7 @@ public class ApiResourceWrapper {
         return this.comptes;
     }
 
+    // TODO : Transform Enrollment to Wrapper
     public EnrollmentRepresentation enrollment(String cle) {
         return proxy.enrollment(cle).check();
     }

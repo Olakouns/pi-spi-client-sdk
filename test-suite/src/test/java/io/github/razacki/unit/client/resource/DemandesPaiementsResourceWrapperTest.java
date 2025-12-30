@@ -3,6 +3,7 @@ package io.github.razacki.unit.client.resource;
 import io.github.razacki.TestUtils;
 import io.github.razacki.exception.PiSpiException;
 import io.github.razacki.provider.JacksonProvider;
+import io.github.razacki.representation.ConfirmationRequest;
 import io.github.razacki.representation.DemandesPaiementsRepresentation;
 import io.github.razacki.representation.PagedResponse;
 import io.github.razacki.representation.enums.PaiementsStatut;
@@ -139,7 +140,7 @@ public class DemandesPaiementsResourceWrapperTest {
         mockSendDecisionResponse();
 
         // Act
-        DemandesPaiementsRepresentation result = wrapper.sendDecision("23552722", true);
+        DemandesPaiementsRepresentation result = wrapper.sendDecision("23552722", ConfirmationRequest.builder().decision(true).build());
 
         // Assert
         assertThat(result).isNotNull();
@@ -147,6 +148,14 @@ public class DemandesPaiementsResourceWrapperTest {
 
         RecordedRequest request = mockServer.takeRequest();
         assertThat(request.getMethod()).isEqualTo(HttpMethod.PUT);
+    }
+
+    @Test
+    @DisplayName("Should validate null input on send decision for a payment request")
+    void shouldValidateNullOnSendDecision() {
+        assertThatThrownBy(() -> wrapper.sendDecision("23552722", null))
+                .isInstanceOf(PiSpiException.class)
+                .hasMessageContaining("confirmationRequest cannot be null");
     }
 
     @Test

@@ -29,8 +29,9 @@ public class DemandesPaiementsResourceWrapper extends ListableWrapper<DemandesPa
         return proxy.confirm(id, new ConfirmationRequest(decision));
     }
 
-    public DemandesPaiementsRepresentation sendDecision(String id, boolean decision) {
+    public DemandesPaiementsRepresentation sendDecision(String id, ConfirmationRequest confirmationRequest) {
         validateNotEmpty(id, DEMANDES_PAIEMENTS_ID);
-        return proxy.sendDecision(id, new ConfirmationRequest(decision));
+        validateNotNull(confirmationRequest, "confirmationRequest");
+        return proxy.sendDecision(id, confirmationRequest);
     }
 }
