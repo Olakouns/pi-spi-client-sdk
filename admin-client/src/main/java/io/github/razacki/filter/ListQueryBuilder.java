@@ -16,7 +16,6 @@ public class ListQueryBuilder <T> {
     private final GenericType<PagedResponse<T>> responseType;
 
 
-    // TODO : add sort option here and remove from filter builder
     private String page;
     private Integer size;
     private final Map<String, String> filters = new HashMap<>();
