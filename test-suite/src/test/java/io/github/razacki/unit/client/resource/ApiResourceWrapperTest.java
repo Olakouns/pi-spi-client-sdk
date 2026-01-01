@@ -2,7 +2,6 @@ package io.github.razacki.unit.client.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.razacki.provider.JacksonProvider;
-import io.github.razacki.representation.EnrollmentRepresentation;
 import io.github.razacki.resource.ApiResource;
 import io.github.razacki.resource.wrapper.*;
 import okhttp3.mockwebserver.MockResponse;

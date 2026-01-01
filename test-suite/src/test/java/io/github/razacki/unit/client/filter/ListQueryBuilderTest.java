@@ -1,7 +1,6 @@
 package io.github.razacki.unit.client.filter;
 
 import io.github.razacki.TestUtils;
-import io.github.razacki.filter.FilterBuilder;
 import io.github.razacki.filter.ListQueryBuilder;
 import io.github.razacki.provider.JacksonProvider;
 import io.github.razacki.representation.CompteRepresentation;
@@ -9,7 +8,6 @@ import io.github.razacki.representation.PagedResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.assertj.core.api.AssertionsForInterfaceTypes;
 import org.junit.jupiter.api.*;
 
 import javax.ws.rs.client.Client;

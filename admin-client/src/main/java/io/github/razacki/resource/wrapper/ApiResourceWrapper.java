@@ -1,6 +1,5 @@
 package io.github.razacki.resource.wrapper;
 
-import io.github.razacki.representation.EnrollmentRepresentation;
 import io.github.razacki.resource.ApiResource;
 
 import javax.ws.rs.client.WebTarget;

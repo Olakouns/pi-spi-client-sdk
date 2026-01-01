@@ -1,12 +1,14 @@
 package io.github.razacki;
 
-import io.github.razacki.representation.*;
-import io.github.razacki.representation.enums.*;
-import io.github.razacki.resource.wrapper.*;
+import io.github.razacki.representation.PaiementGroupeRepresentation;
+import io.github.razacki.representation.PaiementGroupeRequest;
+import io.github.razacki.representation.PaiementRepresentation;
+import io.github.razacki.representation.RefDocType;
+import io.github.razacki.resource.wrapper.PaiementGroupeResourceWrapper;
+import io.github.razacki.resource.wrapper.PaiementResourceWrapper;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.Arrays;
 
 public class DocCodeTest {
 

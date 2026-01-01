@@ -3,11 +3,7 @@ package io.github.razacki.unit.client.resource;
 import io.github.razacki.exception.PiSpiException;
 import io.github.razacki.provider.JacksonProvider;
 import io.github.razacki.representation.EnrollmentRepresentation;
-import io.github.razacki.resource.AliasResource;
-import io.github.razacki.resource.ComptesResource;
 import io.github.razacki.resource.EnrollmentResource;
-import io.github.razacki.resource.wrapper.AliasResourceWrapper;
-import io.github.razacki.resource.wrapper.ComptesResourceWrapper;
 import io.github.razacki.resource.wrapper.EnrollmentResourceWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -21,7 +17,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
