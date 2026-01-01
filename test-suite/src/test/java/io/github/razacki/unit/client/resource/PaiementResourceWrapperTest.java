@@ -87,8 +87,8 @@ public class PaiementResourceWrapperTest {
                 .filter(f -> f
                         .eq("statut", PaiementsStatut.IRREVOCABLE)
                         .gt("montant", 5000)
-                        .sortDesc("dateEnvoi")
                 )
+                .sortDesc("dateEnvoi")
                 .execute();
 
         // Assert

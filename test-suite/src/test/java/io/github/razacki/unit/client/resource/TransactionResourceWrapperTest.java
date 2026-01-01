@@ -114,8 +114,8 @@ public class TransactionResourceWrapperTest {
                 .filter(f -> f
                         .eq("statut", "INITIE")
                         .gte("montant", "100000")
-                        .sortDesc("dateEnvoi")
                 )
+                .sortDesc("dateEnvoi")
                 .execute();
 
         // Assert

@@ -2,10 +2,7 @@ package io.github.razacki;
 
 import io.github.razacki.representation.*;
 import io.github.razacki.representation.enums.*;
-import io.github.razacki.resource.wrapper.AliasResourceWrapper;
-import io.github.razacki.resource.wrapper.ComptesResourceWrapper;
-import io.github.razacki.resource.wrapper.DemandesPaiementsResourceWrapper;
-import io.github.razacki.resource.wrapper.WebhookResourceWrapper;
+import io.github.razacki.resource.wrapper.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -328,6 +325,196 @@ public class DocCodeTest {
 //        );
 
 
+//Paiement en ligne avec débit différé (BNPL e-commerce)
+//        DemandesPaiementsRepresentation createDemandePaiement = demandesPaiementsApi.create(
+//                DemandesPaiementsRepresentation.builder()
+//                        .categorie(PaiementCategory.CODE_521)
+//                        .txId("RTP-2023-007")
+//                        .confirmation(false)
+//                        .payeurAlias("9b1b3499-3e50-435b-b757-ac7a83d8aa96")
+//                        .payeAlias("9b1b2499-3e50-435b-b757-ac7a83d8aa8c")
+//                        .montant(BigDecimal.valueOf(100000))
+//                        .debitDiffere(true)
+//                        .remise(RemiseRepresentation.builder()
+//                                .montant(BigDecimal.valueOf(1000))
+//                                .build()
+//                        )
+//                        .refDocType(RefDocType.PUOR)
+//                        .refDocNumero("WEB-2023-789")
+//                        .build()
+//        );
+
+
+//        DemandePaiementGroupeResourceWrapper batchApi = piSpi.api().demandesPaiementsGroupes();
+//
+//        DemandePaiementGroupeRequest batchRequest = DemandePaiementGroupeRequest.builder()
+//                .instructionId("FACTURES-2025-01-1")
+//                .payeAlias("8b1b2499-3e50-435b-b757-ac7a83d8aa7f")
+//                .confirmation(false)
+//                .transactions(
+//                        Arrays.asList(
+//                                DemandesPaiementsRepresentation.builder()
+//                                        .txId("123-456-789")
+//                                        .payeurAlias("9b1b2499-3e50-435b-b757-ac7a83d8aa8c")
+//                                        .montant(BigDecimal.valueOf(150000000))
+//                                        .dateLimitePaiement(OffsetDateTime.parse("2023-12-31T23:59:59.999Z"))
+//                                        .build(),
+//                                DemandesPaiementsRepresentation.builder()
+//                                        .txId("987-000-234")
+//                                        .payeurAlias("s03b2499-3e50-435b-b757-ac7a83d8aa8c")
+//                                        .refDocNumero("FAC-2023-001")
+//                                        .refDocType(RefDocType.CINV)
+//                                        .montant(BigDecimal.valueOf(3000000))
+//                                        .dateLimitePaiement(OffsetDateTime.parse("2023-12-31T23:59:59.999Z"))
+//                                        .build()
+//
+//                        )
+//                )
+//                .build();
+//        batchApi.create(batchRequest);
+
+//        PaiementGroupeRepresentation response = batchApi.findById("RTP-MASSE-2025-01");
+
+// response.getStatut()
+// response.getTransactionsTotal()
+
+//        PaiementGroupeRepresentation response = batchApi.confirm("RTP-MASSE-2025-01", true);
+
+
+//        PagedResponse<PaiementRepresentation> history = paiementApi.list("1", 20);
+//
+//        PagedResponse<PaiementRepresentation> history = paiementApi.query()
+//                .filter(f -> f
+//                                .contains("payeAlias", "b1b3499-3e50")
+//                                .gt("montantAchat", 10000)
+//                        // .. autres filtres possibles
+//                )
+//                .page("1")
+//                .size(20)
+//                .execute();
+
+//// Paiement immediat - confirmation demandée
+//        PaiementRepresentation response = paiementApi.create(
+//                PaiementRepresentation.builder()
+//                        .txId("123-456-789")
+//                        .payeurAlias("8b1b2499-3e50-435b-b757-ac7a83d8aa7f")
+//                        .payeAlias("9b1b2499-3e50-435b-b757-ac7a83d8aa8c")
+//                        .montant(BigDecimal.valueOf(150000000))
+//                        .confirmation(true)
+//                        .build()
+//        );
+//
+////Paiement immediat - confirmation non requise
+//        PaiementRepresentation response = paiementApi.create(
+//                PaiementRepresentation.builder()
+//                        .txId("123-456-789")
+//                        .payeurAlias("8b1b2499-3e50-435b-b757-ac7a83d8aa7f")
+//                        .payeAlias("9b1b2499-3e50-435b-b757-ac7a83d8aa8c")
+//                        .montant(BigDecimal.valueOf(150000000))
+//                        .confirmation(false)
+//                        .build()
+//        );
+
+//        PaiementRepresentation response = paiementApi.findById("Tag-a7d96dfdsdf965dfdsdf");
+//
+//        PaiementRepresentation response = paiementApi.confirm("23552722", true);
+//
+//        PaiementRepresentation response = paiementApi.getStatus("ESNB00120230221103000KXvozkpNvhUk9e");
+
+        PaiementGroupeResourceWrapper bulkApi = piSpi.api().paiementsGroupes();
+
+//        {
+//            "instructionId": "SALAIRES-2025-01-1",
+//                "payeurAlias": "8b1b2499-3e50-435b-b757-ac7a83d8aa7f",
+//                "confirmation": true,
+//                "motif": "Salaire de janvier 2025",
+//                "transactions": [
+//            {
+//                "txId": "SAL-202501-C06946-1",
+//                    "payeAlias": "9b1b2499-3e50-435b-b757-ac7a83d8aa8c",
+//                    "montant": 1500000
+//            },
+//            {
+//                "txId": "SAL-202501-C06947-2",
+//                    "payeAlias": "s03b2499-3e50-635b-b757-ac7a83d8aa8c",
+//                    "montant": 1000000
+//            },
+//
+//  ]
+//        }
+
+// Paiement en masse de salaires avec confirmation
+        PaiementGroupeRequest batchRequest = PaiementGroupeRequest.builder()
+                .instructionId("SALAIRES-2025-01-1")
+                .payeurAlias("b1b2499-3e50-435b-b757-ac7a83d8aa7f")
+                .confirmation(true)
+                .motif("Salaire de janvier 2025")
+                .transactions(
+                        Arrays.asList(
+                                PaiementRepresentation.builder()
+                                        .txId("SAL-202501-C06946-1")
+                                        .payeAlias("9b1b2499-3e50-435b-b757-ac7a83d8aa8c")
+                                        .montant(BigDecimal.valueOf(1500000))
+                                        .build(),
+                                PaiementRepresentation.builder()
+                                        .txId("SAL-202501-C06947-2")
+                                        .payeAlias("s03b2499-3e50-435b-b757-ac7a83d8aa8c")
+                                        .montant(BigDecimal.valueOf(1000000))
+                                        .build()
+
+                        )
+                )
+                .build();
+
+        bulkApi.create(batchRequest);
+
+
+// Paiement en masse de salaires sans confirmation
+        PaiementGroupeRequest batchRequest2 = PaiementGroupeRequest.builder()
+                .instructionId("FOURNISSEURS-2025-01-1")
+                .payeurAlias("8b1b2499-3e50-435b-b757-ac7a83d8aa7f")
+                .confirmation(false)
+                .transactions(
+                        Arrays.asList(
+                                PaiementRepresentation.builder()
+                                        .txId("FOURN-202501-C06946-1")
+                                        .payeAlias("9b1b2499-3e50-435b-b757-ac7a83d8aa8c")
+                                        .montant(BigDecimal.valueOf(1500000))
+                                        .setRefDocNumero("FAC-FOURNISSEUR-1-2025-001")
+                                        .refDocType(RefDocType.CINV)
+                                        .build(),
+                                PaiementRepresentation.builder()
+                                        .txId("FOURN-202501-C06947-2")
+                                        .payeAlias("s03b2499-3e50-635b-b757-ac7a83d8aa8c")
+                                        .montant(BigDecimal.valueOf(1000000))
+                                        .setRefDocNumero("FAC-FOURNISSEUR-2-2025-002")
+                                        .refDocType(RefDocType.CINV)
+                                        .build()
+
+                        )
+                )
+                .build();
+        bulkApi.create(batchRequest2);
+
+        PaiementGroupeRepresentation response = bulkApi.findById("SALAIRES-2025-01");
+        //response.getTransactionsTotal();
+        //response.getStatut();
+        //response.getTransactionsEnvoyees();
+        //response.getTransactionsInitiees();
+        // etc
+
+        PaiementGroupeRepresentation confirmResponse = bulkApi.confirm("SALAIRES-2025-01-1", true);
+
+
+        // Exemple
+        PaiementResourceWrapper paiementApi = piSpi.api().paiements();
+
+        //        PaiementRepresentation response = paiementApi.returnFunds("ESNB00120230221103000KXvozkpNvhUk9e");
+
+        //PaiementRepresentation response = paiementApi.requestCancellation("ESNB00120230221103000KXvozkpNvhUk9e" , PaiementAnnulationMotif.AC03);
+        // {end2endId} et la raison d'annulation
+
+        //        PaiementRepresentation response = paiementApi.respondToCancellation("ESNB00120230221103000KXvozkpNvhUk9e" , true);
 
     }
 

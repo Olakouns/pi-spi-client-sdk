@@ -1,6 +1,7 @@
 package io.github.razacki.unit.client.filter;
 
 import io.github.razacki.TestUtils;
+import io.github.razacki.filter.FilterBuilder;
 import io.github.razacki.filter.ListQueryBuilder;
 import io.github.razacki.provider.JacksonProvider;
 import io.github.razacki.representation.CompteRepresentation;
@@ -8,6 +9,7 @@ import io.github.razacki.representation.PagedResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.assertj.core.api.AssertionsForInterfaceTypes;
 import org.junit.jupiter.api.*;
 
 import javax.ws.rs.client.Client;
@@ -51,9 +53,9 @@ public class ListQueryBuilderTest {
     }
 
 
-
     private ListQueryBuilder<CompteRepresentation> createBuilder() {
-        return new ListQueryBuilder<>(target, new GenericType<PagedResponse<CompteRepresentation>>() {});
+        return new ListQueryBuilder<>(target, new GenericType<PagedResponse<CompteRepresentation>>() {
+        });
     }
 
     private void mockValidResponse() {
@@ -206,27 +208,6 @@ public class ListQueryBuilderTest {
                 .contains("type[in]=COURANT,EPARGNE,DEPOT");
     }
 
-
-//    @Test
-//    @DisplayName("Should build query with like filter")
-//    void shouldBuildQueryWithLikeFilter() throws Exception {
-//        // Arrange
-//        mockValidResponse();
-//        ListQueryBuilder<CompteRepresentation> builder = createBuilder();
-//
-//        // Act
-//        builder
-//                .page("0")
-//                .size(20)
-//                .filter(f -> f.like("numero", "0012%"))
-//                .execute();
-//
-//        // Assert
-//        RecordedRequest request = mockServer.takeRequest();
-//        Assertions.assertNotNull(request.getPath());
-//        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
-//                .contains("numero[like]=0012%");
-//    }
 
     @Test
     @DisplayName("Should build query with gte and lte filters")
@@ -488,4 +469,209 @@ public class ListQueryBuilderTest {
         assertThat(request.getHeader("Accept"))
                 .isEqualTo("application/json");
     }
+
+    @Test
+    @DisplayName("Should add descending sort")
+    void shouldAddDescendingSort() throws Exception {
+        // Arrange
+        mockValidResponse();
+        ListQueryBuilder<CompteRepresentation> builder = createBuilder()
+                .sortDesc("dateCreation");
+
+        // Act
+        builder.execute();
+
+        // Assert
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=-dateCreation");
+    }
+
+    @Test
+    @DisplayName("Should add ascending sort")
+    void shouldAddAscendingSort() throws Exception {
+        // Arrange
+        mockValidResponse();
+        ListQueryBuilder<CompteRepresentation> builder = createBuilder()
+                .sortAsc("dateCreation");
+
+        // Act
+        builder.execute();
+
+        // Assert
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=dateCreation");
+    }
+
+    @Test
+    @DisplayName("Should add sort with boolean direction")
+    void shouldAddSortWithBooleanDirection() throws Exception {
+        // Arrange
+        mockValidResponse();
+        ListQueryBuilder<CompteRepresentation> builder = createBuilder()
+                .sort("type", true);
+
+        // Act
+        builder.execute();
+
+        // Assert
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=type");
+
+
+        // Arrange
+        mockValidResponse();
+        ListQueryBuilder<CompteRepresentation> builder2 = createBuilder()
+                .sort("type", false);
+
+        builder2.execute();
+
+        // Assert
+        RecordedRequest request2 = mockServer.takeRequest();
+        Assertions.assertNotNull(request2.getPath());
+        assertThat(URLDecoder.decode(request2.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=-type");
+
+    }
+
+    @Test
+    @DisplayName("Should add multiple sorts using varargs (Object...) with directions")
+    void shouldAddMultipleSortsWithVarargs() throws Exception {
+        // Arrange
+        mockValidResponse();
+        ListQueryBuilder<CompteRepresentation> builder = createBuilder()
+                .sort("name", true, "createdAt", false);
+
+        // Act
+        builder.execute();
+
+        // Assert
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=name,-createdAt");
+    }
+
+    @Test
+    @DisplayName("Should IGNORE everything if varargs length is odd")
+    void shouldIgnoreEverythingWhenLengthIsOdd() throws Exception {
+        // Arrange
+        mockValidResponse();
+        ListQueryBuilder<CompteRepresentation> builder = createBuilder()
+                .sort("name", true, "type");
+
+        // Act
+        builder.execute();
+
+        // Assert
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .doesNotContain("sort");
+    }
+
+    @Test
+    @DisplayName("Should add multiple sort fields")
+    void shouldAddMultipleSortFields() throws Exception {
+        mockValidResponse();
+        createBuilder()
+                .sortAsc("type")
+                .sortDesc("dateCreation")
+                .sortAsc("numero")
+                .execute();
+
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=type,-dateCreation,numero");
+    }
+
+    @Test
+    @DisplayName("Should handle mixed sort directions with boolean sort method")
+    void shouldHandleMixedSortDirections() throws Exception {
+        mockValidResponse();
+        createBuilder()
+                .sort("dateCreation", false)
+                .sort("type", true)
+                .sort("solde", false)
+                .execute();
+
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .contains("sort=-dateCreation,type,-solde");
+    }
+
+
+    @Test
+    @DisplayName("Should ignore invalid sort fields (null, empty, blank)")
+    void shouldIgnoreInvalidSortFields() throws Exception {
+        mockValidResponse();
+        createBuilder()
+                .sortAsc(null)
+                .sortDesc("")
+                .sortDesc("   ")
+                .sortDesc(null)
+                .sortAsc("   ")
+                .execute();
+
+        RecordedRequest request = mockServer.takeRequest();
+        assertThat(request.getPath()).doesNotContain("sort=");
+    }
+
+    @Test
+    @DisplayName("Should handle varargs sort correctly")
+    void shouldHandleVarargsSort() throws Exception {
+        mockValidResponse();
+
+        createBuilder().sort("type", true, "solde", false).execute();
+        RecordedRequest request1 = mockServer.takeRequest();
+        Assertions.assertNotNull(request1.getPath());
+        assertThat(URLDecoder.decode(request1.getPath(), StandardCharsets.UTF_8.name())).contains("sort=type,-solde");
+
+
+        mockValidResponse();
+        createBuilder().sort("type", true, "solde").execute();
+        RecordedRequest request2 = mockServer.takeRequest();
+        assertThat(request2.getPath()).doesNotContain("sort=");
+
+
+        mockValidResponse();
+        createBuilder().sort((Object[]) null).execute();
+        RecordedRequest request3 = mockServer.takeRequest();
+        assertThat(request3.getPath()).doesNotContain("sort=");
+    }
+
+    @Test
+    @DisplayName("Should throw ClassCastException if direction in varargs is not boolean")
+    void shouldThrowExceptionWhenDirectionIsNotBoolean() {
+        ListQueryBuilder<CompteRepresentation> builder = createBuilder();
+
+        Assertions.assertThrows(ClassCastException.class, () -> {
+            builder.sort("name", "not-a-boolean");
+        });
+    }
+
+    @Test
+    @DisplayName("Should clear")
+    void shouldClearOnlySort() throws Exception {
+        mockValidResponse();
+        createBuilder()
+                .sort("dateCreation", false)
+                .sort("type", true)
+                .clearSort()
+                .execute();
+
+        RecordedRequest request = mockServer.takeRequest();
+        Assertions.assertNotNull(request.getPath());
+        assertThat(URLDecoder.decode(request.getPath(), StandardCharsets.UTF_8.name()))
+                .doesNotContain("sort");
+    }
+
+
 }

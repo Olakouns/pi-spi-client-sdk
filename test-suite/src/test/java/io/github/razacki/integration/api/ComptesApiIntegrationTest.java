@@ -140,7 +140,7 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                 .query()
                 .page("0")
                 .size(20)
-                .filter(f -> f.sortDesc("dateCreation"))
+                .sortDesc("dateCreation")
                 .execute();
 
         // Assert
@@ -170,10 +170,10 @@ public class ComptesApiIntegrationTest extends AbstractIntegrationTest {
                 .filter(f -> f
                         .in("type", "CACC", "CARD")
                         .gte("numero", "CIC2344256727788288822")
-                        .sortAsc("type")
-                        .sortDesc("numero")
                         .where("statut", "OUVERT")
                 )
+                .sortAsc("type")
+                .sortDesc("numero")
                 .execute();
 
         // Assert

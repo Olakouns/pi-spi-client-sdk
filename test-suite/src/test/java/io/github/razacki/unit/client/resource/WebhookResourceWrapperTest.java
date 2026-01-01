@@ -108,10 +108,9 @@ public class WebhookResourceWrapperTest {
         PagedResponse<WebhookRepresentation> response = wrapper.query()
                 .page("0")
                 .size(20)
-                .filter(f -> f
-                        .eq("actif", "true")
-                        .sortDesc("dateCreation")
+                .filter(f -> f.eq("actif", "true")
                 )
+                .sortDesc("dateCreation")
                 .execute();
 
         // Assert

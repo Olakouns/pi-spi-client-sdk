@@ -14,6 +14,8 @@ public class ApiResourceWrapper {
     private DemandesPaiementsResourceWrapper paiementsResourceWrapper;
     private DemandePaiementGroupeResourceWrapper demandePaiementGroupeResourceWrapper;
     private PaiementResourceWrapper paiementResourceWrapper;
+    private PaiementGroupeResourceWrapper paiementGroupeResourceWrapper;
+    private EnrollmentResourceWrapper enrollmentResourceWrapper;
 
     public ApiResourceWrapper(ApiResource proxy, WebTarget target) {
         this.proxy = proxy;
@@ -27,10 +29,14 @@ public class ApiResourceWrapper {
         return this.comptes;
     }
 
-    // TODO : Transform Enrollment to Wrapper
-    public EnrollmentRepresentation enrollment(String cle) {
-        return proxy.enrollment(cle).check();
+    public synchronized EnrollmentResourceWrapper enrollment() {
+        if (this.enrollmentResourceWrapper == null) {
+            this.enrollmentResourceWrapper = new EnrollmentResourceWrapper(proxy.enrollment(), target.path("/alias"));
+        }
+        return this.enrollmentResourceWrapper;
     }
+
+
 
     public synchronized WebhookResourceWrapper webhooks() {
         if (this.webhooks == null) {
@@ -58,5 +64,12 @@ public class ApiResourceWrapper {
             this.paiementResourceWrapper = new PaiementResourceWrapper(proxy.paiements(), target.path("/paiements"));
         }
         return this.paiementResourceWrapper;
+    }
+
+    public synchronized PaiementGroupeResourceWrapper paiementsGroupes() {
+        if (this.paiementGroupeResourceWrapper == null) {
+            this.paiementGroupeResourceWrapper = new PaiementGroupeResourceWrapper(proxy.paiementsGroupes(), target.path("/paiements-groupes"));
+        }
+        return this.paiementGroupeResourceWrapper;
     }
 }

@@ -164,8 +164,8 @@ public class ComptesResourceWrapperTest {
                 .size(20)
                 .filter(f -> f
                         .eq("type", "COURANT")
-                        .sortDesc("dateCreation")
                 )
+                .sortDesc("dateCreation")
                 .execute();
 
         // Assert

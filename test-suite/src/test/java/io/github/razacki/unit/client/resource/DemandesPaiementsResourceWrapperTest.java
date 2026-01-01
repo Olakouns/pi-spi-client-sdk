@@ -179,8 +179,8 @@ public class DemandesPaiementsResourceWrapperTest {
                 .filter(f -> f
                         .eq("statut", "IRREVOCABLE")
                         .eq("payeurAlias", "9b1b3499-3e50-435b-b757-ac7a83d8aa96")
-                        .sortDesc("dateDemande")
                 )
+                .sortDesc("dateDemande")
                 .execute();
 
         // Assert: Basic response check

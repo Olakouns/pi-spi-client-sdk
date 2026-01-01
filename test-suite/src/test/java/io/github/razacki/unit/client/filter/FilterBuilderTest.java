@@ -231,156 +231,6 @@ public class FilterBuilderTest {
         assertEquals("99", filters.get("o[op]"));
     }
 
-    @Test
-    @DisplayName("Should add ascending sort")
-    void shouldAddAscendingSort() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortAsc("dateCreation");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result).containsEntry("sort", "dateCreation");
-    }
-
-    @Test
-    @DisplayName("Should add descending sort")
-    void shouldAddDescendingSort() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortDesc("dateCreation");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result).containsEntry("sort", "-dateCreation");
-    }
-
-    @Test
-    @DisplayName("Should add sort with boolean direction")
-    void shouldAddSortWithBooleanDirection() {
-        // Ascendant
-        FilterBuilder builder1 = new FilterBuilder()
-                .sort("type", true);
-        assertThat(builder1.build()).containsEntry("sort", "type");
-
-        // Descendant
-        FilterBuilder builder2 = new FilterBuilder()
-                .sort("type", false);
-        assertThat(builder2.build()).containsEntry("sort", "-type");
-    }
-
-
-    @Test
-    @DisplayName("Should add multiple sorts using varargs (Object...) with directions")
-    void shouldAddMultipleSortsWithVarargs() {
-        FilterBuilder builder = new FilterBuilder()
-                .sort("name", true, "createdAt", false);
-
-        Map<String, String> result = builder.build();
-        assertThat(result).containsEntry("sort", "name,-createdAt");
-    }
-
-    @Test
-    @DisplayName("Should IGNORE everything if varargs length is odd")
-    void shouldIgnoreEverythingWhenLengthIsOdd() {
-        FilterBuilder builder = new FilterBuilder()
-                .sort("name", true, "type");
-
-        Map<String, String> result = builder.build();
-        assertThat(result).doesNotContainKey("sort");
-    }
-
-    @Test
-    @DisplayName("Should throw exception if direction argument is not a Boolean")
-    void shouldThrowExceptionWhenDirectionIsNotBoolean() {
-        FilterBuilder builder = new FilterBuilder();
-
-        assertThrows(ClassCastException.class, () -> {
-            builder.sort("name", "not-a-boolean");
-        });
-    }
-
-
-    @Test
-    @DisplayName("Should add multiple sort fields")
-    void shouldAddMultipleSortFields() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortAsc("type")
-                .sortDesc("dateCreation")
-                .sortAsc("numero");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result).containsEntry("sort", "type,-dateCreation,numero");
-    }
-
-    @Test
-    @DisplayName("Should handle mixed sort directions")
-    void shouldHandleMixedSortDirections() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortDesc("dateCreation")
-                .sortAsc("type")
-                .sortDesc("solde");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result).containsEntry("sort", "-dateCreation,type,-solde");
-    }
-
-    @Test
-    @DisplayName("Should combine filters and sort")
-    void shouldCombineFiltersAndSort() {
-        FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF")
-                .gte("dateCreation", "2024-01-01")
-                .sortDesc("dateCreation");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .containsEntry("statut[eq]", "ACTIF")
-                .containsEntry("dateCreation[gte]", "2024-01-01")
-                .containsEntry("sort", "-dateCreation");
-    }
-
-    @Test
-    @DisplayName("Should combine complex filters with multiple sorts")
-    void shouldCombineComplexFiltersWithMultipleSorts() {
-        FilterBuilder builder = new FilterBuilder()
-                .in("type", "COURANT", "EPARGNE")
-                .between("dateCreation", "2024-01-01", "2024-12-31")
-                .sortAsc("type")
-                .sortDesc("solde");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .containsEntry("type[in]", "COURANT,EPARGNE")
-                .containsEntry("dateCreation[gte]", "2024-01-01")
-                .containsEntry("dateCreation[lte]", "2024-12-31")
-                .containsEntry("sort", "type,-solde");
-    }
-
-    @Test
-    @DisplayName("Should not add sort when field is null")
-    void shouldNotAddSortWhenFieldIsNull() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortAsc(null);
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result).doesNotContainKey("sort");
-    }
-
-    @Test
-    @DisplayName("Should not add sort when field is empty")
-    void shouldNotAddSortWhenFieldIsEmpty() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortAsc("")
-                .sortDesc("  ");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result).doesNotContainKey("sort");
-    }
 
     @Test
     @DisplayName("Should handle filters without sort")
@@ -398,24 +248,10 @@ public class FilterBuilderTest {
     }
 
     @Test
-    @DisplayName("Should handle sort without filters")
-    void shouldHandleSortWithoutFilters() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortDesc("dateCreation");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .hasSize(1)
-                .containsEntry("sort", "-dateCreation");
-    }
-
-    @Test
     @DisplayName("Should build filters only without sort")
     void shouldBuildFiltersOnlyWithoutSort() {
         FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF")
-                .sortDesc("dateCreation");
+                .eq("statut", "ACTIF");
 
         Map<String, String> filtersOnly = builder.buildFiltersOnly();
 
@@ -424,123 +260,19 @@ public class FilterBuilderTest {
                 .doesNotContainKey("sort");
     }
 
+
     @Test
-    @DisplayName("Should build sort only")
-    void shouldBuildSortOnly() {
+    @DisplayName("Should clear")
+    void shouldClearOnlySort() {
         FilterBuilder builder = new FilterBuilder()
                 .eq("statut", "ACTIF")
-                .sortAsc("type")
-                .sortDesc("dateCreation");
-
-        String sortOnly = builder.buildSortOnly();
-
-        assertThat(sortOnly).isEqualTo("type,-dateCreation");
-    }
-
-    @Test
-    @DisplayName("Should return null when no sort defined")
-    void shouldReturnNullWhenNoSortDefined() {
-        FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF");
-
-        String sortOnly = builder.buildSortOnly();
-
-        assertThat(sortOnly).isNull();
-    }
-
-    @Test
-    @DisplayName("Should clear all filters and sort")
-    void shouldClearAllFiltersAndSort() {
-        FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF")
-                .sortDesc("dateCreation")
                 .clear();
 
         Map<String, String> result = builder.build();
 
-        assertThat(result).isEmpty();
-    }
-
-    @Test
-    @DisplayName("Should clear only filters")
-    void shouldClearOnlyFilters() {
-        FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF")
-                .sortDesc("dateCreation")
-                .clearFilters();
-
-        Map<String, String> result = builder.build();
-
         assertThat(result)
-                .hasSize(1)
-                .containsEntry("sort", "-dateCreation");
-    }
-
-    @Test
-    @DisplayName("Should clear only sort")
-    void shouldClearOnlySort() {
-        FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF")
-                .sortDesc("dateCreation")
-                .clearSort();
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .hasSize(1)
-                .containsEntry("statut[eq]", "ACTIF")
+                .hasSize(0)
                 .doesNotContainKey("sort");
-    }
-
-    @Test
-    @DisplayName("Scenario: Search with text filters and date sorting")
-    void scenarioSearchWithTextFiltersAndDateSorting() {
-        FilterBuilder builder = new FilterBuilder()
-                .beginsWith("numero", "0012")
-                .contains("libelle", "Épargne")
-                .eq("statut", "ACTIF")
-                .sortDesc("dateCreation");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .containsEntry("numero[beginsWith]", "0012")
-                .containsEntry("libelle[contains]", "Épargne")
-                .containsEntry("statut[eq]", "ACTIF")
-                .containsEntry("sort", "-dateCreation");
-    }
-
-    @Test
-    @DisplayName("Scenario: Complex query with multiple sorts")
-    void scenarioComplexQueryWithMultipleSorts() {
-        FilterBuilder builder = new FilterBuilder()
-                .in("type", "COURANT", "EPARGNE")
-                .gte("solde", "1000")
-                .lte("solde", "50000")
-                .sortAsc("type")
-                .sortDesc("solde")
-                .sortAsc("numero");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .containsEntry("type[in]", "COURANT,EPARGNE")
-                .containsEntry("solde[gte]", "1000")
-                .containsEntry("solde[lte]", "50000")
-                .containsEntry("sort", "type,-solde,numero");
-    }
-
-    @Test
-    @DisplayName("Scenario: List all sorted by creation date descending")
-    void scenarioListAllSortedByCreationDateDescending() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortDesc("dateCreation");
-
-        Map<String, String> result = builder.build();
-
-        assertThat(result)
-                .hasSize(1)
-                .containsEntry("sort", "-dateCreation");
     }
 
     @Test
@@ -567,48 +299,12 @@ public class FilterBuilderTest {
         assertThat(builder.build()).isEmpty();
     }
 
-    @Test
-    @DisplayName("sort methods should ignore blank fields")
-    void testSortBlankFields() {
-        FilterBuilder builder = new FilterBuilder()
-                .sortAsc("   ")
-                .sortDesc(" \t ");
-
-        assertThat(builder.build()).doesNotContainKey("sort");
-    }
-
-    @Test
-    @DisplayName("sort varargs should do nothing if null")
-    void testSortVarargsNull() {
-        FilterBuilder builder = new FilterBuilder().sort((Object[]) null);
-        assertThat(builder.build()).isEmpty();
-    }
 
     @Test
     @DisplayName("add method should ignore null values")
     void testAddNullValue() {
         FilterBuilder builder = new FilterBuilder().eq("test", null);
         assertThat(builder.build()).isEmpty();
-    }
-
-    @Test
-    @DisplayName("Should ignore fields that are null, empty, or only spaces")
-    void shouldIgnoreInvalidSortFields() {
-        FilterBuilder builder = new FilterBuilder();
-
-        // 1. Branche FALSE on 'field != null'
-        builder.sortDesc(null);
-
-        // 2. Branche FALSE on '!field.trim().isEmpty()' with empty string
-        builder.sortDesc("");
-
-        // 3. Branche FALSE
-        builder.sortDesc("   ");
-
-        Map<String, String> result = builder.build();
-
-        // Verify that no sort entry was added
-        assertThat(result).doesNotContainKey("sort");
     }
 
 }
