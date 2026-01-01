@@ -1,11 +1,7 @@
 package io.github.razacki;
 
-import io.github.razacki.representation.PaiementGroupeRepresentation;
-import io.github.razacki.representation.PaiementGroupeRequest;
-import io.github.razacki.representation.PaiementRepresentation;
-import io.github.razacki.representation.RefDocType;
+import io.github.razacki.representation.*;
 import io.github.razacki.resource.wrapper.PaiementGroupeResourceWrapper;
-import io.github.razacki.resource.wrapper.PaiementResourceWrapper;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -56,10 +52,11 @@ public class DocCodeTest {
 //                    filterBuilder
 //                            .contains("numero", "CIC23442") // numero[contains]=CIC23442
 //                            .eq("type", CompteType.CACC) // type[eq]=CACC
-//                            .sortAsc("statut"); // sort=statut
+//
 //                })
 //                .page("0")
 //                .size(20)
+//                  .sortAsc("statut") // sort=statut
 //                .execute();
 //
 //        System.out.println("Total des comptes : " + filterPagedResponse.getMeta().getTotal());
@@ -84,27 +81,27 @@ public class DocCodeTest {
 //
 //        piSpi.api().comptes()
 //                .query()
-//                .filter(f -> f.sortAsc("statut"))
+//                .sortAsc("statut")
 //                .execute();
 //
 //        piSpi.api().comptes()
 //                .query()
-//                .filter(f -> f.sortDesc("statut"))
+//                .sortDesc("statut")
 //                .execute();
 //
 //        piSpi.api().comptes()
 //                .query()
-//                .filter(f -> f.sort("statut", true))
+//                .sort("statut", true)
 //                .execute();
 //
 //        piSpi.api().comptes()
 //                .query()
-//                .filter(f -> f.sort("statut", false))
+//                .sort("statut", false)
 //                .execute();
 //
 //        piSpi.api().comptes()
 //                .query()
-//                .filter(f -> f.sort("statut", false, "solde", true))
+//                .sort("statut", false, "solde", true)
 //                .execute();
 //
 //
@@ -509,7 +506,7 @@ public class DocCodeTest {
 
 
         // Exemple
-        PaiementResourceWrapper paiementApi = piSpi.api().paiements();
+//        PaiementResourceWrapper paiementApi = piSpi.api().paiements();
 
         //        PaiementRepresentation response = paiementApi.returnFunds("ESNB00120230221103000KXvozkpNvhUk9e");
 
@@ -517,6 +514,22 @@ public class DocCodeTest {
         // {end2endId} et la raison d'annulation
 
         //        PaiementRepresentation response = paiementApi.respondToCancellation("ESNB00120230221103000KXvozkpNvhUk9e" , true);
+
+//        EnrollmentResourceWrapper enrollmentApi = piSpi.api().enrollment();
+//
+//
+//        EnrollmentRepresentation response = enrollmentApi.check("550e8400-e29b-41d4-a716-446655440000"); // {cle}
+//
+//        try {
+//            piSpi.api().paiements().create(monPaiement);
+//        } catch (PiSpiApiException e) {
+//            ApiErrorResponse error = e.getErrorResponse();
+//
+//            System.out.println("Titre : " + error.getTitle());   // Ex: Bad Request
+//            System.out.println("Détail : " + error.getDetail()); // Ex: Le solde est insuffisant
+//            System.out.println("Status : " + e.getStatus());     // Ex: 400
+//        }
+
 
     }
 
