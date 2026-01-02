@@ -23,6 +23,9 @@
         <mockito-core.version>4.11.0</mockito-core.version>
         <junit-platform-suite.version>1.8.2</junit-platform-suite.version>
         <sonar.skip>true</sonar.skip>
+
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.install.skip>true</maven.install.skip>
     </properties>
 
     <dependencies>
@@ -103,9 +106,10 @@
                 <executions>
                     <execution>
                         <id>report-aggregate</id>
-                        <phase>test</phase> <goals>
-                        <goal>report-aggregate</goal>
-                    </goals>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
