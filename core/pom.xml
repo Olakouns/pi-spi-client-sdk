@@ -4,12 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.github.razacki</groupId>
+        <groupId>io.github.olakouns</groupId>
         <artifactId>pi-spi-client</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>core</artifactId>
+    <name>PI SPI SDK :: Core</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
