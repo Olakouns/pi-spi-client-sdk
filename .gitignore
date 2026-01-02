@@ -32,7 +32,8 @@ build/
 !**/src/test/**/build/
 
 LOCAL_README.md
-
+pom.xml.*
+**/pom.xml.*
 ### VS Code ###
 .vscode/
 
