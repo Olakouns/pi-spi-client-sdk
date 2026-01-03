@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -127,15 +127,9 @@ public class PiSpiClient implements AutoCloseable {
             Object customJacksonProvider,
             String authToken
     ) {
-        SSLContext effectiveSslContext = sslContext;
-
-        if (effectiveSslContext == null && config.getClientCertPath() != null && config.getClientKeyPath() != null) {
-            // TODO: créer SSLContext à partir du certificat et de la clé
-        }
-
         Client client = resteasyClient != null
                 ? resteasyClient
-                : newRestClient(customJacksonProvider, effectiveSslContext, disableTrustManager);
+                : newRestClient(customJacksonProvider, sslContext, disableTrustManager);
         return new PiSpiClient(config, client, authToken);
     }
 

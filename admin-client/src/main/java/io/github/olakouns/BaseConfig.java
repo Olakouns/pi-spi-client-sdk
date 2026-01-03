@@ -1,3 +1,20 @@
+/*
+ * Copyright 2025 Razacki KOUNASSO
+ * and other contributors as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.github.olakouns;
 
 import java.util.List;
@@ -10,75 +27,75 @@ public class BaseConfig {
     private String apiKey;
     private List<String> scopes;
 
-    private String clientCertPath;   // client-cert.pem
-    private String clientKeyPath;    // client-key.pem
+    /**
+     * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
+     */
+    @Deprecated
+    private String clientCertPath;
+
+    /**
+     * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
+     */
+    @Deprecated
+    private String clientKeyPath;
 
     public BaseConfig() {
     }
 
-    private BaseConfig(Builder builder) {
-        this.serverUrl = builder.serverUrl;
-        this.clientId = builder.clientId;
-        this.clientSecret = builder.clientSecret;
-        this.grantType = builder.grantType;
-        this.apiKey = builder.apiKey;
-        this.scopes = builder.scopes;
-        this.clientCertPath = builder.clientCertPath;
-        this.clientKeyPath = builder.clientKeyPath;
-    }
 
     public static class Builder {
-        private String serverUrl;
-        private String clientId;
-        private String clientSecret;
-        private String grantType;
-        private String apiKey;
-        private List<String> scopes;
-        private String clientCertPath;
-        private String clientKeyPath;
+        private final BaseConfig instance = new BaseConfig();
 
         public Builder serverUrl(String serverUrl) {
-            this.serverUrl = serverUrl;
+            this.instance.setServerUrl(serverUrl);
             return this;
         }
 
         public Builder clientId(String clientId) {
-            this.clientId = clientId;
+            this.instance.setClientId(clientId);
             return this;
         }
 
         public Builder clientSecret(String clientSecret) {
-            this.clientSecret = clientSecret;
+            this.instance.setClientSecret(clientSecret);
             return this;
         }
 
         public Builder grantType(String grantType) {
-            this.grantType = grantType;
+            this.instance.setGrantType(grantType);
             return this;
         }
 
         public Builder apiKey(String apiKey) {
-            this.apiKey = apiKey;
+            this.instance.setApiKey(apiKey);
             return this;
         }
 
         public Builder scopes(List<String> scopes) {
-            this.scopes = scopes;
+            this.instance.setScopes(scopes);
             return this;
         }
 
+        /**
+         * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
+         */
+        @Deprecated
         public Builder clientCertPath(String path) {
-            this.clientCertPath = path;
+            this.instance.setClientCertPath(path);
             return this;
         }
 
+        /**
+         * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
+         */
+        @Deprecated
         public Builder clientKeyPath(String path) {
-            this.clientKeyPath = path;
+            this.instance.setClientKeyPath(path);
             return this;
         }
 
         public BaseConfig build() {
-            return new BaseConfig(this);
+            return instance;
         }
     }
 

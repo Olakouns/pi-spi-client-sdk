@@ -1,3 +1,20 @@
+/*
+ * Copyright 2025 Razacki KOUNASSO
+ * and other contributors as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.github.olakouns.filter;
 
 import io.github.olakouns.representation.PagedResponse;
@@ -11,6 +28,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ * A fluent builder for executing paginated, filtered, and sorted list queries.
+ * <p>
+ * This builder simplifies the construction of complex API requests by handling
+ * query parameters for pagination, sorting, and advanced filtering.
+ * </p>
+ *
+ * @param <T> The type of the resource in the paginated response.
+ * @author Razacki KOUNASSO
+ * @since 1.0.0
+ */
 public class ListQueryBuilder <T> {
     private final WebTarget target;
     private final GenericType<PagedResponse<T>> responseType;
@@ -26,17 +54,39 @@ public class ListQueryBuilder <T> {
         this.responseType = responseType;
     }
 
+    /**
+     * Sets the page number or identifier for pagination.
+     *
+     * @param page the page value (e.g., "1" or a cursor/token).
+     * @return this builder instance.
+     */
     public ListQueryBuilder<T> page(String page) {
         this.page = page;
         return this;
     }
 
+    /**
+     * Sets the number of items to return per page.
+     *
+     * @param size the maximum number of items in the response.
+     * @return this builder instance.
+     */
     public ListQueryBuilder<T> size(int size) {
         this.size = size;
         return this;
     }
 
 
+    /**
+     * Configures filters using a {@link FilterBuilder} via a lambda expression.
+     * <p>Example:</p>
+     * <pre>
+     * queryBuilder.filter(f -> f.eq("status", "ACTIVE").gt("amount", 100));
+     * </pre>
+     *
+     * @param filterConfig a consumer that accepts a {@link FilterBuilder}.
+     * @return this builder instance.
+     */
     public ListQueryBuilder<T> filter(Consumer<FilterBuilder> filterConfig) {
         FilterBuilder builder = new FilterBuilder();
         filterConfig.accept(builder);
@@ -45,6 +95,17 @@ public class ListQueryBuilder <T> {
     }
 
 
+    /**
+     * Adds a collection of pre-defined filters to the query.
+     * <p>
+     * This method is useful if you have already built a map of filters using
+     * {@link FilterBuilder#build()} or if you are receiving filters from an external source.
+     * </p>
+     *
+     * @param filters a map containing filter keys (e.g., "amount[gte]") and their values.
+     * If null, the method does nothing.
+     * @return this builder instance.
+     */
     public ListQueryBuilder<T> filters(Map<String, String> filters) {
         if (filters != null) {
             this.filters.putAll(filters);
@@ -53,7 +114,10 @@ public class ListQueryBuilder <T> {
     }
 
     /**
-     * Exemple: sortAsc("dateCreation") → sort=dateCreation
+     * Adds a field to sort in ascending order.
+     *
+     * @param field the field name (e.g., "createdAt").
+     * @return this builder instance.
      */
     public ListQueryBuilder<T> sortAsc(String field) {
         if (field != null && !field.trim().isEmpty()) {
@@ -63,8 +127,11 @@ public class ListQueryBuilder <T> {
     }
 
     /**
-     * Sort in descending order.
-     * Exemple: sortDesc("dateCreation") → sort=-dateCreation
+     * Adds a field to sort in descending order.
+     * The field will be prefixed with '-' (e.g., "-createdAt").
+     *
+     * @param field the field name.
+     * @return this builder instance.
      */
     public ListQueryBuilder<T> sortDesc(String field) {
         if (field != null && !field.trim().isEmpty()) {
@@ -73,11 +140,17 @@ public class ListQueryBuilder <T> {
         return this;
     }
 
+
     /**
-     * Sort in ascending or descending order depending on the boolean value.
+     * Adds a sorting criteria for a specific field with a dynamic direction.
+     * <p>
+     * This is a convenience method that delegates to {@link #sortAsc(String)}
+     * or {@link #sortDesc(String)} based on the boolean flag.
+     * </p>
      *
-     * @param field Le champ à trier
-     * @param ascending true pour ascendant, false pour descendant
+     * @param field     the name of the field to sort by.
+     * @param ascending {@code true} for ascending order, {@code false} for descending order.
+     * @return this builder instance.
      */
     public ListQueryBuilder<T> sort(String field, boolean ascending) {
         if (ascending) {
@@ -96,9 +169,16 @@ public class ListQueryBuilder <T> {
     }
 
     /**
-     * Sort by multiple fields with specified directions.
-     * Exemple: sort("type", true, "dateCreation", false)
-     * Résultat: sort=type,-dateCreation
+     * Adds multiple fields with their respective sort directions.
+     * <p>Example:</p>
+     * <pre>
+     * queryBuilder.sort("type", true, "dateCreation", false);
+     * // Result: sort=type,-dateCreation
+     * </pre>
+     *
+     * @param fieldsAndDirections pairs of String (field) and Boolean (true for ASC, false for DESC).
+     * @return this builder instance.
+     * @throws IllegalArgumentException if the number of arguments is not even.
      */
     public ListQueryBuilder<T> sort(Object... fieldsAndDirections) {
         if (fieldsAndDirections != null && fieldsAndDirections.length % 2 == 0) {
@@ -112,6 +192,12 @@ public class ListQueryBuilder <T> {
     }
 
 
+    /**
+     * Executes the built query against the PI-SPI API and returns a paginated response.
+     *
+     * @return a {@link PagedResponse} containing the list of items and metadata.
+     * @throws RuntimeException if the API request fails.
+     */
     public PagedResponse<T> execute() {
         WebTarget queryTarget = target;
 

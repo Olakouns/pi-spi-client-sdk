@@ -25,18 +25,65 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PiSpiClientBuilder {
+    /**
+     * The base URL of the PI-SPI API server.
+     */
     private String serverUrl;
+    /**
+     * The Client ID provided by the PI-SPI platform for OAuth2 authentication.
+     */
     private String clientId;
+    /**
+     * The Client Secret provided by the PI-SPI platform.
+     */
     private String clientSecret;
+    /**
+     * The OAuth2 grant type (e.g., "client_credentials"). If it's null, client_credentials are used by default.
+     */
     private String grantType;
+    /**
+     * The API Key for additional security headers if required by the target environment.
+     */
     private String apiKey;
+    /**
+     * The list of scopes requested for the access token.
+     *
+     * @see io.github.olakouns.constants.ScopeConstants
+     */
     private List<String> scopes;
 
-    private String clientCertPath;   // client-cert.pem
-    private String clientKeyPath;
 
-    private Client resteasyClient;
+    /**
+     * Custom SSL Context for secure connections.
+     * <p>
+     * If this property is provided <b>without</b> a custom {@link #resteasyClient},
+     * a default Resteasy client will be automatically created and configured using this SSL context.
+     * </p>
+     */
     private SSLContext sslContext;
+
+    /**
+     * Custom Resteasy Client.
+     * <p>
+     * <b>Note:</b> If you provide a custom client, you are responsible for its full configuration,
+     * including SSL settings and JacksonProvider. If both a custom client and a {@link #sslContext} are provided,
+     * the custom client takes precedence and the SSL context property will be ignored.
+     * </p>
+     */
+    private Client resteasyClient;
+
+
+    /**
+     * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
+     */
+    @Deprecated
+    private String clientCertPath;
+
+    /**
+     * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
+     */
+    @Deprecated
+    private String clientKeyPath;
 
     public PiSpiClientBuilder serverUrl(String serverUrl) {
         this.serverUrl = serverUrl;
@@ -63,23 +110,31 @@ public class PiSpiClientBuilder {
         return this;
     }
 
-    public PiSpiClientBuilder apiKey(List<String> scopes) {
+    public PiSpiClientBuilder scopes(List<String> scopes) {
         this.scopes = new ArrayList<>(scopes);
         return this;
     }
 
+    /**
+     * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
+     */
+    @Deprecated
     public PiSpiClientBuilder clientCertPath(String clientCertPath) {
         this.clientCertPath = clientCertPath;
         return this;
     }
 
+    /**
+     * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
+     */
+    @Deprecated
     public PiSpiClientBuilder clientKeyPath(String clientKeyPath) {
         this.clientKeyPath = clientKeyPath;
         return this;
     }
 
     /**
-     * Custom instance of resteasy client.
+     * Custom instance of a resteasy client.
      *
      * @param resteasyClient Custom RestEasy client
      * @return admin client builder
@@ -147,7 +202,7 @@ public class PiSpiClientBuilder {
     }
 
     /**
-     * Returns a new Keycloak builder.
+     * Returns a new PiSpiClient builder.
      */
     public static PiSpiClientBuilder builder() {
         return new PiSpiClientBuilder();

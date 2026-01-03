@@ -246,19 +246,6 @@ public class FilterBuilderTest {
                 .doesNotContainKey("sort");
     }
 
-    @Test
-    @DisplayName("Should build filters only without sort")
-    void shouldBuildFiltersOnlyWithoutSort() {
-        FilterBuilder builder = new FilterBuilder()
-                .eq("statut", "ACTIF");
-
-        Map<String, String> filtersOnly = builder.buildFiltersOnly();
-
-        assertThat(filtersOnly)
-                .containsEntry("statut[eq]", "ACTIF")
-                .doesNotContainKey("sort");
-    }
-
 
     @Test
     @DisplayName("Should clear")

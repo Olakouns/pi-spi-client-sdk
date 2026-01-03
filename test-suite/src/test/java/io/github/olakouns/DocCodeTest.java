@@ -1,5 +1,7 @@
 package io.github.olakouns;
 
+import io.github.olakouns.exception.PiSpiApiException;
+import io.github.olakouns.exception.PiSpiException;
 import io.github.olakouns.representation.*;
 import io.github.olakouns.resource.wrapper.PaiementGroupeResourceWrapper;
 
@@ -529,6 +531,33 @@ public class DocCodeTest {
 //            System.out.println("Détail : " + error.getDetail()); // Ex: Le solde est insuffisant
 //            System.out.println("Status : " + e.getStatus());     // Ex: 400
 //        }
+
+PiSpiClient client = PiSpiClientBuilder.builder()
+        .serverUrl("https://api.pi-spi.org")
+        .clientId("votre-client-id")
+        .clientSecret("votre-client-secret")
+        .apiKey("votre-client-key")
+        .build();
+
+
+        PagedResponse<CompteRepresentation> comptes = client.api().comptes().query()
+                .filter(f -> f
+                        .eq("statut", "ACTIF")
+                        .gt("solde", 5000)
+                )
+                .sort("dateCreation", false) // Tri descendant (sort=-dateCreation)
+                .page("1")
+                .size(10)
+                .execute();
+
+
+        try {
+            client.api().comptes().findByNumero("ID-INVALIDE");
+        } catch (PiSpiApiException e) {
+            System.err.println("Erreur API (" + e.getStatus() + ") : " + e.getErrorResponse().getDetail());
+        } catch (PiSpiException e) {
+            System.err.println("Erreur SDK : " + e.getMessage());
+        }
 
 
     }

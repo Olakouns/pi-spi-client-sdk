@@ -3,6 +3,7 @@ package io.github.olakouns.unit.client.resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.olakouns.TestUtils;
+import io.github.olakouns.exception.PiSpiException;
 import io.github.olakouns.provider.JacksonProvider;
 import io.github.olakouns.representation.CompteRepresentation;
 import io.github.olakouns.representation.PagedResponse;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("unit")
@@ -94,6 +96,15 @@ public class ComptesResourceWrapperTest {
     }
 
     @Test
+    @DisplayName("Should validate numero before finding")
+    void shouldThrowExceptionWhenFindingWithInvalidNumero() throws Exception {
+
+        assertThatThrownBy(() -> wrapper.findByNumero(null))
+                .isInstanceOf(PiSpiException.class)
+                .hasMessageContaining("Compte numero cannot be null or empty");
+    }
+
+    @Test
     @DisplayName("Should return TransactionResourceWrapper and handle singleton correctly")
     void testTransactions() {
         // Act
@@ -128,6 +139,15 @@ public class ComptesResourceWrapperTest {
         // The expected path should be /comptes/ACC-123/alias
         assertThat(recordedRequest.getPath()).contains( accountNumber + "/alias");
         assertThat(recordedRequest.getMethod()).isEqualTo(HttpMethod.GET);
+    }
+
+    @Test
+    @DisplayName("Should validate numero before calling alias URL")
+    void shouldThrowExceptionWhenResolvingAliasURL() throws Exception {
+
+        assertThatThrownBy(() -> wrapper.alias(null).delete(""))
+                .isInstanceOf(PiSpiException.class)
+                .hasMessageContaining("Compte numero cannot be null or empty");
     }
 
     @Test
