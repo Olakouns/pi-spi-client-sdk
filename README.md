@@ -1,7 +1,5 @@
 # PI-SPI Java SDK 🚀
 
-# PI-SPI Java SDK 🚀
-
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Olakouns_pi-spi-client-sdk&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Olakouns_pi-spi-client-sdk)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Olakouns_pi-spi-client-sdk&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Olakouns_pi-spi-client-sdk)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Olakouns_pi-spi-client-sdk&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Olakouns_pi-spi-client-sdk)
