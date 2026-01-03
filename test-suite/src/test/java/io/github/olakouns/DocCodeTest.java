@@ -532,12 +532,12 @@ public class DocCodeTest {
 //            System.out.println("Status : " + e.getStatus());     // Ex: 400
 //        }
 
-PiSpiClient client = PiSpiClientBuilder.builder()
-        .serverUrl("https://api.pi-spi.org")
-        .clientId("votre-client-id")
-        .clientSecret("votre-client-secret")
-        .apiKey("votre-client-key")
-        .build();
+        PiSpiClient client = PiSpiClientBuilder.builder()
+                .serverUrl("https://api.pi-spi.org")
+                .clientId("votre-client-id")
+                .clientSecret("votre-client-secret")
+                .apiKey("votre-client-key")
+                .build();
 
 
         PagedResponse<CompteRepresentation> comptes = client.api().comptes().query()
@@ -559,6 +559,33 @@ PiSpiClient client = PiSpiClientBuilder.builder()
             System.err.println("Erreur SDK : " + e.getMessage());
         }
 
+//        PiSpiClient client = PiSpiClientBuilder.builder()
+//                .serverUrl("https://api.pi-spi.org")
+//                .clientId("votre-client-id")
+//                .clientSecret("votre-client-secret")
+//                .apiKey("votre-api-key")
+//                // .grantType("client_credentials")
+//                .scopes(Arrays.asList(
+//                                ScopeConstants.Compte.COMPTE_READ, // ScopeConstants contient la liste des scopes disponibles.
+//                                ScopeConstants.Paiement.PAIEMENT_WRITE
+//                        )
+//                )
+//                .build();
+
+
+//        SSLContext sslContext = // ... Chargement de votre certificat
+//                PiSpiClient client = PiSpiClientBuilder.builder()
+//                .serverUrl("https://api.pispi.bceao.int")
+//                .clientId("votre-client-id")
+//                .clientSecret("votre-client-secret")
+//                .apiKey("votre-api-key")
+//                .scopes(Arrays.asList(
+//                                ScopeConstants.Compte.COMPTE_READ,
+//                                ScopeConstants.Paiement.PAIEMENT_WRITE
+//                        )
+//                )
+//                .sslContext(sslContext) // Le SDK crée un client HTTP sécurisé par mTLS
+//                .build();
 
     }
 

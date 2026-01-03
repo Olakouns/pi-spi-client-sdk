@@ -30,7 +30,7 @@ import java.util.List;
  * </p>
  */
 public abstract class ScopeConstants {
-    static class Compte {
+    public static class Compte {
         /**
          * Autorisation pour consulter les comptes
          */
@@ -47,7 +47,7 @@ public abstract class ScopeConstants {
         public static final String COMPTE_TRANSACTION_READ = "compte_transaction.read";
     }
 
-    static class Alias{
+    public static class Alias{
         /**
          * Autorisation de consulter les alias
          */
@@ -64,7 +64,7 @@ public abstract class ScopeConstants {
         public static final String ALIAS_DELETE = "alias.delete";
     }
 
-    static class Webhook {
+    public static class Webhook {
         /**
          * Autorisation de consulter le webhook
          */
@@ -81,7 +81,7 @@ public abstract class ScopeConstants {
         public static final String WEBHOOK_DELETE = "webhook.delete";
     }
 
-    static class  DemandePaiement {
+    public static class  DemandePaiement {
         /**
          * Autorisation de créer une demande de paiement
          */
@@ -108,7 +108,7 @@ public abstract class ScopeConstants {
         public static final String DEMANDE_PAIEMENT_GROUPE_READ = "demande_paiement_groupe.read";
     }
 
-    static class Paiement {
+    public static class Paiement {
         /**
          * Autorisation d'effectuer un paiement
          */
@@ -130,14 +130,14 @@ public abstract class ScopeConstants {
         public static final String PAIEMENT_GROUPE_READ = "paiement_groupe.read";
     }
 
-    static class RetourFonds {
+    public static class RetourFonds {
         /**
          * Authorization to perform fund returns
          */
         public static final String RETOUR_FONDS_WRITE = "retour_fonds.write";
     }
 
-    static class DemandeAnnulation {
+    public static class DemandeAnnulation {
         /**
          * Authorization to send payment cancellation requests
          */
