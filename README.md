@@ -71,7 +71,7 @@ try {
 Pour plus de détails, consultez notre documentation complète : [ici](https://github.com/Olakouns/pi-spi-client-sdk/wiki)
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! Veuillez consulter le fichier [CONTRIBUTING.md](https://github.com/Olakouns/pi-spi-client-sdk?tab=contributing-ov-file) pour connaître la marche à suivre.
+Les contributions sont les bienvenues ! Veuillez consulter le fichier [CONTRIBUTING](https://github.com/Olakouns/pi-spi-client-sdk?tab=contributing-ov-file) pour connaître la marche à suivre.
 
 ## ⚖️ Licence
 
