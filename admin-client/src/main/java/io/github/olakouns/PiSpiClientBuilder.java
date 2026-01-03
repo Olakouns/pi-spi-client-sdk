@@ -72,19 +72,6 @@ public class PiSpiClientBuilder {
      */
     private Client resteasyClient;
 
-
-    /**
-     * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
-     */
-    @Deprecated
-    private String clientCertPath;
-
-    /**
-     * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
-     */
-    @Deprecated
-    private String clientKeyPath;
-
     public PiSpiClientBuilder serverUrl(String serverUrl) {
         this.serverUrl = serverUrl;
         return this;
@@ -112,24 +99,6 @@ public class PiSpiClientBuilder {
 
     public PiSpiClientBuilder scopes(List<String> scopes) {
         this.scopes = new ArrayList<>(scopes);
-        return this;
-    }
-
-    /**
-     * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
-     */
-    @Deprecated
-    public PiSpiClientBuilder clientCertPath(String clientCertPath) {
-        this.clientCertPath = clientCertPath;
-        return this;
-    }
-
-    /**
-     * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
-     */
-    @Deprecated
-    public PiSpiClientBuilder clientKeyPath(String clientKeyPath) {
-        this.clientKeyPath = clientKeyPath;
         return this;
     }
 
@@ -187,8 +156,6 @@ public class PiSpiClientBuilder {
                         .grantType(grantType)
                         .apiKey(apiKey)
                         .scopes(scopes)
-                        .clientCertPath(clientCertPath)
-                        .clientKeyPath(clientKeyPath)
                         .build(),
                 resteasyClient,
                 false,

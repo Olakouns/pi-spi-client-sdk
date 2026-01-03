@@ -27,21 +27,6 @@ public class BaseConfig {
     private String apiKey;
     private List<String> scopes;
 
-    /**
-     * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
-     */
-    @Deprecated
-    private String clientCertPath;
-
-    /**
-     * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
-     */
-    @Deprecated
-    private String clientKeyPath;
-
-    public BaseConfig() {
-    }
-
 
     public static class Builder {
         private final BaseConfig instance = new BaseConfig();
@@ -73,24 +58,6 @@ public class BaseConfig {
 
         public Builder scopes(List<String> scopes) {
             this.instance.setScopes(scopes);
-            return this;
-        }
-
-        /**
-         * @deprecated Reserved for future use (mTLS support). Will be functional in v1.1.0.
-         */
-        @Deprecated
-        public Builder clientCertPath(String path) {
-            this.instance.setClientCertPath(path);
-            return this;
-        }
-
-        /**
-         * @deprecated Reserved for future use (mTLS support). Will be available in v1.1.0.
-         */
-        @Deprecated
-        public Builder clientKeyPath(String path) {
-            this.instance.setClientKeyPath(path);
             return this;
         }
 
@@ -149,22 +116,6 @@ public class BaseConfig {
 
     public void setScopes(List<String> scopes) {
         this.scopes = scopes;
-    }
-
-    public String getClientCertPath() {
-        return clientCertPath;
-    }
-
-    public void setClientCertPath(String clientCertPath) {
-        this.clientCertPath = clientCertPath;
-    }
-
-    public String getClientKeyPath() {
-        return clientKeyPath;
-    }
-
-    public void setClientKeyPath(String clientKeyPath) {
-        this.clientKeyPath = clientKeyPath;
     }
 
     public boolean isPublicClient() {
