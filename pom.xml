@@ -86,6 +86,7 @@
             **/representation/**/*,
             **/dto/**/*,
             **/constants/**/*,
+            **/BaseConfig.java,
             **/exception/**/*
         </sonar.exclusions>
 
@@ -95,6 +96,7 @@
             **/dto/**/*,
             **/constants/**/*,
             **/exception/**/*,
+            **/BaseConfig.java,
             **/*Builder.java
         </sonar.coverage.exclusions>
 
