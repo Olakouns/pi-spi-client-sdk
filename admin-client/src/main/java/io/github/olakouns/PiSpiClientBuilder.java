@@ -72,41 +72,63 @@ public class PiSpiClientBuilder {
      */
     private Client resteasyClient;
 
+    /**
+     * The base URL of the PI-SPI API server.
+     */
     public PiSpiClientBuilder serverUrl(String serverUrl) {
         this.serverUrl = serverUrl;
         return this;
     }
 
+    /**
+     * The Client ID provided by the PI-SPI platform for OAuth2 authentication.
+     */
     public PiSpiClientBuilder clientId(String clientId) {
         this.clientId = clientId;
         return this;
     }
 
+    /**
+     * The Client Secret provided by the PI-SPI platform.
+     */
     public PiSpiClientBuilder clientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
         return this;
     }
 
+    /**
+     * The OAuth2 grant type (e.g., "client_credentials"). If it's null, client_credentials are used by default.
+     */
     public PiSpiClientBuilder grantType(String grantType) {
         this.grantType = grantType;
         return this;
     }
 
+    /**
+     * The API Key for additional security headers if required by the target environment.
+     */
     public PiSpiClientBuilder apiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
+    /**
+     * The list of scopes requested for the access token.
+     *
+     * @see io.github.olakouns.constants.ScopeConstants
+     */
     public PiSpiClientBuilder scopes(List<String> scopes) {
         this.scopes = new ArrayList<>(scopes);
         return this;
     }
 
     /**
-     * Custom instance of a resteasy client.
-     *
-     * @param resteasyClient Custom RestEasy client
-     * @return admin client builder
+     * Custom Resteasy Client.
+     * <p>
+     * <b>Note:</b> If you provide a custom client, you are responsible for its full configuration,
+     * including SSL settings and JacksonProvider. If both a custom client and a {@link #sslContext} are provided,
+     * the custom client takes precedence and the SSL context property will be ignored.
+     * </p>
      */
     public PiSpiClientBuilder resteasyClient(Client resteasyClient) {
         this.resteasyClient = resteasyClient;
@@ -114,6 +136,13 @@ public class PiSpiClientBuilder {
     }
 
 
+    /**
+     * Custom SSL Context for secure connections.
+     * <p>
+     * If this property is provided <b>without</b> a custom {@link #resteasyClient},
+     * a default Resteasy client will be automatically created and configured using this SSL context.
+     * </p>
+     */
     public PiSpiClientBuilder sslContext(SSLContext sslContext) {
         this.sslContext = sslContext;
         return this;
