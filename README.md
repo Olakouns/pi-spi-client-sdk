@@ -85,6 +85,6 @@ Distribué sous la licence **Apache 2.0**. Voir le fichier `LICENSE` à la racin
 
 ---
 
-**Développé par [Razacki KOUNASSO**](https://github.com/Olakouns)
+**Développé par [Razacki KOUNASSO](https://github.com/Olakouns)**
 
 ---
