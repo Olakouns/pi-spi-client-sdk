@@ -1,0 +1,8 @@
+greeting:
+  message: "hello"
+
+pi-spi-admin:
+  server-url: ${PI_SPI_SERVER_URL:https://api.pi-spi.org}
+  client-id: ${PI_SPI_CLIENT_ID:votre-client-id}
+  client-secret: ${PI_SPI_CLIENT_SECRET:votre-client-secret}
+  api-key: ${PI_SPI_API_KEY:votre-api-key}

@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/test-framework/spring-demo/pom.xml" />
         <option value="$PROJECT_DIR$/test-framework/spring-demo-v3/pom.xml" />
+        <option value="$PROJECT_DIR$/test-framework/quarkus-demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
