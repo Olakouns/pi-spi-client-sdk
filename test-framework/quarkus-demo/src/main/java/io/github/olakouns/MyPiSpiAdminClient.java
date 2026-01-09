@@ -1,14 +1,9 @@
 package io.github.olakouns;
 
-import io.github.olakouns.PiSpiClient;
-import io.github.olakouns.PiSpiClientBuilder;
 import io.quarkus.arc.DefaultBean;
 import io.smallrye.common.annotation.Identifier;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.Primary;
 
 import javax.net.ssl.SSLContext;
 import java.security.NoSuchAlgorithmException;
