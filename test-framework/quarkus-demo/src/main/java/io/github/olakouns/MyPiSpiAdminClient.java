@@ -18,6 +18,7 @@ public class MyPiSpiAdminClient {
     }
 
     @Produces
+    @ApplicationScoped
     @DefaultBean
     public PiSpiClient configureMyClient() {
         return PiSpiClientBuilder.builder()
@@ -29,6 +30,7 @@ public class MyPiSpiAdminClient {
     }
 
     @Produces
+    @ApplicationScoped
     @Identifier("myClientWithSSLContext")
     public PiSpiClient myClientWithSSLContext() throws NoSuchAlgorithmException {
         SSLContext sslContext = SSLContext.getDefault();
