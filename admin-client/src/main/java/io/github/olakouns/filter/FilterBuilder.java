@@ -165,7 +165,7 @@ public class FilterBuilder {
 
     private FilterBuilder add(String field, String operator, Object value) {
         if (value != null) {
-            filters.put(field + "[" + operator + "]", String.valueOf(value));
+            filters.put(String.format("%s[%s]", field, operator), String.valueOf(value));
         }
         return this;
     }
