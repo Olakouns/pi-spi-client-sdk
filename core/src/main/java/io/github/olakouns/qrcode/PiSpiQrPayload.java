@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Razacki KOUNASSO
+ * Copyright 2026 Razacki KOUNASSO
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,18 +21,18 @@ package io.github.olakouns.qrcode;
  * {@link PiSpiQrCodeParser#parse(String)}.
  *
  * @author Razacki KOUNASSO
- * @since 1.0.0
+ * @since 1.0.1
  */
 public final class PiSpiQrPayload {
 
     private final String alias;
-    private final String countryCode;
+    private final PiCountry countryCode;
     private final MerchantChannel merchantChannel;
     private final Long amount;
     private final String referenceLabel;
     private final String rawPayload;
 
-    PiSpiQrPayload(String alias, String countryCode, MerchantChannel merchantChannel, Long amount,
+    PiSpiQrPayload(String alias, PiCountry countryCode, MerchantChannel merchantChannel, Long amount,
                    String referenceLabel, String rawPayload) {
         this.alias = alias;
         this.countryCode = countryCode;
@@ -48,7 +48,7 @@ public final class PiSpiQrPayload {
     }
 
     /** @return the ISO 3166-1 alpha-2 country code of the payee's institution */
-    public String countryCode() {
+    public PiCountry countryCode() {
         return countryCode;
     }
 

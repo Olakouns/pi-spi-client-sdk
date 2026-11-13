@@ -1,6 +1,7 @@
 package io.github.olakouns.unit.core.qrcode;
 
 import io.github.olakouns.qrcode.MerchantChannel;
+import io.github.olakouns.qrcode.PiCountry;
 import io.github.olakouns.qrcode.PiSpiQrCodeBuilder;
 import io.github.olakouns.qrcode.PiSpiQrCodeParser;
 import io.github.olakouns.qrcode.PiSpiQrPayload;
@@ -19,7 +20,7 @@ class PiSpiQrCodeRoundTripTest {
     void fixture1BuildThenParseRoundTrips() {
         String payload = new PiSpiQrCodeBuilder()
                 .alias("111c3e1b-4312-49ec-b75e-4c8c74c10fd7")
-                .countryCode("CI")
+                .countryCode(PiCountry.CI)
                 .merchantChannel(MerchantChannel.STATIC_MERCHANT)
                 .referenceLabel("X2AB528754YY2022")
                 .build();
@@ -28,7 +29,7 @@ class PiSpiQrCodeRoundTripTest {
 
         assertThat(parsed.rawPayload()).isEqualTo(payload);
         assertThat(parsed.alias()).isEqualTo("111c3e1b-4312-49ec-b75e-4c8c74c10fd7");
-        assertThat(parsed.countryCode()).isEqualTo("CI");
+        assertThat(parsed.countryCode()).isEqualTo(PiCountry.CI);
         assertThat(parsed.merchantChannel()).isEqualTo(MerchantChannel.STATIC_MERCHANT);
         assertThat(parsed.referenceLabel()).isEqualTo("X2AB528754YY2022");
         assertThat(parsed.amount()).isNull();
@@ -39,7 +40,7 @@ class PiSpiQrCodeRoundTripTest {
     void fixture2BuildThenParseRoundTrips() {
         String payload = new PiSpiQrCodeBuilder()
                 .alias("111c3e1b-4312-49ec-b75e-4c8c74c10fd7")
-                .countryCode("CI")
+                .countryCode(PiCountry.CI)
                 .merchantChannel(MerchantChannel.DYNAMIC_MERCHANT)
                 .amount(1000)
                 .referenceLabel("F2YG7643D5HH2023")
@@ -49,7 +50,7 @@ class PiSpiQrCodeRoundTripTest {
         PiSpiQrPayload parsed = PiSpiQrCodeParser.parse(payload);
 
         assertThat(parsed.alias()).isEqualTo("111c3e1b-4312-49ec-b75e-4c8c74c10fd7");
-        assertThat(parsed.countryCode()).isEqualTo("CI");
+        assertThat(parsed.countryCode()).isEqualTo(PiCountry.CI);
         assertThat(parsed.merchantChannel()).isEqualTo(MerchantChannel.DYNAMIC_MERCHANT);
         assertThat(parsed.amount()).isEqualTo(1000L);
         assertThat(parsed.referenceLabel()).isEqualTo("F2YG7643D5HH2023");
@@ -60,14 +61,14 @@ class PiSpiQrCodeRoundTripTest {
     void fixture3BuildThenParseRoundTrips() {
         String payload = new PiSpiQrCodeBuilder()
                 .alias("341c3e1b-4312-49gc-b75e-4i8c74c60hJ2")
-                .countryCode("TG")
+                .countryCode(PiCountry.TG)
                 .merchantChannel(MerchantChannel.STATIC_INDIVIDUAL)
                 .build();
 
         PiSpiQrPayload parsed = PiSpiQrCodeParser.parse(payload);
 
         assertThat(parsed.alias()).isEqualTo("341c3e1b-4312-49gc-b75e-4i8c74c60hJ2");
-        assertThat(parsed.countryCode()).isEqualTo("TG");
+        assertThat(parsed.countryCode()).isEqualTo(PiCountry.TG);
         assertThat(parsed.merchantChannel()).isEqualTo(MerchantChannel.STATIC_INDIVIDUAL);
         assertThat(parsed.referenceLabel()).isNull();
         assertThat(parsed.amount()).isNull();

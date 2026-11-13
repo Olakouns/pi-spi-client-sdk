@@ -4,6 +4,7 @@ import io.github.olakouns.exception.PiSpiException;
 import io.github.olakouns.qrcode.Crc16;
 import io.github.olakouns.qrcode.EmvTlv;
 import io.github.olakouns.qrcode.MerchantChannel;
+import io.github.olakouns.qrcode.PiCountry;
 import io.github.olakouns.qrcode.PiSpiQrCodeParser;
 import io.github.olakouns.qrcode.PiSpiQrPayload;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ class PiSpiQrCodeParserTest {
         PiSpiQrPayload data = PiSpiQrCodeParser.parse(FIXTURE_1);
 
         assertThat(data.alias()).isEqualTo("111c3e1b-4312-49ec-b75e-4c8c74c10fd7");
-        assertThat(data.countryCode()).isEqualTo("CI");
+        assertThat(data.countryCode()).isEqualTo(PiCountry.CI);
         assertThat(data.merchantChannel()).isEqualTo(MerchantChannel.STATIC_MERCHANT);
         assertThat(data.referenceLabel()).isEqualTo("X2AB528754YY2022");
         assertThat(data.amount()).isNull();
@@ -80,6 +81,18 @@ class PiSpiQrCodeParserTest {
         PiSpiQrPayload data = PiSpiQrCodeParser.parse(validPayload);
 
         assertThat(data.merchantChannel().code()).isEqualTo("999");
+    }
+
+    @Test
+    @DisplayName("Should accept and round-trip a country code not yet documented")
+    void parsesUnknownCountryCodeWithoutThrowing() {
+        String withUnknownCountry = FIXTURE_1.replace("5802CI", "5802ZZ"); // same length, stale CRC
+        String bodyWithoutCrcValue = withUnknownCountry.substring(0, withUnknownCountry.length() - 4);
+        String validPayload = bodyWithoutCrcValue + Crc16.compute(bodyWithoutCrcValue);
+
+        PiSpiQrPayload data = PiSpiQrCodeParser.parse(validPayload);
+
+        assertThat(data.countryCode().code()).isEqualTo("ZZ");
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Razacki KOUNASSO
+ * Copyright 2026 Razacki KOUNASSO
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,7 @@ import java.util.Map;
  * + value}.
  *
  * @author Razacki KOUNASSO
- * @since 1.0.0
+ * @since 1.0.1
  */
 public final class EmvTlv {
 

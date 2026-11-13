@@ -48,4 +48,24 @@ class MerchantChannelTest {
     void differentCodesAreNotEqual() {
         assertThat(MerchantChannel.STATIC_MERCHANT).isNotEqualTo(MerchantChannel.DYNAMIC_MERCHANT);
     }
+
+    @Test
+    @DisplayName("Should report the declared constants as known")
+    void declaredConstantsAreKnown() {
+        assertThat(MerchantChannel.STATIC_MERCHANT.isKnown()).isTrue();
+        assertThat(MerchantChannel.DYNAMIC_MERCHANT.isKnown()).isTrue();
+        assertThat(MerchantChannel.STATIC_INDIVIDUAL.isKnown()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Should report a channel resolved from an undocumented code as not known")
+    void channelFromUnknownCodeIsNotKnown() {
+        assertThat(MerchantChannel.of("999").isKnown()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Should list exactly the three documented codes")
+    void knownCodesListsDocumentedValues() {
+        assertThat(MerchantChannel.knownCodes()).containsExactlyInAnyOrder("000", "400", "731");
+    }
 }

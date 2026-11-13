@@ -54,6 +54,28 @@ PagedResponse<CompteRepresentation> comptes = client.api().comptes().query()
     .execute();
 ```
 
+### 3. Génération et lecture d'un QR Code PI-SPI
+
+Le SDK génère et valide le [QR Code interopérable PI-SPI (BCEAO)](https://developer.pispi.bceao.int/guides/qr-overview) (format EMV, 100% local — aucun appel réseau).
+
+```java
+// Génération d'un QR statique marchand
+String payload = new PiSpiQrCodeBuilder()
+        .alias("341c3e1b-4312-49ec-b75e-4c8c74c10fd7") // alias du compte (adresse de paiement)
+        .countryCode(PiCountry.CI)
+        .merchantChannel(MerchantChannel.STATIC_MERCHANT)
+        .referenceLabel("CAISSE_01") // TxID, optionnel
+        .build();
+// -> à transmettre à votre lib de génération d'image QR (ex: zxing)
+
+// Lecture et validation d'un QR scanné
+PiSpiQrPayload data = PiSpiQrCodeParser.parse(payload);
+data.alias();           // "341c3e1b-4312-49ec-b75e-4c8c74c10fd7"
+data.merchantChannel(); // MerchantChannel.STATIC_MERCHANT
+```
+
+Pour le détail des champs, les 3 types de QR (marchand statique/dynamique, transfert) et la gestion des erreurs, voir la page [QR Code](https://github.com/Olakouns/pi-spi-client-sdk/wiki/QR-Code) du wiki.
+
 ## ⚠️ Gestion des Exceptions
 
 Le SDK distingue deux types d'erreurs pour une meilleure robustesse :

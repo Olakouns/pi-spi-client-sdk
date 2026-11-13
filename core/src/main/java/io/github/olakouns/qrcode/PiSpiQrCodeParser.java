@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Razacki KOUNASSO
+ * Copyright 2026 Razacki KOUNASSO
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@ import java.util.Map;
  * CRC (EMV tag {@code 63}) — both must be valid before any field is extracted.
  *
  * @author Razacki KOUNASSO
- * @since 1.0.0
+ * @since 1.0.1
  */
 public final class PiSpiQrCodeParser {
 
@@ -73,10 +73,11 @@ public final class PiSpiQrCodeParser {
                     + "-" + EmvTag.MerchantAccountInformation.ALIAS + ")");
         }
 
-        String countryCode = segments.get(EmvTag.COUNTRY_CODE);
-        if (countryCode == null) {
+        String countryCodeField = segments.get(EmvTag.COUNTRY_CODE);
+        if (countryCodeField == null) {
             throw new PiSpiException("Missing country code (tag " + EmvTag.COUNTRY_CODE + ")");
         }
+        PiCountry countryCode = PiCountry.of(countryCodeField);
 
         String additionalDataField = segments.get(EmvTag.ADDITIONAL_DATA_FIELD_TEMPLATE);
         Map<String, String> additionalDataSubFields = additionalDataField != null

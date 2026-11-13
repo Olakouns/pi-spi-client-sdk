@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Razacki KOUNASSO
+ * Copyright 2026 Razacki KOUNASSO
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,14 +17,12 @@
 package io.github.olakouns.qrcode;
 
 /**
- * EMV tag identifiers for the PI-SPI interoperable QR code payload, mirroring the field table in
- * {@code docs/superpowers/specs/2026-11-11-qrcode-design.md} (itself taken verbatim from BCEAO's
- * {@code qr-specifications} guide). Grouping sub-fields as nested classes under their parent tag
+ * EMV tag identifiers for the PI-SPI interoperable QR code payload. Grouping sub-fields as nested classes under their parent tag
  * keeps this class readable as the same table the spec documents, rather than a flat list of
  * unrelated constants.
  *
  * @author Razacki KOUNASSO
- * @since 1.0.0
+ * @since 1.0.1
  */
 final class EmvTag {
 

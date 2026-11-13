@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Razacki KOUNASSO
+ * Copyright 2026 Razacki KOUNASSO
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,11 @@
  */
 package io.github.olakouns.qrcode;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * The PI-SPI merchant channel (EMV sub-field {@code 62-11}), identifying both the QR type
@@ -29,7 +31,7 @@ import java.util.Objects;
  * without requiring a new release of this SDK.
  *
  * @author Razacki KOUNASSO
- * @since 1.0.0
+ * @since 1.0.1
  */
 public final class MerchantChannel {
 
@@ -45,27 +47,37 @@ public final class MerchantChannel {
     public static final MerchantChannel STATIC_INDIVIDUAL = register("731");
 
     private final String code;
+    private final boolean known;
 
-    private MerchantChannel(String code) {
+    private MerchantChannel(String code, boolean known) {
         this.code = code;
+        this.known = known;
     }
 
     private static MerchantChannel register(String code) {
-        MerchantChannel channel = new MerchantChannel(code);
+        MerchantChannel channel = new MerchantChannel(code, true);
         KNOWN.put(code, channel);
         return channel;
     }
 
     /**
      * Resolves a merchant channel code to its known constant, or wraps it as-is if it is not one
-     * of the values currently documented by BCEAO.
+     * of the values currently documented by BCEAO. The result's {@link #isKnown()} reflects which
+     * of the two happened.
      *
      * @param code the raw EMV sub-field {@code 62-11} value
-     * @return the matching known constant, or a new instance wrapping {@code code}
+     * @return the matching known constant, or a new, not-yet-known instance wrapping {@code code}
      */
     public static MerchantChannel of(String code) {
         MerchantChannel known = KNOWN.get(code);
-        return known != null ? known : new MerchantChannel(code);
+        return known != null ? known : new MerchantChannel(code, false);
+    }
+
+    /**
+     * @return the EMV sub-field {@code 62-11} values currently documented by BCEAO
+     */
+    public static Set<String> knownCodes() {
+        return Collections.unmodifiableSet(KNOWN.keySet());
     }
 
     /**
@@ -73,6 +85,15 @@ public final class MerchantChannel {
      */
     public String code() {
         return code;
+    }
+
+    /**
+     * @return {@code true} if this instance is one of the constants declared on this class (e.g.
+     *         {@link #STATIC_MERCHANT}), {@code false} if it was built by {@link #of(String)}
+     *         from a code not currently documented by BCEAO
+     */
+    public boolean isKnown() {
+        return known;
     }
 
     @Override

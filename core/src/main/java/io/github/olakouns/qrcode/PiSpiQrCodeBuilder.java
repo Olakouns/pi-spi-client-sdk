@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Razacki KOUNASSO
+ * Copyright 2026 Razacki KOUNASSO
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,21 +18,16 @@ package io.github.olakouns.qrcode;
 
 import io.github.olakouns.exception.PiSpiException;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Fluent builder for the PI-SPI interoperable EMV QR code payload (BCEAO), covering both static
  * and dynamic merchant QR codes as well as person-to-person transfer QR codes.
  * <p>
  * Merchant Category Code, Transaction Currency, Merchant Name and Merchant City are not
  * configurable: BCEAO fixes these values by design, as part of the "no personal data" structural
- * choice documented for this QR format (see
- * {@code docs/superpowers/specs/2026-11-11-qrcode-design.md}).
+ * choice documented for this QR format (see documentation).
  *
  * @author Razacki KOUNASSO
- * @since 1.0.0
+ * @since 1.0.1
  */
 public class PiSpiQrCodeBuilder {
 
@@ -47,11 +42,8 @@ public class PiSpiQrCodeBuilder {
     private static final int MAX_AMOUNT_DIGITS = 13;
     private static final int MAX_REFERENCE_LABEL_LENGTH = 25;
 
-    private static final Set<String> UEMOA_COUNTRY_CODES = new HashSet<>(
-            Arrays.asList("BJ", "BF", "CI", "GW", "ML", "NE", "SN", "TG"));
-
     private String alias;
-    private String countryCode;
+    private PiCountry countryCode;
     private MerchantChannel merchantChannel;
     private Long amount;
     private String referenceLabel;
@@ -71,10 +63,10 @@ public class PiSpiQrCodeBuilder {
      * The ISO 3166-1 alpha-2 country code of the payee's institution, restricted to the UEMOA
      * zone.
      *
-     * @param countryCode the country code (e.g. {@code "CI"})
+     * @param countryCode a known UEMOA code (e.g. {@link PiCountry#CI}) — see {@link PiCountry#knownCodes()}
      * @return this builder
      */
-    public PiSpiQrCodeBuilder countryCode(String countryCode) {
+    public PiSpiQrCodeBuilder countryCode(PiCountry countryCode) {
         this.countryCode = countryCode;
         return this;
     }
@@ -82,7 +74,7 @@ public class PiSpiQrCodeBuilder {
     /**
      * The merchant channel (EMV sub-field {@code 62-11}).
      *
-     * @param merchantChannel the merchant channel
+     * @param merchantChannel a known merchant channel — see {@link MerchantChannel#knownCodes()}
      * @return this builder
      */
     public PiSpiQrCodeBuilder merchantChannel(MerchantChannel merchantChannel) {
@@ -139,7 +131,7 @@ public class PiSpiQrCodeBuilder {
             payload.append(EmvTlv.encode(EmvTag.TRANSACTION_AMOUNT, String.valueOf(amount)));
         }
 
-        payload.append(EmvTlv.encode(EmvTag.COUNTRY_CODE, countryCode));
+        payload.append(EmvTlv.encode(EmvTag.COUNTRY_CODE, countryCode.code()));
         payload.append(EmvTlv.encode(EmvTag.MERCHANT_NAME, MERCHANT_NAME_VALUE));
         payload.append(EmvTlv.encode(EmvTag.MERCHANT_CITY, MERCHANT_CITY_VALUE));
 
@@ -163,11 +155,19 @@ public class PiSpiQrCodeBuilder {
         if (alias.length() > MAX_ALIAS_LENGTH) {
             throw new PiSpiException("alias must not exceed " + MAX_ALIAS_LENGTH + " characters");
         }
-        if (countryCode == null || !UEMOA_COUNTRY_CODES.contains(countryCode)) {
-            throw new PiSpiException("countryCode must be one of the UEMOA ISO 3166-1 alpha-2 codes: " + UEMOA_COUNTRY_CODES);
+        if (countryCode == null) {
+            throw new PiSpiException("countryCode is required");
+        }
+        if (!countryCode.isKnown()) {
+            throw new PiSpiException("countryCode must be one of the UEMOA ISO 3166-1 alpha-2 codes: "
+                    + PiCountry.knownCodes());
         }
         if (merchantChannel == null) {
             throw new PiSpiException("merchantChannel is required");
+        }
+        if (!merchantChannel.isKnown()) {
+            throw new PiSpiException("merchantChannel must be one of the documented values: "
+                    + MerchantChannel.knownCodes());
         }
         if (amount != null) {
             if (amount < 0) {
