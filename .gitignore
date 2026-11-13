@@ -39,3 +39,8 @@ pom.xml.*
 
 ### Mac OS ###
 .DS_Store
+
+docs/**
+CLAUDE.md
+.claude
+.claude/**
