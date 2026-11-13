@@ -47,11 +47,11 @@ public final class MerchantChannel {
     public static final MerchantChannel STATIC_INDIVIDUAL = register("731");
 
     private final String code;
-    private final boolean known;
+    private final boolean documented;
 
-    private MerchantChannel(String code, boolean known) {
+    private MerchantChannel(String code, boolean documented) {
         this.code = code;
-        this.known = known;
+        this.documented = documented;
     }
 
     private static MerchantChannel register(String code) {
@@ -69,8 +69,8 @@ public final class MerchantChannel {
      * @return the matching known constant, or a new, not-yet-known instance wrapping {@code code}
      */
     public static MerchantChannel of(String code) {
-        MerchantChannel known = KNOWN.get(code);
-        return known != null ? known : new MerchantChannel(code, false);
+        MerchantChannel match = KNOWN.get(code);
+        return match != null ? match : new MerchantChannel(code, false);
     }
 
     /**
@@ -93,7 +93,7 @@ public final class MerchantChannel {
      *         from a code not currently documented by BCEAO
      */
     public boolean isKnown() {
-        return known;
+        return documented;
     }
 
     @Override

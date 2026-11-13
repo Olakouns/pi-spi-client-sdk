@@ -62,11 +62,11 @@ public final class PiCountry {
     public static final PiCountry TG = register("TG");
 
     private final String code;
-    private final boolean known;
+    private final boolean documented;
 
-    private PiCountry(String code, boolean known) {
+    private PiCountry(String code, boolean documented) {
         this.code = code;
-        this.known = known;
+        this.documented = documented;
     }
 
     private static PiCountry register(String code) {
@@ -84,8 +84,8 @@ public final class PiCountry {
      * @return the matching known constant, or a new, not-yet-known instance wrapping {@code code}
      */
     public static PiCountry of(String code) {
-        PiCountry known = KNOWN.get(code);
-        return known != null ? known : new PiCountry(code, false);
+        PiCountry match = KNOWN.get(code);
+        return match != null ? match : new PiCountry(code, false);
     }
 
     /**
@@ -108,7 +108,7 @@ public final class PiCountry {
      *         code not currently documented by BCEAO
      */
     public boolean isKnown() {
-        return known;
+        return documented;
     }
 
     @Override
