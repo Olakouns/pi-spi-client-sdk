@@ -19,7 +19,6 @@ package io.github.olakouns.qrcode;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -33,7 +32,7 @@ import java.util.Set;
  * @author Razacki KOUNASSO
  * @since 1.0.1
  */
-public final class MerchantChannel {
+public final class MerchantChannel extends PiSpiCode {
 
     private static final Map<String, MerchantChannel> KNOWN = new HashMap<>();
 
@@ -46,12 +45,8 @@ public final class MerchantChannel {
     /** Static QR, natural person (person-to-person transfer). */
     public static final MerchantChannel STATIC_INDIVIDUAL = register("731");
 
-    private final String code;
-    private final boolean documented;
-
     private MerchantChannel(String code, boolean documented) {
-        this.code = code;
-        this.documented = documented;
+        super(code, documented);
     }
 
     private static MerchantChannel register(String code) {
@@ -78,42 +73,5 @@ public final class MerchantChannel {
      */
     public static Set<String> knownCodes() {
         return Collections.unmodifiableSet(KNOWN.keySet());
-    }
-
-    /**
-     * @return the raw EMV sub-field {@code 62-11} value
-     */
-    public String code() {
-        return code;
-    }
-
-    /**
-     * @return {@code true} if this instance is one of the constants declared on this class (e.g.
-     *         {@link #STATIC_MERCHANT}), {@code false} if it was built by {@link #of(String)}
-     *         from a code not currently documented by BCEAO
-     */
-    public boolean isKnown() {
-        return documented;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof MerchantChannel)) {
-            return false;
-        }
-        return code.equals(((MerchantChannel) o).code);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(code);
-    }
-
-    @Override
-    public String toString() {
-        return "MerchantChannel{" + code + '}';
     }
 }

@@ -19,7 +19,6 @@ package io.github.olakouns.qrcode;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -33,7 +32,7 @@ import java.util.Set;
  * @author Razacki KOUNASSO
  * @since 1.0.1
  */
-public final class PiCountry {
+public final class PiCountry extends PiSpiCode {
 
     private static final Map<String, PiCountry> KNOWN = new HashMap<>();
 
@@ -61,12 +60,8 @@ public final class PiCountry {
     /** Togo. */
     public static final PiCountry TG = register("TG");
 
-    private final String code;
-    private final boolean documented;
-
     private PiCountry(String code, boolean documented) {
-        this.code = code;
-        this.documented = documented;
+        super(code, documented);
     }
 
     private static PiCountry register(String code) {
@@ -93,42 +88,5 @@ public final class PiCountry {
      */
     public static Set<String> knownCodes() {
         return Collections.unmodifiableSet(KNOWN.keySet());
-    }
-
-    /**
-     * @return the raw ISO 3166-1 alpha-2 country code
-     */
-    public String code() {
-        return code;
-    }
-
-    /**
-     * @return {@code true} if this instance is one of the UEMOA constants declared on this class
-     *         (e.g. {@link #CI}), {@code false} if it was built by {@link #of(String)} from a
-     *         code not currently documented by BCEAO
-     */
-    public boolean isKnown() {
-        return documented;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof PiCountry)) {
-            return false;
-        }
-        return code.equals(((PiCountry) o).code);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(code);
-    }
-
-    @Override
-    public String toString() {
-        return "PiCountry{" + code + '}';
     }
 }
