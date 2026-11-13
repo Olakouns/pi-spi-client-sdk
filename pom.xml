@@ -6,7 +6,7 @@
 
     <groupId>io.github.olakouns</groupId>
     <artifactId>pi-spi-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>PI SPI SDK</name>
@@ -75,7 +75,7 @@
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <jacoco.version>0.8.12</jacoco.version>
         <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
-        <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
+        <central-publishing-maven-plugin.version>0.12.0</central-publishing-maven-plugin.version>
 
         <sonar.coverage.jacoco.xmlReportPaths>
             ${maven.multiModuleProjectDirectory}/test-suite/target/site/jacoco-aggregate/jacoco.xml

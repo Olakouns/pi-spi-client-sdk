@@ -74,7 +74,7 @@ data.alias();           // "341c3e1b-4312-49ec-b75e-4c8c74c10fd7"
 data.merchantChannel(); // MerchantChannel.STATIC_MERCHANT
 ```
 
-Pour le détail des champs, les 3 types de QR (marchand statique/dynamique, transfert) et la gestion des erreurs, voir la page [QR Code](https://github.com/Olakouns/pi-spi-client-sdk/wiki/QR-Code) du wiki.
+Pour le détail des champs, les 3 types de QR (marchand statique/dynamique, transfert) et la gestion des erreurs, voir la page [QR Code](https://github.com/Olakouns/pi-spi-client-sdk/wiki/QR-Code-PI‐SPI) du wiki.
 
 ## ⚠️ Gestion des Exceptions
 

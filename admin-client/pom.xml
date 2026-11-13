@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.olakouns</groupId>
         <artifactId>pi-spi-client</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>pi-spi-admin-client</artifactId>
