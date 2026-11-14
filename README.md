@@ -16,7 +16,7 @@ Ajoutez la dépendance suivante à votre fichier `pom.xml` :
 <dependency>
     <groupId>io.github.olakouns</groupId>
     <artifactId>pi-spi-admin-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
